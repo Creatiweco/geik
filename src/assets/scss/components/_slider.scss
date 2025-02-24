@@ -1,0 +1,132 @@
+@import "../globals";
+
+.home-slider {
+  overflow: visible;
+  position: relative;
+  margin: 22px 0 117px 0;
+  padding: 35px 0;
+
+  &::before{
+    content: "";
+    position: absolute;
+    width: 60%;
+    height: 100%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(circle, rgba(8, 32, 104, 0.5) 100%, rgba(8, 32, 104, 0.5) 100%);
+    border-radius: 50%;
+    z-index: -1;
+    filter: blur(60px);
+  }
+
+  .custom-swiper {
+    overflow: visible;
+    
+    .swiper-slide {
+      position: relative;
+      transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+      opacity: 0.5; 
+      
+      &::before {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(180deg, rgba(10, 21, 87, 0) 63.26%, #0A1557 100%);
+        z-index: 2;
+        border-radius: 0 0 10px 10px;
+      }
+
+      img {
+        width: 100%;
+        height: auto;
+        border-radius: 10px;
+        position: relative;
+      }
+
+      .text-overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        padding: 50px;
+        width: 100%;
+        color: $text-color;
+        z-index: 3;
+
+        h2 {
+          font-family: Righteous;
+          font-weight: 400;
+          font-size: 38px;
+          line-height: 47.18px;
+          letter-spacing: 0%;
+          padding-bottom: 10px;
+        }
+
+        p {
+          font-family: $second-font;
+          font-weight: 400;
+          font-size: 15px;
+          line-height: 18px;
+          letter-spacing: 0%;
+          padding-bottom: 30px;
+        }
+
+        .buttons {
+          display: flex;
+          gap: 20px;
+
+          .slider-primary-btn {
+            border-radius: 40px;
+            padding: 10px 22px;
+            background-color: #2DFF3C9C;
+            color: #0A1557;
+            font-family: Albert Sans;
+            font-weight: 700;
+            font-size: 16px;
+            line-height: 19.2px;
+          }
+
+          .slider-second-btn {
+            background-color: #00000080;
+            padding: 8px 13px;
+            border-radius: 50%;
+            color: #fff;
+          }
+        }
+      }
+    }
+    
+    .swiper-slide-active {
+      transform: scale(1);
+      opacity: 1; 
+    }
+  
+    .swiper-button-prev {
+      left: -3%;
+
+      &::after {
+        font-size: 20px;
+        color: #2DFF3C;
+      }
+    }
+  
+    .swiper-button-next {
+      right: -3%;
+
+      &::after {
+        font-size: 20px;
+        color: #2DFF3C;
+      }
+    }
+
+    .swiper-slide-next,
+    .swiper-slide-prev{
+      filter: blur(5px);
+    }
+  }
+}

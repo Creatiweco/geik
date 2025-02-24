@@ -1,0 +1,121 @@
+@import "../globals";
+
+footer {
+    position: relative;
+    margin-top: 90px;
+
+    &::before {
+        content: "";
+        position: absolute;
+        background: rgba(45, 255, 60, 0.24);
+        width: 30%;
+        height: 40%;
+        bottom: 0;
+        right: 20%;
+        z-index: 2;
+        filter: blur(100px);
+    }
+    
+    &::after {
+        content: "";
+        position: absolute;
+        background: rgba(23, 44, 172, 0.34);
+        width: 50%;
+        height: 100%;
+        bottom: 0;
+        right: 30%;
+        z-index: 1;
+        filter: blur(100px);
+    }
+
+    .main-footer {
+        display: flex;
+        justify-content: space-between;
+        z-index: 3;
+
+        .footer-left {
+            display: flex;
+            gap: 92px;
+
+            .links-col {
+                h4 {
+                    font-family: $base-font;
+                    font-weight: 400;
+                    font-size: 16px;
+                    line-height: 19.87px;
+                    color: #DCDCDC;
+                    margin-bottom: 6px;
+                }
+
+                ul {
+                    list-style: none;
+
+                    li {
+                        margin-bottom: 6px;
+                    }
+
+                    a {
+                        font-family: Albert Sans;
+                        font-weight: 400;
+                        font-size: 14px;
+                        line-height: 16.8px;
+                        color: #DCDCDC;
+                        text-decoration: none;
+                    }
+                }
+            }
+        }
+
+        .footer-right {
+            ul {
+                list-style: none;
+
+                li {
+                    margin-bottom: 6px;
+                    text-align: right;
+                }
+
+                a {
+                    font-family: Albert Sans;
+                    font-weight: 400;
+                    font-size: 14px;
+                    line-height: 16.8px;
+                    color: #DCDCDC;
+                    text-decoration: none;
+                }
+            }
+        }
+    }
+
+    .copyright {
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 30px;
+        z-index: 4;
+
+        img {
+            max-width: 85px;
+        }
+
+        p {
+            font-family: Albert Sans;
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 19.2px;
+            letter-spacing: 0%;
+            color: rgba(255, 255, 255, 0.5);            
+        }
+
+        .footer-icon {
+            display: flex;
+            gap: 20px;
+
+            a {
+                font-size: 20px;
+                color:#B4FFBF;
+            }
+        }
+    }
+}
