@@ -4,6 +4,7 @@ import "swiper/css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../assets/scss/components/_eventSlider.scss";
 import { FaPlus } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 export default function EventSliderVertical({ sectionTitle, events }) {
     return (
@@ -18,21 +19,23 @@ export default function EventSliderVertical({ sectionTitle, events }) {
                 >
                     {events.map((event) => (
                         <SwiperSlide key={event.id}>
-                            <div className="event-card">
-                                <div className="event-image-vertical">
-                                    <img src={event.image} alt={event.name} />
-                                    <button className="event-plus"><FaPlus /></button>
+                            <Link to={event.link}>
+                                <div className="event-card">
+                                    <div className="event-image-vertical">
+                                        <img src={event.image} alt={event.name} />
+                                        <button className="event-plus"><FaPlus /></button>
+                                    </div>
+                                    <div className="event-info">
+                                        {event.venue && (
+                                            <>
+                                                <h3 className="event-name-bottom">{event.name}</h3>
+                                                <p className="event-venue">{event.venue}</p>
+                                                <p className="event-date-bottom"><span>{event.month}</span> {event.day}</p>
+                                            </>
+                                        )}
+                                    </div>
                                 </div>
-                                <div className="event-info">
-                                    {event.venue && (
-                                        <>
-                                            <h3 className="event-name-bottom">{event.name}</h3>
-                                            <p className="event-venue">{event.venue}</p>
-                                            <p className="event-date-bottom"><span>{event.month}</span> {event.day}</p>
-                                        </>
-                                    )}
-                                </div>
-                            </div>
+                            </Link>
                         </SwiperSlide>
                     ))}
                 </Swiper>

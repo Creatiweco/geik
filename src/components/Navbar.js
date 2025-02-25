@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import "../assets/scss/components/_navbar.scss";
 import { CiSearch, CiBasketball } from "react-icons/ci";
 import { PiHeartStraight } from "react-icons/pi";
@@ -16,6 +16,8 @@ import EventSliderVertical from "./EventSliderVertical";
 export default function Navbar() {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [showSearch, setShowSearch] = useState(false);
+    const [isDetailPage, setIsDetailPage] = useState(false)
+    const location = useLocation();
     const searchRef = useRef(null);
     const navigate = useNavigate();
 
@@ -32,6 +34,10 @@ export default function Navbar() {
         }
     };
 
+    useEffect(() => {
+      setShowSearch(false)
+    }, [location.pathname]);
+
     const handleSearchClick = () => {
         setShowSearch(true);
     };
@@ -39,6 +45,15 @@ export default function Navbar() {
     const closeSearch = () => {
         setShowSearch(false);
     };
+
+    useEffect(() => {
+      const checkDetailPage = () => {
+        const detailElement = document.getElementById("detail-page")
+        setIsDetailPage(!!detailElement)
+      };
+
+      checkDetailPage();
+    }, [location.pathname]);
 
     const filters = [
         { name: "Tümü", icon: HiOutlineBars3BottomLeft },
@@ -56,7 +71,8 @@ export default function Navbar() {
           day: "12",
           month: "Şubat", 
           name: "Dolu kadehi ters tut", 
-          venue: "Hangout Performance Hall"
+          venue: "Hangout Performance Hall",
+          link: "/detay"
         },
         { 
           id: 2, 
@@ -64,7 +80,8 @@ export default function Navbar() {
           day: "17",
           month: "Şubat", 
           name: "Emircan İğrek", 
-          venue: "Bostancı Gösteri Merkezi"
+          venue: "Bostancı Gösteri Merkezi",
+          link: "/detay"
         },
         { 
           id: 3, 
@@ -72,7 +89,8 @@ export default function Navbar() {
           day: "8",
           month: "Mart", 
           name: "Can Ozan", 
-          venue: "Hayal Kahvesi"
+          venue: "Hayal Kahvesi",
+          link: "/detay"
         },
         { 
           id: 4, 
@@ -80,7 +98,8 @@ export default function Navbar() {
           day: "24",
           month: "Mart", 
           name: "Aleyna Tilki", 
-          venue: "Hangout Performance Hall"
+          venue: "Hangout Performance Hall",
+          link: "/detay"
         },
         { 
           id: 5, 
@@ -88,7 +107,8 @@ export default function Navbar() {
           day: "30",
           month: "Mart", 
           name: "Madrigal", 
-          venue: "Hangout Performance Hall"
+          venue: "Hangout Performance Hall",
+          link: "/detay"
         }
     ];
     const concerts = [
@@ -98,7 +118,8 @@ export default function Navbar() {
         day: "3",
         month: "Nisan", 
         name: "Güneş", 
-        venue: ""
+        venue: "",
+          link: "/detay"
       },
       { 
         id: 2, 
@@ -106,7 +127,8 @@ export default function Navbar() {
         day: "5",
         month: "Mayıs", 
         name: "Perdenin Ardındakiler", 
-        venue: ""
+        venue: "",
+          link: "/detay"
       },
       { 
         id: 3, 
@@ -114,7 +136,8 @@ export default function Navbar() {
         day: "8",
         month: "Mayıs", 
         name: "Sena Şener", 
-        venue: ""
+        venue: "",
+          link: "/detay"
       },
       { 
         id: 4, 
@@ -122,7 +145,8 @@ export default function Navbar() {
         day: "14",
         month: "Mayıs", 
         name: "Melek Mosso", 
-        venue: ""
+        venue: "",
+          link: "/detay"
       },
       { 
         id: 5, 
@@ -130,7 +154,8 @@ export default function Navbar() {
         day: "7",
         month: "Haziran", 
         name: "Karsu", 
-        venue: ""
+        venue: "",
+          link: "/detay"
       }
     ];
     const activity = [
@@ -140,7 +165,8 @@ export default function Navbar() {
         day: "",
         month: "", 
         name: "", 
-        venue: ""
+        venue: "",
+          link: "/detay"
       },
       { 
         id: 2, 
@@ -148,7 +174,8 @@ export default function Navbar() {
         day: "",
         month: "", 
         name: "", 
-        venue: ""
+        venue: "",
+          link: "/detay"
       },
       { 
         id: 3, 
@@ -156,7 +183,8 @@ export default function Navbar() {
         day: "",
         month: "", 
         name: "", 
-        venue: ""
+        venue: "",
+          link: "/detay"
       },
       { 
         id: 4, 
@@ -164,7 +192,8 @@ export default function Navbar() {
         day: "",
         month: "", 
         name: "", 
-        venue: ""
+        venue: "",
+          link: "/detay"
       },
       { 
         id: 5, 
@@ -172,12 +201,13 @@ export default function Navbar() {
         day: "",
         month: "", 
         name: "", 
-        venue: ""
+        venue: "",
+          link: "/detay"
       }
     ];
 
     return(
-        <nav className="navbar">
+        <nav className={`navbar ${isDetailPage ? "detail-navbar" : ""}`}>
             <div className="container">
                 <div className="navbar-logo">
                     <Link to="/">

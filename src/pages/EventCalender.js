@@ -32,36 +32,36 @@ export default function EventCalender() {
         {
             date: "1 Şubat",
             items: [
-                { title: "Can Ozan", time: "22.00", location: "Hayal Kahvesi", icon: <GiMicrophone />, category: "Konser" },
-                { title: "Disco Topu", time: "19.00", location: "Akasya AVM", icon: <FaTheaterMasks />, category: "Tiyatro" },
-                { title: "Frida Kahlo’nun Günlükleri sergisi", time: "19.00", location: "Akasya AVM", icon: <FaTheaterMasks />, category: "Tiyatro" },
+                { title: "Can Ozan", time: "22.00", location: "Hayal Kahvesi",link:"/detay", icon: <GiMicrophone />, category: "Konser" },
+                { title: "Disco Topu", time: "19.00", location: "Akasya AVM",link:"/detay", icon: <FaTheaterMasks />, category: "Tiyatro" },
+                { title: "Frida Kahlo’nun Günlükleri sergisi", time: "19.00", location: "Akasya AVM",link:"/detay", icon: <FaTheaterMasks />, category: "Tiyatro" },
             ]
         },
         {
             date: "2 Şubat",
             items: [
-                { title: "Can Ozan", time: "22.00", location: "Hayal Kahvesi", icon: <GiMicrophone />, category: "Konser" },
-                { title: "Can Ozan", time: "22.00", location: "Hayal Kahvesi", icon: <GiMicrophone />, category: "Konser" },
+                { title: "Can Ozan", time: "22.00", location: "Hayal Kahvesi",link:"/detay", icon: <GiMicrophone />, category: "Konser" },
+                { title: "Can Ozan", time: "22.00", location: "Hayal Kahvesi",link:"/detay", icon: <GiMicrophone />, category: "Konser" },
             ]
         },
         {
             date: "3 Şubat",
             items: [
-                { title: "Can Ozan", time: "22.00", location: "Hayal Kahvesi", icon: <GiMicrophone />, category: "Konser" },
+                { title: "Can Ozan", time: "22.00", location: "Hayal Kahvesi",link:"/detay", icon: <GiMicrophone />, category: "Konser" },
             ]
         },
         {
             date: "4 Şubat",
             items: [
-                { title: "Can Ozan", time: "22.00", location: "Hayal Kahvesi", icon: <GiMicrophone />, category: "Konser" },
+                { title: "Can Ozan", time: "22.00", location: "Hayal Kahvesi",link:"/detay", icon: <GiMicrophone />, category: "Konser" },
             ]
         },
         {
             date: "5 Şubat",
             items: [
-                { title: "Can Ozan", time: "22.00", location: "Hayal Kahvesi", icon: <GiMicrophone />, category: "Konser" },
-                { title: "Frida Kahlo’nun Günlükleri sergisi", time: "19.00", location: "Akasya AVM", icon: <FaTheaterMasks />, category: "Tiyatro" },
-                { title: "Disco Topu", time: "19.00", location: "Akasya AVM", icon: <FaTheaterMasks />, category: "Tiyatro" },
+                { title: "Can Ozan", time: "22.00", location: "Hayal Kahvesi",link:"/detay", icon: <GiMicrophone />, category: "Konser" },
+                { title: "Frida Kahlo’nun Günlükleri sergisi", time: "19.00", location: "Akasya AVM",link:"/detay", icon: <FaTheaterMasks />, category: "Tiyatro" },
+                { title: "Disco Topu", time: "19.00", location: "Akasya AVM",link:"/detay", icon: <FaTheaterMasks />, category: "Tiyatro" },
             ]
         }
     ];
@@ -103,7 +103,7 @@ export default function EventCalender() {
                                 </div>
                                 <div className="col-10 calender-grid">
                                     {filteredItems.map((item, i) => (
-                                        <Link key={i} className="calender-item">
+                                        <Link key={i} to={item.link} className="calender-item">
                                             <div className="left-col">
                                                 {item.icon}
                                                 <p>{item.time}</p>
@@ -112,7 +112,7 @@ export default function EventCalender() {
                                                 <h2>{item.title}</h2>
                                                 <div className="location">
                                                     <p>{item.location}</p>
-                                                    <a href="#"><GrLocationPin /></a>
+                                                    <a href="https://maps.app.goo.gl/ds5nzextcXmeWMr1A"><GrLocationPin /></a>
                                                 </div>
                                             </div>
                                         </Link>

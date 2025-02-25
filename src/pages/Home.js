@@ -12,7 +12,8 @@ export default function Home() {
       day: "12",
       month: "Şubat", 
       name: "Dolu kadehi ters tut", 
-      venue: "Hangout Performance Hall"
+      venue: "Hangout Performance Hall",
+    link: "/detay"
     },
     { 
       id: 2, 
@@ -20,7 +21,8 @@ export default function Home() {
       day: "17",
       month: "Şubat", 
       name: "Emircan İğrek", 
-      venue: "Bostancı Gösteri Merkezi"
+      venue: "Bostancı Gösteri Merkezi",
+    link: "/detay"
     },
     { 
       id: 3, 
@@ -28,7 +30,8 @@ export default function Home() {
       day: "8",
       month: "Mart", 
       name: "Can Ozan", 
-      venue: "Hayal Kahvesi"
+      venue: "Hayal Kahvesi",
+    link: "/detay"
     },
     { 
       id: 4, 
@@ -36,7 +39,8 @@ export default function Home() {
       day: "24",
       month: "Mart", 
       name: "Aleyna Tilki", 
-      venue: "Hangout Performance Hall"
+      venue: "Hangout Performance Hall",
+    link: "/detay"
     },
     { 
       id: 5, 
@@ -44,7 +48,8 @@ export default function Home() {
       day: "30",
       month: "Mart", 
       name: "Madrigal", 
-      venue: "Hangout Performance Hall"
+      venue: "Hangout Performance Hall",
+    link: "/detay"
     }
 ];
 const concerts = [
@@ -54,7 +59,8 @@ const concerts = [
     day: "3",
     month: "Nisan", 
     name: "Güneş", 
-    venue: ""
+    venue: "",
+    link: "/detay"
   },
   { 
     id: 2, 
@@ -62,7 +68,8 @@ const concerts = [
     day: "5",
     month: "Mayıs", 
     name: "Perdenin Ardındakiler", 
-    venue: ""
+    venue: "",
+    link: "/detay"
   },
   { 
     id: 3, 
@@ -70,7 +77,8 @@ const concerts = [
     day: "8",
     month: "Mayıs", 
     name: "Sena Şener", 
-    venue: ""
+    venue: "",
+    link: "/detay"
   },
   { 
     id: 4, 
@@ -78,7 +86,8 @@ const concerts = [
     day: "14",
     month: "Mayıs", 
     name: "Melek Mosso", 
-    venue: ""
+    venue: "",
+    link: "/detay"
   },
   { 
     id: 5, 
@@ -86,7 +95,8 @@ const concerts = [
     day: "7",
     month: "Haziran", 
     name: "Karsu", 
-    venue: ""
+    venue: "",
+    link: "/detay"
   }
 ];
 
@@ -97,7 +107,8 @@ const activity = [
     day: "",
     month: "", 
     name: "", 
-    venue: ""
+    venue: "",
+    link: "/detay"
   },
   { 
     id: 2, 
@@ -105,7 +116,8 @@ const activity = [
     day: "",
     month: "", 
     name: "", 
-    venue: ""
+    venue: "",
+    link: "/detay"
   },
   { 
     id: 3, 
@@ -113,7 +125,8 @@ const activity = [
     day: "",
     month: "", 
     name: "", 
-    venue: ""
+    venue: "",
+    link: "/detay"
   },
   { 
     id: 4, 
@@ -121,7 +134,8 @@ const activity = [
     day: "",
     month: "", 
     name: "", 
-    venue: ""
+    venue: "",
+    link: "/detay"
   },
   { 
     id: 5, 
@@ -129,7 +143,8 @@ const activity = [
     day: "",
     month: "", 
     name: "", 
-    venue: ""
+    venue: "",
+    link: "/detay"
   }
 ];
 
@@ -140,7 +155,8 @@ const theaters = [
     day: "12-13-14",
     month: "Şubat", 
     name: "Araf", 
-    venue: "Akasya AVM"
+    venue: "Akasya AVM",
+    link: "/detay"
   },
   { 
     id: 2, 
@@ -148,7 +164,8 @@ const theaters = [
     day: "12-13-14",
     month: "Şubat", 
     name: "Hiçbi’ Şey Olmamış Gibi", 
-    venue: "Akasya AVM"
+    venue: "Akasya AVM",
+    link: "/detay"
   },
   { 
     id: 3, 
@@ -156,7 +173,8 @@ const theaters = [
     day: "12-13-14",
     month: "Şubat",  
     name: "Tomris", 
-    venue: "Akasya AVM"
+    venue: "Akasya AVM",
+    link: "/detay"
   },
   { 
     id: 4, 
@@ -164,7 +182,8 @@ const theaters = [
     day: "12-13-14",
     month: "Şubat", 
     name: "Disco Topu", 
-    venue: "Akasya AVM"
+    venue: "Akasya AVM",
+    link: "/detay"
   },
   { 
     id: 5, 
@@ -172,7 +191,8 @@ const theaters = [
     day: "12-13-14",
     month: "Şubat", 
     name: "Kürk Mantolu Madonna", 
-    venue: "Akasya AVM"
+    venue: "Akasya AVM",
+    link: "/detay"
   }
 ];
 
@@ -183,7 +203,8 @@ const favorites = [
     day: "",
     month: "", 
     name: "", 
-    venue: ""
+    venue: "",
+    link: "/detay"
   },
   { 
     id: 2, 
@@ -191,7 +212,8 @@ const favorites = [
     day: "",
     month: "", 
     name: "", 
-    venue: ""
+    venue: "",
+    link: "/detay"
   },
   { 
     id: 3, 
@@ -199,7 +221,8 @@ const favorites = [
     day: "",
     month: "", 
     name: "", 
-    venue: ""
+    venue: "",
+    link: "/detay"
   },
   { 
     id: 4, 
@@ -207,7 +230,8 @@ const favorites = [
     day: "",
     month: "", 
     name: "", 
-    venue: ""
+    venue: "",
+    link: "/detay"
   },
   { 
     id: 5, 
@@ -215,7 +239,8 @@ const favorites = [
     day: "",
     month: "", 
     name: "", 
-    venue: ""
+    venue: "",
+    link: "/detay"
   }
 ];
 

@@ -5,13 +5,17 @@ import SignupOptions from "./pages/SignupOptions";
 import SignupForm from "./pages/SignupForm";
 import Home from "./pages/Home";
 import EventCalender from "./pages/EventCalender";
+import EventDetails from "./pages/EventDetails";
+import ScrollToTop from "./components/ScrollToTop";
 
 export default function AppRoutes() {
   return (
     <Router>
+      <ScrollToTop/>
       <MainLayout>
         <Routes>
           <Route path="/" element={<Home/>}/>
+          <Route path="/detay" element={<EventDetails/>}/>
           <Route path="/takvim" element={<EventCalender/>}/>
           <Route path="/giris-secenekleri" element={<SignupOptions/>}/>
           <Route path="/kayit-ol" element={<SignupForm isStudent={false}/>}/>
