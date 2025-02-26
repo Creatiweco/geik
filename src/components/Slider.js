@@ -72,7 +72,7 @@ export default function Slider() {
                     modifier: 1.5,
                     slideShadows: false,
                   }}
-                  spaceBetween={250}
+                  spaceBetween={190}
                   className="custom-swiper"
                 >
                   {slides.map((slide) => (

@@ -6,8 +6,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 export default function MainLayout({ children }) {
   const location = useLocation();
-  const hideNavbarPages = ["/giris-secenekleri", "/giris-secenekleri", "/kayit-ol-ogrenci"];
-  const hidefooterPages = ["/giris-secenekleri", "/giris-secenekleri", "/kayit-ol-ogrenci", "/takvim"];
+  const hideNavbarPages = ["/giris-secenekleri", "/giris-secenekleri", "/kayit-ol", "/kayit-ol-ogrenci"];
+  const hidefooterPages = ["/giris-secenekleri", "/giris-secenekleri", "/kayit-ol", "/kayit-ol-ogrenci", "/takvim"];
 
   return (
     <div style={{position:"relative"}}>
