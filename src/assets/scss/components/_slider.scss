@@ -83,12 +83,18 @@
           .slider-primary-btn {
             border-radius: 40px;
             padding: 10px 22px;
-            background-color: #2DFF3C9C;
+            background-color: rgba(45, 255, 60, 0.61);
             color: #0A1557;
             font-family: Albert Sans;
             font-weight: 700;
             font-size: 16px;
             line-height: 19.2px;
+            transition: 0.3s ease-in-out;
+
+            &:hover{
+              background-color: #0A1557;
+              color: rgba(45, 255, 60, 1);
+            }
           }
 
           .slider-second-btn {
@@ -96,6 +102,14 @@
             padding: 8px 13px;
             border-radius: 50%;
             color: #fff;
+            transition: 0.3s ease-in-out;
+            border: 0.01px solid #00000080;
+
+            &:hover{
+              background-color: rgba(45, 255, 60, 1);
+              color: #0A1557;
+              border: 0.01px solid rgba(45, 255, 60, 1);
+            }
           }
         }
       }

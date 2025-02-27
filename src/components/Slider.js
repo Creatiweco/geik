@@ -84,7 +84,7 @@ export default function Slider() {
                           <p>{slide.description}</p>
                           <div className="buttons">
                             <Link to={slide.button1.link} className="slider-primary-btn">{slide.button1.text}</Link>
-                            <Link to={slide.button2.link} className="slider-second-btn"><FaPlus/></Link>
+                            <button to={slide.button2.link} className="slider-second-btn"><FaPlus/></button>
                           </div>
                         </div>
                       </div>

@@ -8,6 +8,23 @@ import { useNavigate } from 'react-router-dom';
 
 
 export default function EventDetails() {
+    const navigate = useNavigate();
+    const [activeTab, setActiveTab] = useState('details');
+    const [showPopup, setShowPopup] = useState(false);
+    const [popupStep, setPopupStep] = useState(1);
+    
+    const handleNextStep = () => {
+        setPopupStep(prev => prev + 1);
+    };
+    
+    const handlePreviousStep = () => {
+        setPopupStep(prev => prev - 1);
+    };
+    
+    const closePopup = () => {
+        setShowPopup(false);
+        setPopupStep(1);
+    };
 
     const eventInformation = {
         eventType: "Konser",
@@ -66,25 +83,7 @@ export default function EventDetails() {
         link: "/detay"
         }
     ];
-
-    const navigate = useNavigate();
-    const [activeTab, setActiveTab] = useState('details');
-    const [showPopup, setShowPopup] = useState(false);
-    const [popupStep, setPopupStep] = useState(1);
-
-    const handleNextStep = () => {
-        setPopupStep(prev => prev + 1);
-    };
-
-    const handlePreviousStep = () => {
-        setPopupStep(prev => prev - 1);
-    };
-
-    const closePopup = () => {
-        setShowPopup(false);
-        setPopupStep(1);
-    };
-
+    
     return(
         <div id="detail-page" className="detail-container">
             <div className="detail-banner">
@@ -230,7 +229,7 @@ export default function EventDetails() {
                                     </div>
                                     <div className="popup-buttons">
                                         <button className="popup-btn-3" onClick={closePopup}>Kapat</button>
-                                        <button className="popup-btn-2" onClick={() => navigate("/biletlerim")}>Biletlerim</button>
+                                        <button className="popup-btn-2" onClick={() => navigate("/profil", {state: { openTab : "upcoming-events" } })}>Biletlerim</button>
                                     </div>
                                     <p className="popup-note">*QR koduna biletlerim kısmından ulaşabilirsiniz.</p>
                                 </div>

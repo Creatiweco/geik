@@ -226,7 +226,7 @@ export default function Navbar() {
                     <div className="search-container" ref={searchRef}>
                         <CiSearch className="navbar-icon" onClick={handleSearchClick} />
                     </div>
-                    <PiHeartStraight className="navbar-icon" onClick={() => navigate("/favorites")}/>
+                    <PiHeartStraight className="navbar-icon" onClick={() => navigate("/profil", {state: { openTab : "favorites" } })}/>
                     <img
                         src={isAuthenticated? "/assets/images/auth_user.jpg" : "/assets/images/default_user.svg" }
                         alt="Kullanıcı"

@@ -1,4 +1,5 @@
 import React, { useState }  from "react";
+import { useLocation } from "react-router-dom";
 import { IoShareSocialOutline, IoSettingsOutline, IoClose } from "react-icons/io5";
 import { GoPencil } from "react-icons/go";
 import { LuMicVocal } from "react-icons/lu";
@@ -8,7 +9,8 @@ import EventSlider from "../components/EventSlider";
 import "../assets/scss/pages/_profile.scss";
 
 export default function Profile() {
-    const [activeTab, setActiveTab] = useState('upcoming-events');
+    const location = useLocation();
+    const [activeTab, setActiveTab] = useState(location.state?.openTab || "upcoming-events");
     const [selectedTicket, setSelectedTicket] = useState(null);
 
     const latestReleases = [
