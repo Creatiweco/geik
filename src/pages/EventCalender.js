@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { GiMicrophone } from "react-icons/gi";
+import { LuMicVocal } from "react-icons/lu";
 import { GrLocationPin } from "react-icons/gr";
 import { Link } from "react-router-dom";
 import "../assets/scss/pages/_eventCalender.scss";
@@ -20,7 +20,7 @@ export default function EventCalender() {
         { label: "Stand Up", icon: <FaEarListen /> },
         { label: "Eğlence", icon: <FaRegStar /> },
         { label: "Tiyatro", icon: <FaTheaterMasks /> },
-        { label: "Konser", icon: <GiMicrophone /> }
+        { label: "Konser", icon: <LuMicVocal /> }
     ];
 
     const handleFilterSelect = (filter) => {
@@ -32,7 +32,7 @@ export default function EventCalender() {
         {
             date: "1 Şubat",
             items: [
-                { title: "Can Ozan", time: "22.00", location: "Hayal Kahvesi",link:"/detay", icon: <GiMicrophone />, category: "Konser" },
+                { title: "Can Ozan", time: "22.00", location: "Hayal Kahvesi",link:"/detay", icon: <LuMicVocal />, category: "Konser" },
                 { title: "Disco Topu", time: "19.00", location: "Akasya AVM",link:"/detay", icon: <FaTheaterMasks />, category: "Tiyatro" },
                 { title: "Frida Kahlo’nun Günlükleri sergisi", time: "19.00", location: "Akasya AVM",link:"/detay", icon: <FaTheaterMasks />, category: "Tiyatro" },
             ]
@@ -40,26 +40,26 @@ export default function EventCalender() {
         {
             date: "2 Şubat",
             items: [
-                { title: "Can Ozan", time: "22.00", location: "Hayal Kahvesi",link:"/detay", icon: <GiMicrophone />, category: "Konser" },
-                { title: "Can Ozan", time: "22.00", location: "Hayal Kahvesi",link:"/detay", icon: <GiMicrophone />, category: "Konser" },
+                { title: "Can Ozan", time: "22.00", location: "Hayal Kahvesi",link:"/detay", icon: <LuMicVocal />, category: "Konser" },
+                { title: "Can Ozan", time: "22.00", location: "Hayal Kahvesi",link:"/detay", icon: <LuMicVocal />, category: "Konser" },
             ]
         },
         {
             date: "3 Şubat",
             items: [
-                { title: "Can Ozan", time: "22.00", location: "Hayal Kahvesi",link:"/detay", icon: <GiMicrophone />, category: "Konser" },
+                { title: "Can Ozan", time: "22.00", location: "Hayal Kahvesi",link:"/detay", icon: <LuMicVocal />, category: "Konser" },
             ]
         },
         {
             date: "4 Şubat",
             items: [
-                { title: "Can Ozan", time: "22.00", location: "Hayal Kahvesi",link:"/detay", icon: <GiMicrophone />, category: "Konser" },
+                { title: "Can Ozan", time: "22.00", location: "Hayal Kahvesi",link:"/detay", icon: <LuMicVocal />, category: "Konser" },
             ]
         },
         {
             date: "5 Şubat",
             items: [
-                { title: "Can Ozan", time: "22.00", location: "Hayal Kahvesi",link:"/detay", icon: <GiMicrophone />, category: "Konser" },
+                { title: "Can Ozan", time: "22.00", location: "Hayal Kahvesi",link:"/detay", icon: <LuMicVocal />, category: "Konser" },
                 { title: "Frida Kahlo’nun Günlükleri sergisi", time: "19.00", location: "Akasya AVM",link:"/detay", icon: <FaTheaterMasks />, category: "Tiyatro" },
                 { title: "Disco Topu", time: "19.00", location: "Akasya AVM",link:"/detay", icon: <FaTheaterMasks />, category: "Tiyatro" },
             ]

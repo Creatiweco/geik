@@ -7,7 +7,7 @@ import { IoClose } from "react-icons/io5";
 import { HiOutlineBars3BottomLeft } from "react-icons/hi2";
 import { FaPalette, FaRegStar, FaTheaterMasks } from "react-icons/fa";
 import { FaEarListen } from "react-icons/fa6";
-import { GiMicrophone } from "react-icons/gi";
+import { LuMicVocal } from "react-icons/lu";
 import EventSlider from "./EventSlider";
 import EventSliderVertical from "./EventSliderVertical";
 
@@ -58,7 +58,7 @@ export default function Navbar() {
     const filters = [
         { name: "Tümü", icon: HiOutlineBars3BottomLeft },
         { name: "Spor", icon: CiBasketball },
-        { name: "Konser", icon: GiMicrophone },
+        { name: "Konser", icon: LuMicVocal },
         { name: "Etkinlik", icon: FaPalette },
         { name: "Stand Up", icon: FaEarListen },
         { name: "Eğlence", icon: FaRegStar },
@@ -219,6 +219,7 @@ export default function Navbar() {
                     <li><Link to="/">Ana Sayfa</Link></li>
                     <li><Link to="/takvim">Takvim</Link></li>
                     <li><Link to="/">Canlı TV</Link></li>
+                    <li><Link to="/profil">profil sayfası </Link></li>
                 </ul>
 
                 <div className="navbar-right">
