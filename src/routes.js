@@ -8,6 +8,8 @@ import EventCalender from "./pages/EventCalender";
 import EventDetails from "./pages/EventDetails";
 import ScrollToTop from "./components/ScrollToTop";
 import Profile from "./pages/Profile";
+import SigninForm from "./pages/SigninForm";
+import EventWatch from "./pages/EventWatch";
 
 export default function AppRoutes() {
   return (
@@ -18,9 +20,11 @@ export default function AppRoutes() {
           <Route path="/" element={<Home/>}/>
           <Route path="/profil" element={<Profile/>}/>
           <Route path="/detay" element={<EventDetails/>}/>
+          <Route path="/etkinlik-izle" element={<EventWatch/>}/>
           <Route path="/takvim" element={<EventCalender/>}/>
           <Route path="/giris-secenekleri" element={<SignupOptions/>}/>
           <Route path="/kayit-ol" element={<SignupForm isStudent={false}/>}/>
+          <Route path="/giris-yap" element={<SigninForm/>}/>
           <Route path="/kayit-ol-ogrenci" element={<SignupForm isStudent={true}/>}/>
         </Routes>
       </MainLayout>

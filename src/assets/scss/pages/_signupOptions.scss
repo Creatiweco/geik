@@ -16,6 +16,8 @@
     }
     .container {
         max-width: 15%;
+        z-index: 999;
+        position: relative;
     }
 
     .singup_logo {

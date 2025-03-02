@@ -1,212 +1,67 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import "../assets/scss/components/_navbar.scss";
-import { CiSearch, CiBasketball } from "react-icons/ci";
+import { CiSearch } from "react-icons/ci";
 import { PiHeartStraight } from "react-icons/pi";
-import { IoClose } from "react-icons/io5";
-import { HiOutlineBars3BottomLeft } from "react-icons/hi2";
-import { FaPalette, FaRegStar, FaTheaterMasks } from "react-icons/fa";
-import { FaEarListen } from "react-icons/fa6";
-import { LuMicVocal } from "react-icons/lu";
+import { IoClose, IoEnterOutline, IoExitOutline } from "react-icons/io5";
+import filters from "../data/filterData"; 
+import { latestReleases, concerts, activity } from "../data/eventData";
 import EventSlider from "./EventSlider";
 import EventSliderVertical from "./EventSliderVertical";
 
-
-
 export default function Navbar() {
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const [user, setUser] = useState(null);
     const [showSearch, setShowSearch] = useState(false);
-    const [isDetailPage, setIsDetailPage] = useState(false)
+    const [isDetailPage, setIsDetailPage] = useState(false);
+    const [selectedFilter, setSelectedFilter] = useState("tumu"); 
+
     const location = useLocation();
     const searchRef = useRef(null);
     const navigate = useNavigate();
 
     useEffect(() => {
-        const user = localStorage.getItem("user");
-        setIsAuthenticated(!!user);
+        const storedUser = localStorage.getItem("user");
+        if (storedUser) {
+            setUser(JSON.parse(storedUser));
+        } else {
+            setUser(null);
+        }
     }, []);
 
+    useEffect(() => setShowSearch(false), [location.pathname]);
+
     const handleUserClick = () => {
-        if (isAuthenticated) {
+        if (user) {
             navigate("/profil");
         } else {
             navigate("/giris-secenekleri");
         }
     };
 
-    useEffect(() => {
-      setShowSearch(false)
-    }, [location.pathname]);
-
-    const handleSearchClick = () => {
-        setShowSearch(true);
+    const handleLogout = () => {
+        localStorage.removeItem("user");
+        setUser(null);
+        navigate("/");
     };
 
-    const closeSearch = () => {
-        setShowSearch(false);
-    };
+    const handleSearchClick = () => setShowSearch(true);
+    const closeSearch = () => setShowSearch(false);
 
     useEffect(() => {
-      const checkDetailPage = () => {
-        const detailElement = document.getElementById("detail-page")
-        setIsDetailPage(!!detailElement)
-      };
-
-      checkDetailPage();
+        const detailElement = document.getElementById("detail-page");
+        setIsDetailPage(!!detailElement);
     }, [location.pathname]);
 
-    const filters = [
-        { name: "Tümü", icon: HiOutlineBars3BottomLeft },
-        { name: "Spor", icon: CiBasketball },
-        { name: "Konser", icon: LuMicVocal },
-        { name: "Etkinlik", icon: FaPalette },
-        { name: "Stand Up", icon: FaEarListen },
-        { name: "Eğlence", icon: FaRegStar },
-        { name: "Tiyatro", icon: FaTheaterMasks }
-    ];
-    const latestReleases = [
-        { 
-          id: 1, 
-          image: "/assets/images/event5.png", 
-          day: "12",
-          month: "Şubat", 
-          name: "Dolu kadehi ters tut", 
-          venue: "Hangout Performance Hall",
-          link: "/detay"
-        },
-        { 
-          id: 2, 
-          image: "/assets/images/event4.png", 
-          day: "17",
-          month: "Şubat", 
-          name: "Emircan İğrek", 
-          venue: "Bostancı Gösteri Merkezi",
-          link: "/detay"
-        },
-        { 
-          id: 3, 
-          image: "/assets/images/event3.png", 
-          day: "8",
-          month: "Mart", 
-          name: "Can Ozan", 
-          venue: "Hayal Kahvesi",
-          link: "/detay"
-        },
-        { 
-          id: 4, 
-          image: "/assets/images/event2.png", 
-          day: "24",
-          month: "Mart", 
-          name: "Aleyna Tilki", 
-          venue: "Hangout Performance Hall",
-          link: "/detay"
-        },
-        { 
-          id: 5, 
-          image: "/assets/images/event1.png", 
-          day: "30",
-          month: "Mart", 
-          name: "Madrigal", 
-          venue: "Hangout Performance Hall",
-          link: "/detay"
-        }
-    ];
-    const concerts = [
-      { 
-        id: 1, 
-        image: "/assets/images/concert1.png", 
-        day: "3",
-        month: "Nisan", 
-        name: "Güneş", 
-        venue: "",
-          link: "/detay"
-      },
-      { 
-        id: 2, 
-        image: "/assets/images/concert2.png", 
-        day: "5",
-        month: "Mayıs", 
-        name: "Perdenin Ardındakiler", 
-        venue: "",
-          link: "/detay"
-      },
-      { 
-        id: 3, 
-        image: "/assets/images/concert3.png", 
-        day: "8",
-        month: "Mayıs", 
-        name: "Sena Şener", 
-        venue: "",
-          link: "/detay"
-      },
-      { 
-        id: 4, 
-        image: "/assets/images/concert4.png", 
-        day: "14",
-        month: "Mayıs", 
-        name: "Melek Mosso", 
-        venue: "",
-          link: "/detay"
-      },
-      { 
-        id: 5, 
-        image: "/assets/images/concert5.png", 
-        day: "7",
-        month: "Haziran", 
-        name: "Karsu", 
-        venue: "",
-          link: "/detay"
-      }
-    ];
-    const activity = [
-      { 
-        id: 1, 
-        image: "/assets/images/activity1.png", 
-        day: "",
-        month: "", 
-        name: "", 
-        venue: "",
-          link: "/detay"
-      },
-      { 
-        id: 2, 
-        image: "/assets/images/activity2.png", 
-        day: "",
-        month: "", 
-        name: "", 
-        venue: "",
-          link: "/detay"
-      },
-      { 
-        id: 3, 
-        image: "/assets/images/activity3.png", 
-        day: "",
-        month: "", 
-        name: "", 
-        venue: "",
-          link: "/detay"
-      },
-      { 
-        id: 4, 
-        image: "/assets/images/activity4.png", 
-        day: "",
-        month: "", 
-        name: "", 
-        venue: "",
-          link: "/detay"
-      },
-      { 
-        id: 5, 
-        image: "/assets/images/activity5.png", 
-        day: "",
-        month: "", 
-        name: "", 
-        venue: "",
-          link: "/detay"
-      }
-    ];
+    const handleFilterSelect = (filterName) => {
+        setSelectedFilter(filterName);
+    };
 
-    return(
+    const filterEvents = (events) => {
+        if (selectedFilter === "tumu") return events;
+        return events.filter(event => event.category === selectedFilter);
+    };
+
+    return (
         <nav className={`navbar ${isDetailPage ? "detail-navbar" : ""}`}>
             <div className="container">
                 <div className="navbar-logo">
@@ -214,25 +69,48 @@ export default function Navbar() {
                         <img src="/assets/images/geik_logo_blue.svg" alt="Logo" />
                     </Link>
                 </div>
-
                 <ul className="navbar-links">
                     <li><Link to="/">Ana Sayfa</Link></li>
                     <li><Link to="/takvim">Takvim</Link></li>
                     <li><Link to="/">Canlı TV</Link></li>
-                    <li><Link to="/profil">profil sayfası </Link></li>
                 </ul>
 
                 <div className="navbar-right">
                     <div className="search-container" ref={searchRef}>
                         <CiSearch className="navbar-icon" onClick={handleSearchClick} />
                     </div>
-                    <PiHeartStraight className="navbar-icon" onClick={() => navigate("/profil", {state: { openTab : "favorites" } })}/>
-                    <img
-                        src={isAuthenticated? "/assets/images/auth_user.jpg" : "/assets/images/default_user.svg" }
-                        alt="Kullanıcı"
-                        className="user-avatar"
-                        onClick={handleUserClick}
-                    />
+
+                    {user ? (
+                        <>
+                            <PiHeartStraight
+                                className="navbar-icon"
+                                onClick={() => {
+                                    if (user.isSubscriber) {
+                                        navigate("/profil", { state: { openTab: "favorites" } });
+                                    } else {
+                                        alert("Favorilere erişmek için abone olmanız gerekmektedir.");
+                                    }
+                                }}
+                            />
+                            <div className="user-menu-container">
+                                <img
+                                    src={user.avatar || "/assets/images/default_user.svg"}
+                                    alt={user.name}
+                                    className="user-avatar"
+                                    onClick={handleUserClick}
+                                />
+                                <div className="user-menu">
+                                    <button className="logout-btn" onClick={handleLogout}>Çıkış Yap <IoExitOutline/></button>
+                                </div>
+                            </div>
+
+                        </>
+                    ) : (
+                        <>
+                            <button className="geik-button-1" onClick={() => navigate("/giris-secenekleri")}>Giriş Yap</button>
+                            <button className="geik-button-1 button-white" onClick={() => navigate("/kayit-ol")}>Kayıt Ol</button>
+                        </>
+                    )}
                 </div>
             </div>
 
@@ -250,26 +128,45 @@ export default function Navbar() {
                                 <IoClose className="close-icon" onClick={closeSearch} />
                             </div>
                             <div className="navbar-right">
-                                <img
-                                    src={isAuthenticated? "/assets/images/auth_user.jpg" : "/assets/images/default_user.svg" }
-                                    alt="Kullanıcı"
-                                    className="user-avatar"
-                                    onClick={handleUserClick}
-                                />
+                                {user ? (
+                                    <img
+                                        src={user?.avatar || "/assets/images/default_user.svg"}
+                                        alt={user?.name || "Kullanıcı"}
+                                        className="user-avatar"
+                                        onClick={handleUserClick}
+                                    />
+                                ) : (
+                                    <IoEnterOutline
+                                        className="login-icon"
+                                        onClick={() => navigate("/giris-secenekleri")}
+                                    />
+                                )}
                             </div>
+
                         </div>
+
                         <div className="filter-buttons">
                             {filters.map((filter, index) => (
-                                <button key={index} className="filter-btn">
-                                    {filter.name}
-                                    <filter.icon/>
+                                <button key={index}
+                                    className={`filter-btn ${selectedFilter === filter.categoryName ? "active" : ""}`}
+                                    onClick={() => handleFilterSelect(filter.categoryName)}
+                                >
+                                    {filter.label}
+                                    <filter.icon />
                                 </button>
                             ))}
                         </div>
                     </div>
-                    <EventSlider sectionTitle="En Son Çıkanlar" events={latestReleases}/>
-                    <EventSlider sectionTitle="Konserler" events={concerts}/>
-                    <EventSliderVertical sectionTitle="Etkinlikler" events={activity}/>
+
+                    {filterEvents(latestReleases).length > 0 && (
+                        <EventSlider sectionTitle="En Son Çıkanlar" events={filterEvents(latestReleases)} />
+                    )}
+                    {filterEvents(concerts).length > 0 && (
+                        <EventSlider sectionTitle="Konserler" events={filterEvents(concerts)} />
+                    )}
+                    {filterEvents(activity).length > 0 && (
+                        <EventSliderVertical sectionTitle="Etkinlikler" events={filterEvents(activity)} />
+                    )}
                 </div>
             )}
         </nav>

@@ -1,22 +1,70 @@
 @import "../globals";
 
 .detail-container {
-    .detail-banner {
-        position: relative;
 
-        .background-blur::before{
-            content: "";
-            position: absolute;
+    .video{
+        &::before,
+        &::after{
+            content: none !important;
+        }
+
+        .video-wrapper {
+            position: relative;
             width: 100%;
             height: 100%;
+        
+            .detail-video-player {
+                width: 100%;
+                height: 100%;
+                border-radius: 10px;
+            }
+        
+            .video-close-btn {
+                position: absolute;
+                top: 10px;
+                right: 10px;
+                background: rgba(0, 0, 0, 0.7);
+                border: none;
+                color: white;
+                font-size: 24px;
+                cursor: pointer;
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 10;
+                transition: background-color 0.3s;
+        
+                &:hover {
+                    background: rgba(255, 255, 255, 1);
+                    color: rgba(0, 0, 0, 1);
+                }
+            }
+        }
+        
+    }
+
+    .detail-banner {
+        position: relative;
+        padding: 0;
+        margin-top: 25px;
+
+        .background-blur {
+            position: absolute;
+            width: 80%;
+            height: 120%;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background: radial-gradient(circle, rgba(236, 70, 73, 0.7) 100%, rgba(236, 70, 73, 0.7) 100%);
-            border-radius: 30%;
+            content: "";
+            background: radial-gradient(circle, var(--dynamic-bg-color, rgba(8, 32, 104, 0.7)) 100%, var(--dynamic-bg-color, rgba(8, 32, 104, 0.7)) 100%);
+            border-radius: 50%;
             z-index: -1;
-            filter: blur(50px);
+            filter: blur(60px);
         }
+        
 
         &::before{
             content: "";
@@ -28,6 +76,7 @@
             left: 0;
             right: 0;
             background: linear-gradient(0deg, rgba(0, 0, 0, 0) 13.21%, rgba(0, 0, 0, 0.79) 100%);
+            border-radius: 10px;
         }
 
         &::after{
@@ -40,26 +89,26 @@
             left: 0;
             right: 0;
             background: linear-gradient(180deg, rgba(10, 21, 87, 0) 13.21%, rgba(10, 21, 87, 0.79) 100%);
+            border-radius: 10px;
         }
 
         .detail-image-wrapper{
             width: 100%;
             height: 610px;
             overflow: hidden;
+            border-radius: 10px;
 
             .detail-image{
                 width: 100%;
                 position: relative;
                 z-index: -1;
-                top: -10%;
             }
         }
 
         .detail-info{
             position: absolute;
             bottom: 50px;
-            left: 50%;
-            transform: translate(-50%, 0);
+            left: 50px;
             z-index: 2;
 
             .detail-text{
@@ -88,19 +137,79 @@
             }
         }
     }
+
+
+    .popup-singup_options {
+        position: relative;
+    
+        .container {
+            max-width: 30%;
+            z-index: 999;
+            position: relative;
+        }
+    
+        .popup-singup_logo {
+            max-width: 150px;
+            margin-bottom: 50px;
+        }
+    
+        .popup-description {
+            font-weight: 400;
+            font-size: 17.7px;
+            line-height: 21.98px;
+            letter-spacing: 0%;
+            margin-bottom: 50px;
+            text-align: center;
+        }
+    
+        .popup-singup_btn_primary {
+            color: $background-color;
+            background-color: $text-color;
+            border-radius: 10px;
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 19.87px;
+            letter-spacing: 0%;
+            text-align: center;
+            border: none;
+            padding: 12px 0;
+            margin-bottom: 30px;
+        }
+    
+        .popup-or-text {
+            font-family: Arial, Helvetica, sans-serif;
+            font-weight: 300;
+            font-size: 14px;
+            line-height: 16.8px;
+            letter-spacing: 0%;
+            text-align: center;
+            margin: 12px 0 16px 0;
+        }
+    
+        .popup-singup_second_primary {
+            background-color: transparent;
+            border: 1px solid #fff;
+            border-radius: 10px;
+            padding: 10px 0;
+            color: $text-color;
+            margin-bottom: 10px;
+        }
+    }
+    
 }
 
 .detail-content{
     margin-top: 50px;
     margin-bottom: 45px;
 
-    .tab-buttons{
+    .tab-buttons {
         display: flex;
         gap: 10px;
         width: 50%;
         padding-bottom: 11px;
-        border-bottom: 2px solid rgba(24, 26, 34, 1); 
+        border-bottom: 2px solid rgba(24, 26, 34, 1);
         margin: 0 0 35px 0;
+        position: relative;  // Alt çizgiye göre konum ayarlamak için
     }
 
     .tab-content p{
@@ -253,6 +362,77 @@
 
                     
                 }
+
+                .popup-invite {
+                    display: flex;
+                    gap: 10px;
+                    align-items: center;
+                
+                    .invite-input {
+                        font-family: $second-font;
+                        font-weight: 400;
+                        font-size: 16px;
+                        line-height: 19.2px;
+                        letter-spacing: 0%;
+                        color: rgba(234, 234, 234, 1);
+                        padding: 10px 18px;
+                        background: transparent;
+                        border: 1px solid rgba(255, 255, 255, 1);
+                        border-radius: 50px;
+                
+                        &::placeholder {
+                            color: rgba(255, 255, 255, 0.5);
+                        }
+                    }
+                
+                    .invite-confirm-btn {
+                        width: 40px;
+                        height: 40px;
+                        border-radius: 50%;
+                        border: none;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        font-size: 18px;
+                        transition: background-color 0.3s;
+                    }
+                }
+                
+                .popup-invite-confirmed {
+                    display: flex;
+                    align-items: center;
+                    justify-content: space-between;
+                    gap: 80px;
+                
+                    p {
+                        font-family: $second-font;
+                        font-weight: 600;
+                        font-size: 16px;
+                        line-height: 19.2px;
+                        letter-spacing: 0%;
+                        color: $text-color;
+
+                        svg{
+                            font-size: 18px;
+                            margin-left: 10px;
+                        }
+                    }
+                
+                    .popup-btn-2 {
+                        padding: 10px 23px;
+                        background-color: #fff;
+                        color: rgba(10, 12, 16, 1);
+                        border: none;
+                        border-radius: 50px;
+                        cursor: pointer;
+                        font-family: $second-font;
+                        font-weight: 700;
+                        font-size: 16px;
+                        line-height: 19.2px;
+                        letter-spacing: 0%;
+                    }
+                }
+                
             }
 
             .popup-content-step-2 {
@@ -292,6 +472,9 @@
 
                 .popup-qr {
                     margin-bottom: 30px;
+                    display: flex;
+                    gap: 20px;
+                    justify-content: center;
 
                     img{
                         max-width: 185px;

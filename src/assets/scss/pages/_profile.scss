@@ -17,7 +17,6 @@
                 img {
                     max-width: 175px;
                     max-height: 175px;
-                    border: 5px solid rgba(246, 4, 151, 1);
                     border-radius: 50%;
                 }
 
@@ -81,7 +80,7 @@
             .ticket-card{
                 display: grid;
                 grid-template-columns: auto 1fr;
-                width: 100%;
+                width: max-content;
                 border-radius: 10px;
                 border: none;
                 padding: 0;
@@ -108,7 +107,7 @@
 
                 .ticket-details{
                     display: flex;
-                    width: 100%;
+                    width: max-content;
                     justify-content: space-between;
                     align-items: center;
                     background-color: rgba(25, 29, 40, 1);
@@ -155,6 +154,8 @@
                     .ticket-qr {
                         padding: 0 31px;
                         border-left: 2px solid rgba(49, 54, 68, 1);
+                        display: flex;
+                        gap: 40px;
 
                         img{
                             max-width: 125px;
@@ -191,6 +192,25 @@
                         display: flex;
                         justify-content: space-between;
                         align-items: center;
+
+                        .nickname-field,
+                        .mail-field {
+                            border: 1px solid rgba(217, 217, 217, 1);
+                            background-color: transparent;
+                            border-radius: 50px;
+                            padding: 12px 16px;
+                            font-family: $second-font;
+                            font-weight: 300;
+                            font-size: 16px;
+                            line-height: 19.2px;
+                            letter-spacing: 0%;
+                            color: rgba(255, 255, 255, 0.34);
+                            outline: none;
+                        
+                            &::placeholder {
+                                color: rgba(255, 255, 255, 0.34);
+                            }
+                        }
     
                         .settings-text,
                         .settings-warning{
@@ -277,6 +297,137 @@
                         }
                     }
                 }
+
+                .student-certificate{
+
+                    .settings-subdesc{
+                        font-family: $second-font;
+                        font-weight: 300;
+                        font-size: 16px;
+                        line-height: 24px;
+                        letter-spacing: 1%;  
+                        margin-bottom: 40px;                      
+                    }
+
+                    .file-upload-wrapper {
+                        display: flex;
+                        align-items: center;
+                        gap: 10px;
+                        border-radius: 8px;
+                        cursor: pointer;
+                        position: relative;
+                        overflow: hidden;
+                    
+                        .file-upload-label {
+                            display: flex;
+                            align-items: center;
+                            gap: 8px;
+                            cursor: pointer;
+                    
+                            span {
+                                font-family: $second-font;
+                                font-weight: 600;
+                                font-size: 16px;
+                                line-height: 19.2px;
+                                text-decoration: underline;
+                            }
+                    
+                            .upload-icon {
+                                width: 24px;
+                                height: 24px;
+                            }
+                        }
+                    
+                        .file-upload-input {
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                            width: 100%;
+                            height: 100%;
+                            opacity: 0;
+                            cursor: pointer;
+                        }
+                    }
+                    
+                }
+
+            }
+
+            .payment-section{
+                .payment-title {
+                    font-family: $base-font;
+                    font-weight: 400;
+                    font-size: 24px;
+                    line-height: 29.8px;
+                    letter-spacing: 0%;
+                    color: $text-color;
+                    margin-bottom: 50px;
+                }
+
+                .payment-summary {
+                    display: flex;
+                    justify-content: space-between;
+                    margin-bottom: 25px;
+
+                    .payment-summary-label {
+                        font-family: $second-font;
+                        font-weight: 300;
+                        font-size: 16px;
+                        line-height: 24px;
+                        letter-spacing: 1%;
+                        color: $text-color;
+                    }
+                    
+                    .payment-summary-amount {
+                        font-family: $base-font;
+                        font-weight: 400;
+                        font-size: 20px;
+                        line-height: 24.83px;
+                        letter-spacing: 0%;
+                        color: $text-color;
+                    }
+                }
+
+                .payment-form {
+                    gap: 16px;
+                    display: flex;
+                    flex-direction: column;
+
+                    .payment-input {
+                        border: 1px solid rgba(217, 217, 217, 1);
+                        font-family: $second-font;
+                        font-weight: 300;
+                        font-size: 16px;
+                        line-height: 19.2px;
+                        letter-spacing: 0%;
+                        color: rgba(255, 255, 255, 0.34);
+                        padding: 12px 16px;
+                        background: transparent;
+                        border-radius: 10px;
+                        width: 100%;
+                    }
+
+                    .payment-row{
+                        display: flex;
+                        flex-direction: row;
+                        gap: 20px;
+                    }
+
+                    .payment-button{
+                        width: 100%;
+                        background-color: rgba(255, 255, 255, 1);
+                        font-family: $base-font;
+                        font-weight: 400;
+                        font-size: 16px;
+                        line-height: 19.87px;
+                        letter-spacing: 0%;
+                        text-align: center;
+                        color:rgba(10, 12, 16, 1);
+                        padding: 12px 0;
+                        border-radius: 10px;
+                        margin-top: 35px;
+                    }
+                }
             }
         }
     }
@@ -329,8 +480,89 @@
               cursor: pointer;
               color: $text-color;
             }
+
+            .qr-codes-wrapper{
+                display: flex;
+                gap: 30px;
+                justify-content: center;
+            }
         }
       }
+
+    .notifications-section {
+        h4 {
+            font-family: $base-font;
+            font-weight: 400;
+            font-size: 24px;
+            line-height: 29.8px;
+            letter-spacing: 0%;
+            padding-bottom: 30px;
+        }
+    
+        p {
+            font-family: $second-font;
+            font-weight: 300;
+            font-size: 16px;
+            line-height: 24px;
+            letter-spacing: 1%;
+            padding-bottom: 60px;
+        }
+    }
+    
+    .form-check-wrapper {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+    
+        input.custom-checkbox {
+            position: absolute;
+            opacity: 0;
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+    
+        .checkbox-icon {
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid white;
+            border-radius: 4px;
+            background: transparent;
+            cursor: pointer;
+            transition: background-color 0.3s;
+    
+            svg {
+                font-size: 14px;
+                color: transparent;
+                transition: color 0.3s;
+            }
+        }
+    
+        input.custom-checkbox:checked + .form-check-label .checkbox-icon {
+            background-color: white;
+    
+            svg {
+                color: black;
+            }
+        }
+    
+        .form-check-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: $second-font;
+            font-weight: 300;
+            font-size: 15px;
+            line-height: 18.63px;
+            color: white;
+            cursor: pointer;
+        }
+    }
+    
       
 }
 

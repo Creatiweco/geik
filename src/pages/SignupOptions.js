@@ -21,8 +21,8 @@ export default function SignupOptions() {
                     <img src="/assets/images/geik_logo_blue.svg" alt="Logo" className="singup_logo" />
                     <p className="description">HESABINI OLUŞTUR VE GEİKLE!</p>
                     
-                    <button className="singup_btn_primary" onClick={() => navigate("/kayit-ol")}>Hesap Oluştur</button>
-                    <button className="singup_btn_primary" onClick={() => navigate("/kayit-ol-ogrenci")}>Öğrenci Hesabı Oluştur</button>
+                        <button className="singup_btn_primary" onClick={() => navigate("/kayit-ol")}>Kaydol</button>
+                    <button className="singup_btn_primary" onClick={() => navigate("/giris-yap")}>Giriş Yap</button>
                     
                     <p className="or-text">Ya da</p>
                     

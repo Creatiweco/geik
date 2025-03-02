@@ -1,0 +1,80 @@
+@import "../globals";
+
+.home-page{
+    position: relative;
+
+    .subscriber-banner{
+        display: flex;
+        padding: 21px 32px;
+        background: rgba(25, 29, 40, 1);
+        justify-content: space-between;
+        border-radius: 50px;
+    
+        .subscriber-text{
+            display: flex;
+            align-items: center;
+
+            p{
+                font-family: $second-font;
+                font-weight: 300;
+                font-size: 16px;
+                line-height: 24px;
+                color: rgba(255, 255, 255, 1); 
+            }
+    
+            .subscriber-link{
+                font-family: $second-font;
+                font-weight: 700;
+                font-size: 16px;
+                line-height: 24px;
+                letter-spacing: 1%;
+                color: rgba(255, 255, 255, 1); 
+                border: none;
+                background-color: transparent;
+    
+                &:hover{
+                    text-decoration: underline;
+                }
+            }
+    
+            .subscriber-tagline{
+                font-family: $second-font;
+                font-weight: 700;
+                font-size: 16px;
+                line-height: 24px;
+                letter-spacing: 1%;
+                color: rgba(45, 255, 60, 1);
+            }
+        }
+
+        .subscriber-actions{
+            display: flex;
+            gap: 21px;
+            align-items: center;
+
+            .geik-button-1{
+                background-color: rgba(255, 255, 255, 1);
+                color: rgba(10, 12, 16, 1);
+
+                &:hover{
+                    background-color: rgba(10, 12, 16, 1);
+                    color: rgba(255, 255, 255, 1);
+                }
+            }
+
+            .subscriber-close{
+                padding: 0;
+                font-size: 20px;
+            }
+
+        }
+    }
+
+    .subscriber-banner-sticky{
+        position: fixed;
+        bottom: 30px;
+        left: 50%;
+        transform: translate(-50%, 0px);
+        z-index: 999;
+    }
+}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { EffectCoverflow, Navigation } from "swiper/modules";
 import "swiper/css";
@@ -6,10 +6,13 @@ import "swiper/css/effect-coverflow";
 import "swiper/css/navigation";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../assets/scss/components/_slider.scss";
+import { getAverageColor } from "../utils/color";
 import { Link } from "react-router-dom";
 import { FaPlus } from "react-icons/fa6";
 
 export default function Slider() {
+    const [bgColor, setBgColor] = useState('rgba(8, 32, 104, 0.5)'); // Default renk
+
     const slides = [
         { 
           id: 1, 
@@ -53,8 +56,34 @@ export default function Slider() {
         },
     ];
 
+    const handleSlideChange = (swiper) => {
+        const activeSlide = swiper.slides[swiper.activeIndex];
+        const img = activeSlide.querySelector('img');
+    
+        if (img.complete) {
+            updateBackgroundColor(img);
+        } else {
+            img.onload = () => updateBackgroundColor(img);
+        }
+    };
+  
+    const updateBackgroundColor = (img) => {
+        const color = getAverageColor(img);
+        setBgColor(color);
+    };
+    
+    useEffect(() => {
+        const firstImage = document.querySelector(".swiper-slide-active img");
+        if (firstImage && firstImage.complete) {
+            updateBackgroundColor(firstImage);
+        } else if (firstImage) {
+            firstImage.onload = () => updateBackgroundColor(firstImage);
+        }
+    }, []);
+
     return (
         <div className="home-slider">
+          <div className="slider-gradient" style={{ background: `radial-gradient(circle, ${bgColor} 100%, ${bgColor} 100%)` }}></div>
           <div className="overflow-hidden">
             <div className="container">
               <div className="row justify-content-center">
@@ -74,6 +103,7 @@ export default function Slider() {
                   }}
                   spaceBetween={190}
                   className="custom-swiper"
+                  onSlideChange={handleSlideChange}
                 >
                   {slides.map((slide) => (
                     <SwiperSlide key={slide.id}>
@@ -84,7 +114,7 @@ export default function Slider() {
                           <p>{slide.description}</p>
                           <div className="buttons">
                             <Link to={slide.button1.link} className="slider-primary-btn">{slide.button1.text}</Link>
-                            <button to={slide.button2.link} className="slider-second-btn"><FaPlus/></button>
+                            <button className="slider-second-btn"><FaPlus/></button>
                           </div>
                         </div>
                       </div>
