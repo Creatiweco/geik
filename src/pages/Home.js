@@ -12,17 +12,19 @@ export default function Home() {
     const [user, setUser] = useState(null);
     const [isVisible, setIsVisible] = useState(false); // Abone banner göster/gizle
     const [isSticky, setIsSticky] = useState(false);   // Sticky class kontrolü
+    const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
 
     const navigate = useNavigate();
 
-    // Kullanıcıyı localStorage'dan al ve kontrol et
     const checkUserStatus = () => {
         const storedUser = localStorage.getItem("user");
+    
         if (storedUser) {
             const parsedUser = JSON.parse(storedUser);
             setUser(parsedUser);
-
-            // Eğer kullanıcı varsa ve abone değilse banner göster
+            setIsUserLoggedIn(true);  // Kullanıcı giriş yapmış
+    
+            // Eğer kullanıcı giriş yapmış ve abone değilse banner gözüksün
             if (!parsedUser.isSubscriber) {
                 setIsVisible(true);
             } else {
@@ -30,7 +32,8 @@ export default function Home() {
             }
         } else {
             setUser(null);
-            setIsVisible(false); // Kullanıcı çıkış yapınca banner kapansın
+            setIsUserLoggedIn(false);  // Kullanıcı giriş yapmamış
+            setIsVisible(true);  // Giriş yapmayanlara banner göster
         }
     };
 
@@ -62,10 +65,16 @@ export default function Home() {
                         <p>
                             Etkinliklere katılmak ve avantajlardan yararlanmak için
                             <button
-                                onClick={() => { navigate("/profil", { state: { openTab: "payment" } }); }}
+                                onClick={() => {
+                                    if (isUserLoggedIn) {
+                                        navigate("/profil", { state: { openTab: "payment" } });
+                                    } else {
+                                        navigate("/giris-secenekleri");
+                                    }
+                                }}
                                 className="subscriber-link"
                             >
-                                Abone Ol!
+                                {isUserLoggedIn ? "Abone Ol!" : "Kayıt Ol!"}
                             </button>
                             <span className="subscriber-tagline"> Buraya ek bir slogan gelebilir...</span>
                         </p>
@@ -73,9 +82,15 @@ export default function Home() {
                     <div className="subscriber-actions">
                         <button
                             className="geik-button-1"
-                            onClick={() => { navigate("/profil", { state: { openTab: "payment" } }); }}
+                            onClick={() => {
+                                if (isUserLoggedIn) {
+                                    navigate("/profil", { state: { openTab: "payment" } });
+                                } else {
+                                    navigate("/giris-secenekleri");
+                                }
+                            }}
                         >
-                            Abone Ol
+                            {isUserLoggedIn ? "Abone Ol" : "Kayıt Ol"}
                         </button>
                         <button className="subscriber-close" onClick={() => setIsVisible(false)}>
                             <IoClose />
@@ -83,6 +98,7 @@ export default function Home() {
                     </div>
                 </div>
             )}
+
 
             <EventSlider sectionTitle="En Son Çıkanlar" events={latestReleases} />
             <EventSlider sectionTitle="Etkinlik İzleme Sayfası" events={eventWatch} />
