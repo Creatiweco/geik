@@ -10,8 +10,8 @@ import { IoClose } from "react-icons/io5";
 
 export default function Home() {
     const [user, setUser] = useState(null);
-    const [isVisible, setIsVisible] = useState(false); // Abone banner göster/gizle
-    const [isSticky, setIsSticky] = useState(false);   // Sticky class kontrolü
+    const [isVisible, setIsVisible] = useState(false);
+    const [isSticky, setIsSticky] = useState(false);
     const [isUserLoggedIn, setIsUserLoggedIn] = useState(false);
 
     const navigate = useNavigate();
@@ -59,6 +59,24 @@ export default function Home() {
         <div className="home-page">
             <Slider />
 
+            <div className="container banner-container">
+                <div className="row justify-content-center">
+                    <div className="col-lg-9">
+                        <h4 className="banner-title">
+                            En Sevdiğin Etkinliklere 
+                            <img src="/assets/images/geik_logo_blue.svg" alt="Logo" className="singup_logo" />
+                            ile Anında Ulaş
+                        </h4>
+                        <p className="banner-description">
+                            Konserler, festivaller, tiyatro ve daha fazlası için biletini saniyeler içinde al! 
+                            Güvenli ödeme, anında onay ve bildirimlerle etkinlik deneyimini zahmetsiz hale getiriyoruz. 
+                            Eğlenceye katılmak için şimdi keşfet!
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+
             {isVisible && (
                 <div className={`container subscriber-banner ${isSticky ? "subscriber-banner-sticky" : ""}`}>
                     <div className="subscriber-text">
@@ -98,7 +116,6 @@ export default function Home() {
                     </div>
                 </div>
             )}
-
 
             <EventSlider sectionTitle="En Son Çıkanlar" events={latestReleases} />
             <EventSlider sectionTitle="Etkinlik İzleme Sayfası" events={eventWatch} />

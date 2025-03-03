@@ -20,7 +20,6 @@ export default function EventDetails() {
     const [isInvitingFriend, setIsInvitingFriend] = useState(false);
     const [friendName, setFriendName] = useState("");
     const [isFriendConfirmed, setIsFriendConfirmed] = useState(false);
-    const [stepTwoText, setStepTwoText] = useState("");
 
 
     useEffect(() => {

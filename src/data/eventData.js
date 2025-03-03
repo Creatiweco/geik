@@ -1,5 +1,5 @@
 import { LuMicVocal } from "react-icons/lu";
-import { FaTheaterMasks, FaPalette, FaRegStar } from "react-icons/fa";
+import { FaTheaterMasks } from "react-icons/fa";
 
 export const latestReleases = [
     { id: 1, image: "/assets/images/event5.png", day: "12", month: "Şubat", name: "Dolu kadehi ters tut", venue: "Hangout Performance Hall", link: "/detay", category: "konser" },

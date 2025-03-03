@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { EffectCoverflow, Navigation } from "swiper/modules";
+import { EffectCoverflow, Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/effect-coverflow";
 import "swiper/css/navigation";
+import "swiper/css/pagination";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "../assets/scss/components/_slider.scss";
 import { getAverageColor } from "../utils/color";
@@ -12,11 +13,12 @@ import { FaPlus } from "react-icons/fa6";
 
 export default function Slider() {
     const [bgColor, setBgColor] = useState('rgba(8, 32, 104, 0.5)'); // Default renk
+    const [activeIndex, setActiveIndex] = useState(0);
 
     const slides = [
         { 
           id: 1, 
-          image: "/assets/images/slider1.jpg", 
+          image: "/assets/images/slider2.png", 
           title: "KONSER", 
           description: "Konser biletleri ve etkinlikleri burada! Hemen tıklayıp konser takvimini gör",
           button1: { text: "Şimdi İzle", link: "#" },
@@ -24,7 +26,7 @@ export default function Slider() {
         },
         { 
           id: 2, 
-          image: "/assets/images/slider2.jpg", 
+          image: "/assets/images/slider1.jpg", 
           title: "KONSER", 
           description: "Bu bir örnek açıklama metnidir.",
           button1: { text: "Şimdi İzle", link: "#" },
@@ -32,7 +34,7 @@ export default function Slider() {
         },
         { 
           id: 3, 
-          image: "/assets/images/slider1.jpg", 
+          image: "/assets/images/slider3.jpg", 
           title: "KONSER", 
           description: "Konser biletleri ve etkinlikleri burada! Hemen tıklayıp konser takvimini gör",
           button1: { text: "Şimdi İzle", link: "#" },
@@ -40,15 +42,23 @@ export default function Slider() {
         },
         { 
           id: 4, 
-          image: "/assets/images/slider2.jpg", 
+          image: "/assets/images/slider1.jpg", 
+          title: "KONSER", 
+          description: "Konser biletleri ve etkinlikleri burada! Hemen tıklayıp konser takvimini gör",
+          button1: { text: "Şimdi İzle", link: "#" },
+          button2: { link: "#" }
+        },
+        { 
+          id: 5, 
+          image: "/assets/images/slider2.png", 
           title: "KONSER", 
           description: "Bu bir örnek açıklama metnidir.",
           button1: { text: "Şimdi İzle", link: "#" },
           button2: { link: "#" }
         },
         { 
-          id: 5, 
-          image: "/assets/images/slider1.jpg", 
+          id: 6, 
+          image: "/assets/images/slider3.jpg", 
           title: "KONSER", 
           description: "Konser biletleri ve etkinlikleri burada! Hemen tıklayıp konser takvimini gör",
           button1: { text: "Şimdi İzle", link: "#" },
@@ -88,7 +98,7 @@ export default function Slider() {
             <div className="container">
               <div className="row justify-content-center">
                 <Swiper
-                  modules={[EffectCoverflow, Navigation]}
+                  modules={[EffectCoverflow, Navigation, Pagination]}
                   effect="coverflow"
                   slidesPerView={1}
                   centeredSlides={true}
@@ -103,7 +113,10 @@ export default function Slider() {
                   }}
                   spaceBetween={190}
                   className="custom-swiper"
-                  onSlideChange={handleSlideChange}
+                  onSlideChange={(swiper) => {
+                    handleSlideChange(swiper);
+                    setActiveIndex(swiper.realIndex);  // Aktif index'i güncelle
+                  }}
                 >
                   {slides.map((slide) => (
                     <SwiperSlide key={slide.id}>
@@ -123,6 +136,14 @@ export default function Slider() {
                 </Swiper>
               </div>
             </div>
+          </div>
+          <div className="custom-pagination container">
+              {slides.map((_, index) => (
+                  <span
+                      key={index} 
+                      className={`pagination-dot ${index === activeIndex ? 'active' : ''}`}
+                  ></span>
+              ))}
           </div>
         </div>
     );

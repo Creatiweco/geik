@@ -3,8 +3,7 @@
 .home-slider {
   overflow: visible;
   position: relative;
-  margin: 22px 0 80px 0;
-  padding: 35px 0;
+  margin: 65px 0 85px 0;
 
   .slider-gradient{
     position: absolute;
@@ -12,10 +11,10 @@
     left: 50%;
     transform: translate(-50%, -50%);
     width: 60%;
-    height: 100%;
+    height: 120%;
     border-radius: 50%;
     z-index: -1;
-    filter: blur(60px);
+    filter: blur(40px);
   }
 
   .custom-swiper {
@@ -57,7 +56,7 @@
         z-index: 3;
 
         h2 {
-          font-family: Righteous;
+          font-family: $base-font;
           font-weight: 400;
           font-size: 38px;
           line-height: 47.18px;
@@ -112,7 +111,7 @@
         }
       }
     }
-    
+
     .swiper-slide-active {
       transform: scale(1);
       opacity: 1; 
@@ -141,4 +140,27 @@
       filter: blur(5px);
     }
   }
+
+  .custom-pagination {
+    position: absolute;
+    bottom: -28px; // Swiper'ın 14px altına alırsın
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    z-index: 10;
+    width: max-content;
+
+    .pagination-dot {
+        width: 12px;
+        height: 12px;
+        background-color: rgba(10, 12, 16, 1);
+        border-radius: 50%;
+        transition: background-color 0.3s ease;
+
+        &.active {
+            background-color: rgba(45, 255, 60, 1);
+        }
+    }
+}
 }

@@ -8,35 +8,35 @@ const categories = [
         id: 1, 
         image: "/assets/images/categor-img1.svg", 
         name: "Spor", 
-        icon: CiBasketball,
+        icon: LuMicVocal,
         link: "/detay"
     },
     { 
         id: 2, 
         image: "/assets/images/categor-img1.svg", 
         name: "Spor", 
-        icon: CiBasketball,
+        icon: FaRegStar,
         link: "/detay"
     },
     { 
         id: 3, 
         image: "/assets/images/categor-img1.svg", 
         name: "Spor", 
-        icon: CiBasketball,
+        icon: FaTheaterMasks,
         link: "/detay"
     },
     { 
         id: 4, 
         image: "/assets/images/categor-img1.svg", 
         name: "Spor", 
-        icon: CiBasketball,
+        icon: FaPalette,
         link: "/detay"
     },
     { 
         id: 5, 
         image: "/assets/images/categor-img1.svg", 
         name: "Spor", 
-        icon: CiBasketball,
+        icon: FaEarListen,
         link: "/detay"
     },
     { 

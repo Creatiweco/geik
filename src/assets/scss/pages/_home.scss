@@ -3,6 +3,36 @@
 .home-page{
     position: relative;
 
+    .banner-container{
+        margin-bottom: 30px;
+        
+        .banner-title{
+            font-family: $base-font;
+            font-weight: 400;
+            font-size: 20px;
+            line-height: 24.83px;
+            letter-spacing: 0%;
+            text-align: center;
+            color: $text-color;
+            margin-bottom: 16px;
+
+            img{
+                height: 26px;
+                padding: 0 5px;
+            }
+        }
+
+        .banner-description{
+            font-family: Albert Sans;
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 19.2px;
+            letter-spacing: 0%;
+            text-align: center;
+            color: rgba(209, 209, 209, 1);
+        }
+    }
+
     .subscriber-banner{
         display: flex;
         padding: 21px 32px;
