@@ -64,30 +64,30 @@ export default function SignupForm() {
             }}
         >
             <div className="container">
-                <div className="row justify-content-center">
+                <div className="row justify-content-center mobile">
                     <div className="p-0">
-                        <h2 className="signup-title">
+                        <h4 className="signup-title">
                             HESABINI OLUŞTUR VE 
                             <span><img src="/assets/images/geik_logo_blue.svg" alt="Logo" className="signup-logo" />'LE!</span>
-                        </h2>
+                        </h4>
 
                         <form style={{ zIndex: "2", position: "relative" }} onSubmit={handleSubmit}>
-                            <h2 className="signup-desc">KİŞİSEL BİLGİLER</h2>
-                            <div className="row mb-3">
-                                <div className="col">
+                            <h5 className="signup-desc">KİŞİSEL BİLGİLER</h5>
+                            <div className="row">
+                                <div className="col-lg-6 col-12">
                                     <input
                                         type="text"
-                                        className="form-control transparent-input"
+                                        className="form-control transparent-input mb-3"
                                         placeholder="Ad"
                                         name="firstName"
                                         value={formData.firstName}
                                         onChange={handleChange}
                                     />
                                 </div>
-                                <div className="col">
+                                <div className="col-lg-6 col-12">
                                     <input
                                         type="text"
-                                        className="form-control transparent-input"
+                                        className="form-control transparent-input mb-3"
                                         placeholder="Soyad"
                                         name="lastName"
                                         value={formData.lastName}

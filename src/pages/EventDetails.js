@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { FaGoogle, FaApple, FaRegHeart, FaCheck } from "react-icons/fa";
+import { FaArrowLeftLong } from "react-icons/fa6";
 import { IoShareSocialOutline, IoClose } from "react-icons/io5";
 import "../assets/scss/pages/_eventDetails.scss";
 import EventSlider from "../components/EventSlider";
@@ -109,7 +110,15 @@ export default function EventDetails() {
 
     return (
         <div id="detail-page" className="detail-container">
+            <div className='container detail-info-mobile'>
+                <button className='prev-button'><FaArrowLeftLong/></button>
+                <div>
+                    <button className="geik-action-btn"><FaRegHeart/></button>
+                    <button className="geik-action-btn"><IoShareSocialOutline/></button>
+                </div>
+            </div>
             <div className="container detail-banner">
+
                 <div className='background-blur' style={{ '--dynamic-bg-color': bgColor }}></div>
                 <div className="detail-image-wrapper">
                     <img src="/assets/images/detailimg.png" alt="detailimg" className="detail-image"/>
@@ -117,7 +126,7 @@ export default function EventDetails() {
 
                 <div className="detail-info container">
                     <div className="detail-text">
-                        <h1 className="detail-title">Etkinlik Adı</h1>
+                        <h2>Etkinlik Adı</h2>
                         <p className="detail-location">Konum bilgisi - Kısa bir alt açıklama</p>
                     </div>
                     <div className="detail-actions">
@@ -136,7 +145,7 @@ export default function EventDetails() {
                     <button className={`geik-button-2 ${activeTab === "rules" ? "active-2" : ""}`} onClick={() => setActiveTab("rules")}>Kurallar</button>
                 </div>
                 <div className="row">
-                    <div className="col-6">
+                    <div className="col-lg-6 col-12">
                         <div className="tab-content">
                             {activeTab === "details" && (
                                 <p>
@@ -162,18 +171,18 @@ export default function EventDetails() {
                         </div>
                     </div>
 
-                    <div className="col-6 information-col">
+                    <div className="col-lg-6 col-12 information-col">
                         <div className="information-grid">
-                            <div className="information-card"><h4>Etkinlik Türü</h4><p>{eventInformation.eventType}</p></div>
-                            <div className="information-card"><h4>Konum</h4><p>{eventInformation.location}</p></div>
+                            <div className="information-card"><h5>Etkinlik Türü</h5><p>{eventInformation.eventType}</p></div>
+                            <div className="information-card"><h5>Konum</h5><p>{eventInformation.location}</p></div>
                         </div>
                         <div className="information-grid">
-                            <div className="information-card"><h4>Yaş Sınırı</h4><p>{eventInformation.ageLimit}</p></div>
-                            <div className="information-card"><h4>Tarih</h4><p>{eventInformation.date}<br/><span>{eventInformation.time}</span></p></div>
+                            <div className="information-card"><h5>Yaş Sınırı</h5><p>{eventInformation.ageLimit}</p></div>
+                            <div className="information-card"><h5>Tarih</h5><p>{eventInformation.date}<br/><span>{eventInformation.time}</span></p></div>
                         </div>
                         <div className="information-grid">
-                            <div className="information-card"><h4>Kontenjan</h4><p>{eventInformation.quota}</p></div>
-                            <div className="information-card"><h4>Sanatçı</h4><p>{eventInformation.artist}</p></div>
+                            <div className="information-card"><h5>Kontenjan</h5><p>{eventInformation.quota}</p></div>
+                            <div className="information-card"><h5>Sanatçı</h5><p>{eventInformation.artist}</p></div>
                         </div>
                     </div>
                 </div>
@@ -195,7 +204,7 @@ export default function EventDetails() {
                                     </div>
                                     <div className="popup-info">
                                         <div className="popup-text">
-                                            <h2>Etkinlik Adı Konseri</h2>
+                                            <h5>Etkinlik Adı Konseri</h5>
                                             <p>26 Şubat Çarşamba <span>21.00</span></p>
                                             <p>Jolly Joker Ankara</p>
                                         </div>
@@ -217,7 +226,7 @@ export default function EventDetails() {
                                     </div>
                                     <div className="popup-info">
                                         <div className="popup-text">
-                                            <h2>Etkinlik Adı Konseri</h2>
+                                            <h5>Etkinlik Adı Konseri</h5>
                                             <p>26 Şubat Çarşamba <span>21.00</span></p>
                                             <p>Jolly Joker Ankara</p>
                                         </div>
@@ -259,7 +268,7 @@ export default function EventDetails() {
                             <div className="popup-step">
                                 <div className="popup-content-step-2">
                                     <div className="popup-text">
-                                        <h2>Etkinlik Adı Konseri</h2>
+                                        <h5>Etkinlik Adı Konseri</h5>
                                         <p dangerouslySetInnerHTML={{ __html: getStepTwoText().replace(/\n/g, '<br/>') }}></p>
                                     </div>
                                     <div className="popup-buttons">
@@ -273,7 +282,7 @@ export default function EventDetails() {
                         {popupStep === 3 && (
                             <div className="popup-step">
                                 <div className="popup-content-step-3">
-                                    <h2>Etkinlik Adı Konseri’ne <br/>bilet aldınız!</h2>
+                                    <h5>Etkinlik Adı Konseri’ne <br/>bilet aldınız!</h5>
                                     <p>26 Şubat Çarşamba <span>21.00</span> \ Jolly Joker Ankara</p>
                                     <div className="popup-qr">
                                         <img src="/assets/images/qrkod.png" alt="eventqr" />
@@ -300,7 +309,7 @@ export default function EventDetails() {
                         <button className='popup-close' onClick={() => setShowLoginPopup(false)}><IoClose /></button>
                         <div className='popup-singup_options'>
                             <div className="container">
-                                <div className="row justify-content-center">
+                                <div className="row justify-content-center mobile">
                                     <p className="popup-description">BU ETKİNLİĞE KATILMAK <br/>İÇİN GİRİŞ YAP YA DA KAYDOL</p>
                                         
                                     <button className="popup-singup_btn_primary" onClick={() => navigate("/kayit-ol")}>Kaydol</button>

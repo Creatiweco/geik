@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { FaArrowLeftLong } from "react-icons/fa6";
 import { FaGoogle, FaApple, FaRegHeart } from "react-icons/fa";
 import { IoShareSocialOutline, IoClose, IoPlayOutline } from "react-icons/io5";
 import "../assets/scss/pages/_eventDetails.scss";
@@ -60,6 +61,13 @@ export default function EventDetails() {
 
     return (
         <div id="detail-page" className="detail-container">
+            <div className='container detail-info-mobile'>
+                <button className='prev-button'><FaArrowLeftLong/></button>
+                <div>
+                    <button className="geik-action-btn"><FaRegHeart/></button>
+                    <button className="geik-action-btn"><IoShareSocialOutline/></button>
+                </div>
+            </div>
             <div className={`container detail-banner ${showVideoPlayer ? 'video' : ''}`}>
                 <div className='background-blur' style={{ '--dynamic-bg-color': bgColor }}></div>
                 {showVideoPlayer ? (
@@ -81,7 +89,7 @@ export default function EventDetails() {
                 {!showVideoPlayer && (
                     <div className="detail-info container">
                         <div className="detail-text">
-                            <h1 className="detail-title">Etkinlik Adı</h1>
+                            <h2>Etkinlik Adı</h2>
                             <p className="detail-location">Konum bilgisi - Kısa bir alt açıklama</p>
                         </div>
                         <div className="detail-actions">
@@ -99,7 +107,7 @@ export default function EventDetails() {
                     <button className={`geik-button-2 ${activeTab === "staff" ? "active-2" : ""}`} onClick={() => setActiveTab("staff")}>Kadro</button>
                 </div>
                 <div className="row">
-                    <div className="col-6">
+                    <div className="col-lg-6 col-12">
                         <div className="tab-content">
                             {activeTab === "details" && (
                                 <p>
@@ -120,15 +128,15 @@ export default function EventDetails() {
                         </div>
                     </div>
 
-                    <div className="col-6 information-col">
+                    <div className="col-lg-6 col-12 information-col">
                         <div className="information-grid">
-                            <div className="information-card"><h4>Etkinlik Türü</h4><p>{eventInformation.eventType}</p></div>
+                            <div className="information-card"><h5>Etkinlik Türü</h5><p>{eventInformation.eventType}</p></div>
                         </div>
                         <div className="information-grid">
-                            <div className="information-card"><h4>Sanatçı</h4><p>{eventInformation.artist}</p></div>
+                            <div className="information-card"><h5>Sanatçı</h5><p>{eventInformation.artist}</p></div>
                         </div>
                         <div className="information-grid">
-                            <div className="information-card"><h4>Süre</h4><p>{eventInformation.time}</p></div>
+                            <div className="information-card"><h5>Süre</h5><p>{eventInformation.time}</p></div>
                         </div>
                     </div>
                 </div>

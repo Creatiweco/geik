@@ -10,11 +10,33 @@ export default function EventSliderVertical({ sectionTitle, events }) {
     return (
         <section className="event-section">
             <div className="container">
-                <h2 className="section-title">{sectionTitle}</h2>
+                <h4 className="section-title">{sectionTitle}</h4>
                 <Swiper
                     slidesPerView={4} 
                     spaceBetween={26} 
                     loop={false}
+                    breakpoints={{
+                        0: {
+                            slidesPerView:1.3,
+                            spaceBetween:12,
+                        },
+                        576: {
+                          slidesPerView:1.5,
+                          spaceBetween:12,
+                        },
+                        768: {
+                            slidesPerView:4,
+                            spaceBetween:26,
+                        },
+                        992: {
+                          slidesPerView:4,
+                          spaceBetween:26,
+                        },
+                        1200: {
+                            slidesPerView:4,
+                            spaceBetween:26,
+                        },
+                    }}
                     className="event-swiper"
                 >
                     {events.map((event) => (
@@ -28,7 +50,7 @@ export default function EventSliderVertical({ sectionTitle, events }) {
                                     <div className="event-info">
                                         {event.venue && (
                                             <>
-                                                <h3 className="event-name-bottom">{event.name}</h3>
+                                                <h5 className="event-name-bottom">{event.name}</h5>
                                                 <p className="event-venue">{event.venue}</p>
                                                 <p className="event-date-bottom"><span>{event.month}</span> {event.day}</p>
                                             </>

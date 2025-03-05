@@ -59,7 +59,7 @@ export default function Profile() {
                             <img src="/assets/images/profilePhoto.png" alt="pp" style={{border: `5px solid ${borderColor}`}}/>
                         </div>
                         <div className="profile-details">
-                            <h2>İsim Soyisim</h2>
+                            <h3>İsim Soyisim</h3>
                             <div className="profile-actions">
                                 <button className="geik-action-btn">
                                     <IoShareSocialOutline />
@@ -94,7 +94,7 @@ export default function Profile() {
                                     </div>
                                     <div className="ticket-details">
                                         <div className="ticket-info">
-                                            <h4 className="ticket-title"><LuMicVocal />{ticket.name}</h4>
+                                            <h4><LuMicVocal />{ticket.name}</h4>
                                             <p className="ticket-date"><CgCalendarDates />{ticket.date} <span>{ticket.time}</span></p>
                                             <p className="ticket-location"><GrLocation />{ticket.venue}</p>
                                         </div>
@@ -119,10 +119,10 @@ export default function Profile() {
                             <div className="row">
                                 <div className="col-lg-7 col-12">
                                     <div className="profile-settings">
-                                        <h3 className="settings-title">Hesap Ayarları</h3>
+                                        <h4 className="settings-title">Hesap Ayarları</h4>
     
                                         <div className="settings-section nickname-settings">
-                                            <h4 className="settings-subtitle">Kullanıcı Adı</h4>
+                                            <h5 className="settings-subtitle">Kullanıcı Adı</h5>
                                             <div className="settings-content">
                                                 {isEditingNickname ? (
                                                     <input
@@ -144,7 +144,7 @@ export default function Profile() {
                                         </div>
                             
                                         <div className="settings-section email-settings">
-                                            <h4 className="settings-subtitle">Mail Adresi</h4>
+                                            <h5 className="settings-subtitle">Mail Adresi</h5>
                                             <div className="settings-content">
                                                 {isEditingEmail ? (
                                                     <input
@@ -166,7 +166,7 @@ export default function Profile() {
                                         </div>
     
                                         <div className="settings-section password-settings">
-                                            <h4 className="settings-subtitle">Şifre</h4>
+                                            <h5 className="settings-subtitle">Şifre</h5>
                                             <div className="settings-content">
                                                 <div className="password-inputs">
                                                     <input type="password" placeholder="Eski Şifre" className="password-field" />
@@ -178,7 +178,7 @@ export default function Profile() {
                                         </div>
 
                                         <div className="settings-section student-certificate">
-                                            <h4 className="settings-subtitle">Öğrenci Belgesi</h4>
+                                            <h5 className="settings-subtitle">Öğrenci Belgesi</h5>
                                             <p className="settings-subdesc">İndirimli abonelik ve özel fırsatlar için öğrenci hesabına geç!</p>
                                             <div className="settings-content">
                                                 <div className="file-upload-wrapper">
@@ -194,7 +194,7 @@ export default function Profile() {
 
     
                                         <div className="settings-section delete-account">
-                                            <h4 className="settings-subtitle">Hesabı Sil</h4>
+                                            <h5 className="settings-subtitle">Hesabı Sil</h5>
                                             <div className="settings-content">
                                                 <p className="settings-warning">
                                                     Bu işlem geri alınamaz ve tüm verileriniz kalıcı olarak silinir.

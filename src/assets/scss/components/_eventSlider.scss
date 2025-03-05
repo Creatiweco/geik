@@ -10,10 +10,6 @@
   }
 
   .section-title {
-    font-family: Righteous;
-    font-weight: 400;
-    font-size: 24px;
-    line-height: 29.8px;
     margin-bottom: 30px;
   }
 
@@ -97,12 +93,7 @@
               position: absolute;
               bottom: 9px;
               left: 9px;
-              font-family: Righteous;
-              font-weight: 400;
-              font-size: 20px;
-              line-height: 24px;
               letter-spacing: 1%;
-              color: rgba(255, 255, 255, 1);
             }
         }
 
@@ -219,3 +210,61 @@
         }
   }
 }
+
+@media only screen and (max-width: 575px) {
+  .event-section{
+    padding: 15px 0;
+
+    .event-swiper{
+      .event-card{
+        .event-image-vertical{
+          .event-plus{
+            top: 14px;
+            right: 14px;
+            background: none;
+            padding: 0;
+            width: 12px;
+            height: 12px;
+          }
+        }
+
+        .event-image{
+          .event-plus{
+            top: 14px;
+            right: 14px;
+            background: none;
+            padding: 0;
+            width: 12px;
+            height: 12px;
+          }
+
+          .event-name{
+            font-size: 16px;
+            line-height: 24px;
+          }
+        }
+
+        .event-info{
+          .event-venue{
+            font-size: 14px;
+          }
+
+          .event-date-bottom{
+            font-size: 14px;
+
+            span{
+              font-size: 14px;
+            }
+          }
+        }
+      }
+    }
+
+    .section-title{
+      font-size: 18px;
+    }
+  }
+}
+@media only screen and (min-width: 576px) and (max-width: 767px) {}
+@media only screen and (min-width: 768px) and (max-width: 991px) {}
+@media only screen and (min-width: 992px) and (max-width: 1199px) {}

@@ -39,14 +39,6 @@
                 width: 100%;
                 gap: 15px;
 
-                h2{
-                    font-family: $base-font;
-                    font-weight: 400;
-                    font-size: 32px;
-                    line-height: 39.73px;
-                    color: $text-color;
-                }
-
                 .profile-actions{
                     display: flex;
                     gap: 10px;
@@ -167,17 +159,11 @@
 
             .profile-settings{
                 .settings-title{
-                    font-family: $base-font;
-                    font-weight: 400;
-                    font-size: 24px;
-                    line-height: 29.8px;
-                    letter-spacing: 0%;
-                    color: $text-color;
                     margin-bottom: 60px;
                 }
 
                 .settings-subtitle{
-                    font-family: Righteous;
+                    font-family: $base-font;
                     font-weight: 400;
                     font-size: 16px;
                     line-height: 19.87px;
@@ -355,12 +341,6 @@
 
             .payment-section{
                 .payment-title {
-                    font-family: $base-font;
-                    font-weight: 400;
-                    font-size: 24px;
-                    line-height: 29.8px;
-                    letter-spacing: 0%;
-                    color: $text-color;
                     margin-bottom: 50px;
                 }
 
@@ -491,11 +471,6 @@
 
     .notifications-section {
         h4 {
-            font-family: $base-font;
-            font-weight: 400;
-            font-size: 24px;
-            line-height: 29.8px;
-            letter-spacing: 0%;
             padding-bottom: 30px;
         }
     

@@ -24,11 +24,6 @@
     }
   
     .signup-title {
-      color: white;
-      font-size: 24px;
-      font-weight: 400;
-      margin-bottom: 20px;
-      line-height: 45px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -67,11 +62,6 @@
     }
 
     .signup-desc {
-        color: white;
-        font-size: 20px;
-        font-weight: 400;
-        margin-bottom: 20px;
-        line-height: 24px;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -252,3 +242,21 @@
       border: none;
     }
 }
+
+
+@media only screen and (max-width: 575px) {
+  .singup_container{
+      .container{
+          max-width: 100%;
+          display: flex;
+          justify-content: center;
+
+          .mobile{
+              width: 100%;
+          }
+      }
+  }
+}
+@media only screen and (min-width: 576px) and (max-width: 767px) {}
+@media only screen and (min-width: 768px) and (max-width: 991px) {}
+@media only screen and (min-width: 992px) and (max-width: 1199px) {}

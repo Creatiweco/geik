@@ -1,7 +1,6 @@
 @import "../globals";
 
 .detail-container {
-
     .video{
         &::before,
         &::after{
@@ -44,6 +43,10 @@
             }
         }
         
+    }
+
+    .detail-info-mobile{
+        display: none;
     }
 
     .detail-banner {
@@ -113,14 +116,6 @@
 
             .detail-text{
                 margin-bottom: 30px;
-
-                .detail-title{
-                    font-family: $base-font;
-                    font-weight: 400;
-                    font-size: 38px;
-                    line-height: 47.18px;
-                    color: $text-color;
-                }
 
                 .detail-location{
                     font-family: $second-font;
@@ -223,7 +218,6 @@
     .information-col{
         display: flex;
         justify-content: space-between;
-        padding-left: 50px;
 
         .information-grid{
             display: flex;
@@ -235,7 +229,7 @@
                 flex-direction: column;
                 gap: 20px;
 
-                h4{
+                h5{
                     font-family: $base-font;
                     font-weight: 400;
                     font-size: 16px;
@@ -334,14 +328,6 @@
                         display: flex;
                         flex-direction: column;
                         gap: 12px;
-
-                        h2{
-                            font-family: $base-font;
-                            font-weight: 400;
-                            font-size: 20px;
-                            line-height: 24.83px;
-                            color: $text-color;
-                        }
 
                         p{
                             font-family: $second-font;
@@ -457,15 +443,6 @@
                 align-items: center;
                 text-align: center;
 
-                h2{
-                    font-family: $base-font;
-                    font-weight: 400;
-                    font-size: 32px;
-                    line-height: 39.73px;
-                    color: rgba(255, 255, 255, 1);
-                    margin-bottom: 15px;
-                }
-
                 p{
                     margin-bottom: 33px;
                 }
@@ -537,3 +514,161 @@
         }
     }
 }
+
+@media only screen and (max-width: 575px) {
+    .detail-container{
+        margin: 0 18px;
+
+        .detail-info-mobile{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 42px 0 36px 0;
+
+            .prev-button{
+                font-size: 21px;
+                padding: 0;
+            }
+
+            .geik-action-btn{
+                padding: 10px 12px;
+            }
+        }
+
+        .detail-banner{
+            display: flex;
+
+            .background-blur{
+                left: 10%;
+                top: 25%;
+                width: 375px;
+                height: 375px;
+                filter: blur(40px);
+            }
+            
+            &::after,
+            &::before{
+                content: none;
+            }
+
+            .detail-image-wrapper{
+                max-width: 140px;
+                height: 180px;
+                overflow: hidden;
+
+                .detail-image{
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                }
+            }
+
+            .detail-info{
+                position: unset;
+                display: flex;
+                flex-direction: column;
+                justify-content: flex-end;
+
+                .detail-actions{
+                    .geik-button-1 {
+                        padding: 8px 16px;
+                    }
+                    .geik-action-btn{
+                        display: none;
+                    }
+                }
+
+                .detail-text{
+                    margin-bottom: 18px;
+
+                    h2{
+                        font-size: 24px;
+                        line-height: 29.8px;
+                    }
+
+                    .detail-location{
+                        font-size: 13px;
+                    }
+                }
+            }
+        }
+
+        .detail-content{
+            .tab-buttons{
+                width: 100%;
+            }
+            .information-col{
+                padding-top: 70px;
+                text-align: center;
+                flex-direction: column;
+                gap: 45px;
+
+                .information-grid{
+                    flex-direction: row;
+                    gap: 0;
+                    justify-content: space-around;
+
+                    .information-card{
+                        width: 140px;
+                    }
+                }
+            }
+        }
+
+        .popup-singup_options{
+            .container{
+                max-width: 100%;
+                display: flex;
+                justify-content: center;
+      
+                .mobile{
+                    width: 100%;
+                }
+            }
+        }
+
+        .popup-overlay{
+            .popup{
+                width: 100%;
+                height: 100%;
+
+                .popup-step{
+                    .popup-content-step-1{
+                        flex-direction: column;
+                        gap: 40px;
+
+                        .event-layout{
+                            width: 100%;
+                            height: 220px;
+                        }
+
+                        .popup-info{
+                            gap: 35px;
+                            align-items: center;
+                            text-align: center;
+
+                            .popup-buttons{
+                                flex-direction: column;
+                                width: 100%;
+                            }
+                        }
+                    }
+
+                    .popup-content-step-2{
+                        padding: 0 29px;
+                    }
+
+                    .popup-content-step-3{
+                        .popup-qr{
+                            flex-direction: column;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+}
+@media only screen and (min-width: 576px) and (max-width: 767px) {}
+@media only screen and (min-width: 768px) and (max-width: 991px) {}
+@media only screen and (min-width: 992px) and (max-width: 1199px) {}

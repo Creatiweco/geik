@@ -28,10 +28,55 @@ body{
     position: relative;
 }
 
-p, li, ul, h1, h2, h3, h4, a{
+p, li, ul, h1, h2, h3, h4, h5, a{
     margin: 0;
     padding: 0;
     text-decoration: none;
+}
+
+h1{
+    font-family: $base-font;
+    font-weight: 400;
+    font-size: 40px;
+    line-height: 49.67px;
+    letter-spacing: 0%;
+    color: $text-color;
+}
+
+h2{
+    font-family: $base-font;
+    font-weight: 400;
+    font-size: 38px;
+    line-height: 47.18px;
+    letter-spacing: 0%;
+    color: $text-color;
+}
+
+h3{
+    font-family: $base-font;
+    font-weight: 400;
+    font-size: 32px;
+    line-height: 39.73px;
+    letter-spacing: 0%;
+    color: $text-color;
+}
+
+h4{
+    font-family: $base-font;
+    font-weight: 400;
+    font-size: 24px;
+    line-height: 47.18px;
+    letter-spacing: 0%;
+    color: $text-color;
+}
+
+h5{
+    font-family: $base-font;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 24.83px;
+    letter-spacing: 0%;
+    color: $text-color;
 }
 
 button{
@@ -132,3 +177,12 @@ button{
         color: rgba(10, 12, 16, 1);
     }
 }
+
+@media only screen and (max-width: 575px) {
+    .mobile-gap{
+        margin:0 18px;
+    }
+}
+@media only screen and (min-width: 576px) and (max-width: 767px) {}
+@media only screen and (min-width: 768px) and (max-width: 991px) {}
+@media only screen and (min-width: 992px) and (max-width: 1199px) {}

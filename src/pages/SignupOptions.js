@@ -17,7 +17,7 @@ export default function SignupOptions() {
             }}
         >
             <div className="container">
-                <div className="row justify-content-center">
+                <div className="row justify-content-center mobile">
                     <img src="/assets/images/geik_logo_blue.svg" alt="Logo" className="singup_logo" />
                     <p className="description">HESABINI OLUŞTUR VE GEİKLE!</p>
                     

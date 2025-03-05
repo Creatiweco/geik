@@ -2,7 +2,7 @@
 
 .navbar {
     padding: 0;
-    padding: 30px 0 0 0;
+    margin: 30px 0 0 0;
 
     .navbar-logo img {
         max-width: 80px;
@@ -63,6 +63,10 @@
                 scale: 1.1;
                 cursor: pointer;
             }
+        }
+
+        .navbar-mobile-menu{
+            display: none;
         }
 
         .user-avatar {
@@ -238,10 +242,63 @@
 }
 
 .detail-navbar {
-    width: 100%;
     z-index: 999;
 
     .navbar-links::before{
         content: none !important;
     }
 }
+
+@media only screen and (max-width: 575px) {
+    .navbar {
+        margin: 17px 18px 0 18px;
+        padding: 0;
+
+        .container{
+            padding: 0;
+        }
+
+        .navbar-links{
+            display: none;
+        }
+
+        .navbar-right{
+            .geik-button-1 {
+                display: none;
+            }
+
+            .navbar-icon{
+                font-size: 21px;
+            }
+
+            .navbar-mobile-menu{
+                display: flex;
+                font-size: 21px;
+            }
+
+            .login-icon{
+                display: none;
+            }
+        } 
+
+        .navbar-logo img{
+            max-width: 55px;
+        }
+
+        .search-overlay{
+            padding: 0 18px;
+
+            .filter-buttons{
+                flex-wrap: wrap;
+            }
+
+            .search-nav{
+                flex-direction: column;
+                gap: 12px;
+            }
+        } 
+    }
+}
+@media only screen and (min-width: 576px) and (max-width: 767px) {}
+@media only screen and (min-width: 768px) and (max-width: 991px) {}
+@media only screen and (min-width: 992px) and (max-width: 1199px) {}

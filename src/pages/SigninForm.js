@@ -59,10 +59,10 @@ export default function SigninForm() {
             }}
         >
             <div className="container">
-                <div className="row justify-content-center">
-                    <h2 className="signup-title">
+                <div className="row justify-content-center mobile">
+                    <h4 className="signup-title pb-5">
                         HESABINA GİRİŞ YAP VE <span><img src="/assets/images/geik_logo_blue.svg" alt="Logo" className="signup-logo" />'LE!</span>
-                    </h2>
+                    </h4>
                     <form 
                         className="signup-form" 
                         style={{ zIndex: "2", position: "relative" }} 

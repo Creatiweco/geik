@@ -9,6 +9,9 @@ export default function Footer() {
     return(
         <footer>
             <div className="container">
+                <div className="footer-mobile-logo">
+                    <img src="/assets/images/geik_logo_blue.svg" alt="footer-logo"/>
+                </div>
                 <div className="main-footer">
                     <div className="footer-left">
                         <div className="links-col">

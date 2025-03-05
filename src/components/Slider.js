@@ -103,13 +103,68 @@ export default function Slider() {
                   slidesPerView={1}
                   centeredSlides={true}
                   loop={true}
-                  navigation
-                  coverflowEffect={{
-                    rotate: 0,
-                    stretch: 0,
-                    depth: 150,
-                    modifier: 1.5,
-                    slideShadows: false,
+                  navigation={true}
+                  breakpoints={{
+                    0: {
+                      navigation:{
+                        enabled: false,
+                      },
+                      coverflowEffect:{
+                        rotate: 0,
+                        stretch: 0,
+                        depth: 150,
+                        modifier: 1.5,
+                        slideShadows: false,
+                      },
+                    },
+                    576: {
+                      navigation:{
+                        enabled: false,
+                      },
+                      coverflowEffect:{
+                        rotate: 0,
+                        stretch: 0,
+                        depth: 150,
+                        modifier: 1.5,
+                        slideShadows: false,
+                      },
+                    },
+                    768: {
+                      navigation:{
+                        enabled: true,
+                      },
+                      coverflowEffect:{
+                        rotate: 0,
+                        stretch: 0,
+                        depth: 150,
+                        modifier: 1.5,
+                        slideShadows: false,
+                      },
+                    },
+                    992: {
+                      navigation:{
+                        enabled: true,
+                      },
+                      coverflowEffect:{
+                        rotate: 0,
+                        stretch: 0,
+                        depth: 150,
+                        modifier: 1.5,
+                        slideShadows: false,
+                      },
+                    },
+                    1200: {
+                      navigation:{
+                        enabled: true,
+                      },
+                      coverflowEffect:{
+                        rotate: 0,
+                        stretch: 0,
+                        depth: 150,
+                        modifier: 1.5,
+                        slideShadows: false,
+                      },
+                    },
                   }}
                   spaceBetween={190}
                   className="custom-swiper"

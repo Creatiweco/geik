@@ -3,12 +3,12 @@ import { GrLocationPin } from "react-icons/gr";
 import { Link } from "react-router-dom";
 import "../assets/scss/pages/_eventCalender.scss";
 import { FaChevronDown, FaChevronRight } from "react-icons/fa";
-import filters from "../data/filterData"; // Filtreler merkezi.
-import { calenderEvents } from "../data/eventData"; // Takvim etkinlikleri buradan gelecek.
+import filters from "../data/filterData"; 
+import { calenderEvents } from "../data/eventData";
 
 export default function EventCalender() {
     const [isOpen, setIsOpen] = useState(false);
-    const [selectedFilter, setSelectedFilter] = useState("tumu"); // Default tümü seçili
+    const [selectedFilter, setSelectedFilter] = useState("tumu"); 
 
     const handleFilterSelect = (filterCategoryName) => {
         setSelectedFilter(filterCategoryName);
@@ -24,7 +24,7 @@ export default function EventCalender() {
         <div className="event-calender">
             <div className="container">
                 <div className="calender-heading">
-                    <h2>TAKVİM</h2>
+                    <h1>TAKVİM</h1>
                     <div className="custom-select">
                         <div className="select-box" onClick={() => setIsOpen(!isOpen)}>
                             <span>{filters.find(f => f.categoryName === selectedFilter)?.label || "Tümü"}</span>
@@ -46,7 +46,6 @@ export default function EventCalender() {
 
                 <div className="calender-body">
                     {calenderEvents.map((event, index) => {
-                        // Her tarih için uygun etkinlikleri filtrele
                         const filteredItems = event.items.filter(
                             item => selectedFilter === "tumu" || item.category.toLowerCase() === selectedFilter
                         );
@@ -55,10 +54,10 @@ export default function EventCalender() {
 
                         return (
                             <div key={index} className="calender-row row">
-                                <div className="col-2 calender-date">
-                                    <h2>{event.date}</h2>
+                                <div className="col-lg-2 col-12 calender-date">
+                                    <h3>{event.date}</h3>
                                 </div>
-                                <div className="col-10 calender-grid">
+                                <div className="col-lg-10 col-12 calender-grid">
                                     {filteredItems.map((item, i) => {
                                         const IconComponent = getIconByCategory(item.category);
                                         return (
@@ -68,7 +67,7 @@ export default function EventCalender() {
                                                     <p>{item.time}</p>
                                                 </div>
                                                 <div className="right-col">
-                                                    <h2>{item.title}</h2>
+                                                    <h5>{item.title}</h5>
                                                     <div className="location">
                                                         <p>{item.location}</p>
                                                         <a href="https://maps.app.goo.gl/ds5nzextcXmeWMr1A">

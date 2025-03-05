@@ -9,13 +9,7 @@
         align-items: center;
         margin-bottom: 96px;
         position: relative;
-        overflow: visible !important; // Menü üstte çıksın
-
-        h2 {
-            font-family: $base-font;
-            font-size: 40px;
-            font-weight: 400;
-        }
+        overflow: visible !important; 
 
         .custom-select {
             position: relative;
@@ -95,13 +89,6 @@
         flex-direction: column;
         gap: 55px;
 
-        .calender-date {
-            font-family: $base-font;
-            font-weight: 400;
-            font-size: 32px;
-            line-height: 39.73px;
-        }
-
         .calender-grid {
             display: flex;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -121,7 +108,7 @@
 
                     .left-col svg,
                     .left-col p,
-                    .right-col h2,
+                    .right-col h5,
                     .right-col .location,
                     .right-col .location svg {
                         color: #191D28;
@@ -158,13 +145,8 @@
                     gap: 6px;
                     padding: 20px 0 20px 19px;
 
-                    h2 {
-                        font-family: $base-font;
-                        font-weight: 400;
-                        font-size: 20px;
-                        line-height: 24px;
+                    h3 {
                         letter-spacing: 1%;
-                        color: $text-color;
                         transition: 0.4s ease;
                     }
 
@@ -192,3 +174,38 @@
         }
     }
 }
+
+@media only screen and (max-width: 575px) {
+    .event-calender{
+        margin: 50px 0 100px 0;
+
+        .calender-heading{
+            margin-bottom: 40px;
+
+            h1{
+                font-size: 24px;
+                line-height: 29.8px;
+            }
+
+            .custom-select{
+                width: 128px;
+            }
+        }
+    }
+
+    .calender-date{
+        margin-bottom: 20px;
+
+        h3{
+            font-size: 20px;
+        }
+    }
+
+    .calender-grid{
+        flex-direction: column;
+    }
+
+}
+@media only screen and (min-width: 576px) and (max-width: 767px) {}
+@media only screen and (min-width: 768px) and (max-width: 991px) {}
+@media only screen and (min-width: 992px) and (max-width: 1199px) {}

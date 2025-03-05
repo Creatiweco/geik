@@ -3,6 +3,7 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import "../assets/scss/components/_navbar.scss";
 import { CiSearch } from "react-icons/ci";
 import { PiHeartStraight } from "react-icons/pi";
+import { HiOutlineBars3BottomLeft } from "react-icons/hi2";
 import { IoClose, IoEnterOutline, IoExitOutline } from "react-icons/io5";
 import filters from "../data/filterData"; 
 import { latestReleases, concerts, activity } from "../data/eventData";
@@ -109,6 +110,7 @@ export default function Navbar() {
                         <>
                             <button className="geik-button-1" onClick={() => navigate("/giris-secenekleri")}>Giriş Yap</button>
                             <button className="geik-button-1 button-white" onClick={() => navigate("/kayit-ol")}>Kayıt Ol</button>
+                            <HiOutlineBars3BottomLeft className="navbar-mobile-menu" />
                         </>
                     )}
                 </div>

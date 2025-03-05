@@ -7,13 +7,7 @@
         margin-bottom: 30px;
         
         .banner-title{
-            font-family: $base-font;
-            font-weight: 400;
-            font-size: 20px;
-            line-height: 24.83px;
-            letter-spacing: 0%;
             text-align: center;
-            color: $text-color;
             margin-bottom: 16px;
 
             img{
@@ -108,3 +102,45 @@
         z-index: 999;
     }
 }
+
+@media only screen and (max-width: 575px) {
+    .home-page{
+        .banner-container{
+            .banner-description{
+                font-size: 13px;
+            }
+            
+            .banner-title{
+                font-size: 16px;
+        
+                img{
+                    height: 20px;
+                }
+            }
+        }
+
+        .subscriber-banner{
+            gap: 12px;
+
+            .subscriber-actions{
+                justify-content: space-between;
+
+                .geik-button-1{
+                    display: none;
+                }
+            }
+
+            .subscriber-text{
+                p,
+                .subscriber-link,
+                .subscriber-tagline{
+                    font-size: 14px;
+                    line-height: 18px;
+                }
+            }
+        }
+    }
+}
+@media only screen and (min-width: 576px) and (max-width: 767px) {}
+@media only screen and (min-width: 768px) and (max-width: 991px) {}
+@media only screen and (min-width: 992px) and (max-width: 1199px) {}

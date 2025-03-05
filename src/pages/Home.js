@@ -22,25 +22,23 @@ export default function Home() {
         if (storedUser) {
             const parsedUser = JSON.parse(storedUser);
             setUser(parsedUser);
-            setIsUserLoggedIn(true);  // Kullanıcı giriş yapmış
+            setIsUserLoggedIn(true); 
     
-            // Eğer kullanıcı giriş yapmış ve abone değilse banner gözüksün
             if (!parsedUser.isSubscriber) {
                 setIsVisible(true);
             } else {
-                setIsVisible(false);  // Abone olanlara banner gösterme
+                setIsVisible(false); 
             }
         } else {
             setUser(null);
-            setIsUserLoggedIn(false);  // Kullanıcı giriş yapmamış
-            setIsVisible(true);  // Giriş yapmayanlara banner göster
+            setIsUserLoggedIn(false);  
+            setIsVisible(true);  
         }
     };
 
     useEffect(() => {
-        checkUserStatus();  // İlk renderda kontrol et
+        checkUserStatus();  
 
-        // Sayfa scroll eventini takip et
         const handleScroll = () => {
             setIsSticky(window.scrollY > 100);
         };
@@ -49,24 +47,23 @@ export default function Home() {
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
-    // Kullanıcı değişikliklerini (giriş-çıkış) dinle
     useEffect(() => {
-        window.addEventListener("storage", checkUserStatus);  // Başka tab'dan da kontrol edebilir
+        window.addEventListener("storage", checkUserStatus); 
         return () => window.removeEventListener("storage", checkUserStatus);
     }, []);
 
     return (
-        <div className="home-page">
+        <div className="home-page mobile-gap">
             <Slider />
 
             <div className="container banner-container">
                 <div className="row justify-content-center">
                     <div className="col-lg-9">
-                        <h4 className="banner-title">
+                        <h5 className="banner-title">
                             En Sevdiğin Etkinliklere 
                             <img src="/assets/images/geik_logo_blue.svg" alt="Logo" className="singup_logo" />
                             ile Anında Ulaş
-                        </h4>
+                        </h5>
                         <p className="banner-description">
                             Konserler, festivaller, tiyatro ve daha fazlası için biletini saniyeler içinde al! 
                             Güvenli ödeme, anında onay ve bildirimlerle etkinlik deneyimini zahmetsiz hale getiriyoruz. 
@@ -75,7 +72,6 @@ export default function Home() {
                     </div>
                 </div>
             </div>
-
 
             {isVisible && (
                 <div className={`container subscriber-banner ${isSticky ? "subscriber-banner-sticky" : ""}`}>
