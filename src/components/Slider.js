@@ -131,7 +131,7 @@ export default function Slider() {
                     },
                     768: {
                       navigation:{
-                        enabled: true,
+                        enabled: false,
                       },
                       coverflowEffect:{
                         rotate: 0,
