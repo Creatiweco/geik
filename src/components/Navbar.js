@@ -110,7 +110,17 @@ export default function Navbar() {
                         <>
                             <button className="geik-button-1" onClick={() => navigate("/giris-secenekleri")}>Giriş Yap</button>
                             <button className="geik-button-1 button-white" onClick={() => navigate("/kayit-ol")}>Kayıt Ol</button>
-                            <HiOutlineBars3BottomLeft className="navbar-mobile-menu" />
+                            <div className="user-menu-container">
+                                <HiOutlineBars3BottomLeft className="navbar-mobile-menu" />
+
+                                <div className="user-menu">
+                                    <ul>
+                                        <li><Link to="/">Ana Sayfa</Link></li>
+                                        <li><Link to="/takvim">Takvim</Link></li>
+                                        <li><Link to="/">Canlı TV</Link></li>
+                                    </ul>
+                                </div>
+                            </div>
                         </>
                     )}
                 </div>

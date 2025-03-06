@@ -38,11 +38,11 @@ export default function Footer() {
                     <div className="footer-right">
                         <ul>
                             <li><Link to="/">Anasayfa</Link></li>
-                            <li><Link to="/">Takvim</Link></li>
+                            <li><Link to="/takvim">Takvim</Link></li>
                             <li><Link to="/">Canlı</Link></li>
                             <li><Link to="/">Kategori</Link></li>
                             <li><Link to="/">Favorilerim</Link></li>
-                            <li><Link to="/">Profil</Link></li>
+                            <li><Link to="/profil">Profil</Link></li>
                             <li><Link to="/">Ayarlar</Link></li>
                         </ul>
                     </div>
