@@ -51,7 +51,7 @@ export default function SignupForm() {
         e.preventDefault();
         if (validateForm()) {
             const userData ={
-                fullName: `${formData.firstName} ${formData.lastName}`,
+                name: `${formData.firstName} ${formData.lastName}`,
                 email: formData.email,
                 phone: formData.phone,
                 password: formData.password,
