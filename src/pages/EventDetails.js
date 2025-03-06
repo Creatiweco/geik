@@ -159,9 +159,27 @@ export default function EventDetails() {
                 <div className="row">
                     <div className="col-lg-6 col-12">
                         {/* Detaylar sekmesi içeriği */}
-                        {activeTab === "details" && <p>Detay metni buraya gelecek...</p>}
-                        {activeTab === "staff" && <p>Kadro metni buraya gelecek...</p>}
-                        {activeTab === "rules" && <p>Kurallar metni buraya gelecek...</p>}
+                        {activeTab === "details" && (
+                                <p>
+                                    Etkinlik genelinde geçerli olan kurallara ek olarak, seanslara özgü ek düzenlemeler de yapılmıştır. Seans listesinde, katılacağınız seansın kurallarını bulabilirsiniz
+                                    <br/>
+                                    <br/>
+                                    Türk müziğinin en sıra dışı seslerinden biri olan Cem Adrian, geniş ses yelpazesi ve derin duygusal şarkılarıyla sahnede! Ses tellerinin ortalama bir insanın üç katı uzunluğunda olması, Adrian’a benzersiz bir vokal yeteneği kazandırıyor ve bas tonlardan soprano tınılara kadar geniş bir aralıkta şarkı söylemesine olanak tanıyor.
+                                    <br/>
+                                    <br/>
+                                    Kendi yazıp bestelediği şarkılarıyla dinleyicilerine duygusal bir yolculuk sunan Cem Adrian, konserlerinde müzikseverleri hem melodilerle hem de derin hislerle buluşturuyor. Unutulmaz bir müzik deneyimi yaşamak için bu konseri kaçırmayın!
+                                </p>
+                            )}
+                            {activeTab === "staff" && (
+                                <p>
+                                    Cem Adrian ve ekibi sahne alacaktır. Katılımcı sanatçılar, konser tarihine yakın açıklanacaktır.
+                                </p>
+                            )}
+                            {activeTab === "rules" && (
+                                <p>
+                                    Etkinlik alanına girişlerde kimlik ibrazı zorunludur. 13 yaş altı katılımcılar velileri ile birlikte etkinliğe katılabilir.
+                                </p>
+                            )}
                     </div>
 
                     {/* Sağdaki etkinlik bilgileri */}
@@ -169,6 +187,14 @@ export default function EventDetails() {
                         <div className="information-grid">
                             <div className="information-card"><h5>Etkinlik Türü</h5><p>{eventInformation.eventType}</p></div>
                             <div className="information-card"><h5>Konum</h5><p>{eventInformation.location}</p></div>
+                        </div>
+                        <div className="information-grid">
+                            <div className="information-card"><h5>Yaş Sınırı</h5><p>{eventInformation.ageLimit}</p></div>
+                            <div className="information-card"><h5>Tarih</h5><p>{eventInformation.date}<br/><span>{eventInformation.time}</span></p></div>
+                        </div>
+                        <div className="information-grid">
+                            <div className="information-card"><h5>Kontenjan</h5><p>{eventInformation.quota}</p></div>
+                            <div className="information-card"><h5>Sanatçı</h5><p>{eventInformation.artist}</p></div>
                         </div>
                     </div>
                 </div>
