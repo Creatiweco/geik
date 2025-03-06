@@ -26,7 +26,7 @@ export default function Navbar() {
         const storedUserId = localStorage.getItem("userId");
         if (storedUserId) {
             try {
-                const response = await axios.get(`https://67c98ac5102d684575c2808b.mockapi.io/users/${storedUserId}`);
+                const response = await axios.get(`https://67c98ac5102d684575c2808b.mockapi.io/users/users/${storedUserId}`);
                 setUser(response.data);
             } catch (error) {
                 console.error("Kullanıcı bilgileri alınırken hata oluştu:", error);
@@ -134,7 +134,7 @@ export default function Navbar() {
                         <>
                             <button className="geik-button-1" onClick={() => navigate("/giris-secenekleri")}>Giriş Yap</button>
                             <button className="geik-button-1 button-white" onClick={() => navigate("/kayit-ol")}>Kayıt Ol</button>
-                            <div className="user-menu-container">
+                            <div className="user-menu-container d-lg-none d-flex">
                                 <HiOutlineBars3BottomLeft className="navbar-mobile-menu" />
                                 <div className="user-menu">
                                     <ul>
