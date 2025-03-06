@@ -127,7 +127,7 @@ export default function Profile() {
         if (!confirmDelete) return;
 
         try {
-            await axios.delete(`https://67c98ac5102d684575c2808b.mockapi.io/users/${user.id}`);
+            await axios.delete(`https://67c98ac5102d684575c2808b.mockapi.io/users/users/${user.id}`);
             localStorage.removeItem("userId");
             localStorage.removeItem("user");
             setUser(null);
