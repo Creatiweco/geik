@@ -34,7 +34,7 @@ export default function SigninForm() {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        axios.get("https://67c98ac5102d684575c2808b.mockapi.io/users/users")
+        axios.get("https://67c98ac5102d684575c2808b.mockapi.io/users")
             .then(response => {
                 const users = response.data;
 
