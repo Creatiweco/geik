@@ -5,7 +5,7 @@ import { CiSearch } from "react-icons/ci";
 import { PiHeartStraight } from "react-icons/pi";
 import { HiOutlineBars3BottomLeft } from "react-icons/hi2";
 import { IoClose, IoEnterOutline, IoExitOutline } from "react-icons/io5";
-import filters from "../data/filterData"; 
+import filters from "../data/filterData";
 import { latestReleases, concerts, activity } from "../data/eventData";
 import EventSlider from "./EventSlider";
 import EventSliderVertical from "./EventSliderVertical";
@@ -15,31 +15,43 @@ export default function Navbar() {
     const [user, setUser] = useState(null);
     const [showSearch, setShowSearch] = useState(false);
     const [isDetailPage, setIsDetailPage] = useState(false);
-    const [selectedFilter, setSelectedFilter] = useState("tumu"); 
+    const [selectedFilter, setSelectedFilter] = useState("tumu");
 
     const location = useLocation();
     const searchRef = useRef(null);
     const navigate = useNavigate();
 
-    useEffect(() => {
-        const fetchUser = async () => {
-            const storedUserId = localStorage.getItem("userId");
-            if (storedUserId) {
-                try {
-                    const response = await axios.get(`https://67c98ac5102d684575c2808b.mockapi.io/users/${storedUserId}`);
-                    setUser(response.data);
-                } catch (error) {
-                    console.error("Kullanıcı bilgileri alınırken hata oluştu:", error);
-                    setUser(null);
-                }
-            } else {
+    // Kullanıcıyı fetch eden fonksiyon
+    const fetchUser = async () => {
+        const storedUserId = localStorage.getItem("userId");
+        if (storedUserId) {
+            try {
+                const response = await axios.get(`https://67c98ac5102d684575c2808b.mockapi.io/users/${storedUserId}`);
+                setUser(response.data);
+            } catch (error) {
+                console.error("Kullanıcı bilgileri alınırken hata oluştu:", error);
                 setUser(null);
             }
-        };
-    
+        } else {
+            setUser(null);
+        }
+    };
+
+    useEffect(() => {
         fetchUser();
+
+        // LocalStorage değişikliklerini dinle
+        const handleStorageChange = (e) => {
+            if (e.key === "userId") {
+                fetchUser();
+            }
+        };
+
+        window.addEventListener("storage", handleStorageChange);
+        return () => {
+            window.removeEventListener("storage", handleStorageChange);
+        };
     }, []);
-    
 
     useEffect(() => setShowSearch(false), [location.pathname]);
 
@@ -53,6 +65,7 @@ export default function Navbar() {
 
     const handleLogout = () => {
         localStorage.removeItem("user");
+        localStorage.removeItem("userId");
         setUser(null);
         navigate("/");
     };
@@ -113,10 +126,9 @@ export default function Navbar() {
                                     onClick={handleUserClick}
                                 />
                                 <div className="user-menu">
-                                    <button className="logout-btn" onClick={handleLogout}>Çıkış Yap <IoExitOutline/></button>
+                                    <button className="logout-btn" onClick={handleLogout}>Çıkış Yap <IoExitOutline /></button>
                                 </div>
                             </div>
-
                         </>
                     ) : (
                         <>
@@ -124,7 +136,6 @@ export default function Navbar() {
                             <button className="geik-button-1 button-white" onClick={() => navigate("/kayit-ol")}>Kayıt Ol</button>
                             <div className="user-menu-container">
                                 <HiOutlineBars3BottomLeft className="navbar-mobile-menu" />
-
                                 <div className="user-menu">
                                     <ul>
                                         <li><Link to="/">Ana Sayfa</Link></li>
@@ -166,7 +177,6 @@ export default function Navbar() {
                                     />
                                 )}
                             </div>
-
                         </div>
 
                         <div className="filter-buttons">
