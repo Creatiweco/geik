@@ -51,13 +51,13 @@ export default function SignupForm() {
         e.preventDefault();
         if (validateForm()) {
             const userData ={
-                firstName: `${formData.firstName} ${formData.lastName}`,
+                fullName: `${formData.firstName} ${formData.lastName}`,
                 email: formData.email,
                 phone: formData.phone,
                 password: formData.password,
             }
 
-            axios.post("https://jsonplaceholder.typicode.com/users", userData)
+            axios.post("https://67c98ac5102d684575c2808b.mockapi.io/users/users", userData)
             .then(response =>{
                 console.log("kayıt başarılı",response.data);
             })
