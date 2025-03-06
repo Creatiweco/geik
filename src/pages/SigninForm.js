@@ -34,17 +34,19 @@ export default function SigninForm() {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        axios.get("https://67c98ac5102d684575c2808b.mockapi.io/users")
+        axios.get("https://67c98ac5102d684575c2808b.mockapi.io/users")  // Doğru URL
             .then(response => {
                 const users = response.data;
+                console.log("Kullanıcılar:", users);
 
                 const foundUser = users.find(user =>
-                    user.email === formData.email && user.password === formData.password
+                    user.email.trim().toLowerCase() === formData.email.trim().toLowerCase() &&
+                    user.password === formData.password
                 );
 
                 if (foundUser) {
-                    localStorage.setItem("userId", foundUser.id);
                     localStorage.setItem("user", JSON.stringify(foundUser));
+                    localStorage.setItem("userId", foundUser.id);
                     navigate(returnUrl);
                 } else {
                     alert("Geçersiz email veya şifre!");
