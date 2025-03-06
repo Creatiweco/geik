@@ -23,52 +23,108 @@ export default function SignupForm() {
     });
 
     // Şifre göster/gizle butonu
-    const togglePasswordVisibility = () => {
-        setShowPassword(!showPassword);
-    };
+    const togglePasswordVisibility = () => setShowPassword(!showPassword);
 
     // Input ve checkbox değişikliklerini izleyen fonksiyon
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
-        setFormData({
-            ...formData,
-            [name]: type === "checkbox" ? checked : value,
-        });
+        
+        if(name === "phone") {
+            const formattedPhone = formatPhoneNumber(value);
+            setFormData({...formData, [name]: formattedPhone});
+        } else {
+            setFormData({
+                ...formData,
+                [name]: type === "checkbox" ? checked : value,
+            });
+        }
+    };
+
+    const formatPhoneNumber = (value) => {
+        let numbers = value.replace(/[^\d]/g, "");
+        if(numbers.startWith("90")) {
+            numbers = numbers.slice(2);
+        }
+        numbers = numbers.slice(0, 10);
+        let formatted = "+90"
+
+        if (numbers.length > 0) formatted += ` (${numbers.slice(0, 3)}`;
+        if (numbers.length >= 4) formatted += `) ${numbers.slice(3, 6)}`;
+        if (numbers.length >= 7) formatted += ` ${numbers.slice(6, 8)}`;
+        if (numbers.length >= 9) formatted += ` ${numbers.slice(8, 10)}`;
+
+        return formatted;
+    };
+
+    const isPasswordValid = (password) => {
+        const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
+        return regex.test(password);
     };
 
     // Formdaki tüm alanların dolu olup olmadığını ve checkbox'ların işaretlenip işaretlenmediğini kontrol eden fonksiyon
     const validateForm = () => {
-        const requiredFields = ["firstName", "lastName", "email", "phone", "password"];
+        const requiredFields = ["firstName", "lastName", "email", "phone", "password", "confirmPassword"];
         const emptyFields = requiredFields.filter(field => !formData[field].trim());
 
-        if (emptyFields.length > 0 || !formData.termsAccepted || !formData.privacyAccepted) {
-            alert("Lütfen tüm alanları eksiksiz doldurun ve gerekli onayları verin.");
+        if(emptyFields.length > 0) {
+            alert("lütfen Tüm Alanları Eksiksiz Doldurun")
             return false;
         }
+
+        if(formData.password !== formData.comfirmPassword) {
+            alert("Şifreler Eşleşmiyor")
+            return false;
+        }
+
+        if(!isPasswordValid(formData.password)) {
+            alert("Şifreniz en az 1 büyük harf, 1 küçük harf, 1 rakam ve 1 özel karakter içermelidir.")
+            return false;
+        }
+
+        if (!formData.termsAccepted || !formData.privacyAccepted) {
+            alert("Lütfen gerekli onay kutularını işaretleyin.");
+            return false;
+        }
+
         return true;
     };
 
     // Form submit olduğunda çalışır
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (validateForm()) {
+
+        if(!validateForm()) return;
+
+        axios.get("https://67c98ac5102d684575c2808b.mockapi.io/users/users")
+        .then(response => {
+            const existingUser = response.data.find(user => user.email.toLowerCase() === formData.email.toLowerCase())
+            
+            if (existingUser) {
+                alert("Bu e-posta adresiyle zaten bir hesap var");
+                return
+            }
+
             const userData = {
-                name: `${formData.firstName} ${formData.lastName}`,  // Ad ve soyadı birleştirip gönderiyoruz
+                name: `${formData.firstName} ${formData.lastName}`,
                 email: formData.email,
                 phone: formData.phone,
                 password: formData.password,
             };
 
-            // Kullanıcıyı mock API'ye kaydetme
             axios.post("https://67c98ac5102d684575c2808b.mockapi.io/users/users", userData)
-                .then(response => {
-                    console.log("Kayıt başarılı", response.data);
-                    navigate("/");  // Başarılı kayıt sonrası ana sayfaya yönlendir
-                })
-                .catch(error => {
-                    console.log("Kayıt başarısız", error);
-                });
-        }
+            .then(() => {
+                alert("Kayıt başarılı!")
+                navigate("/")
+            })
+            .catch(error => {
+                console.error("Mail kontrolü sırasında hata oluştu:", error);
+                alert("Kayıt sırasında bir hata oluştu.");
+            });
+        })
+        .catch(error => {
+            console.error("Mail kontrolü sırasında hata oluştu:", error);
+            alert("Mail kontrolü sırasında bir hata oluştu")
+        });
     };
 
     return (
@@ -143,6 +199,21 @@ export default function SignupForm() {
                                     type={showPassword ? "text" : "password"}
                                     className="form-control transparent-input"
                                     placeholder="Şifre"
+                                    name="password"
+                                    value={formData.password}
+                                    onChange={handleChange}
+                                />
+                                <span className="password-toggle" onClick={togglePasswordVisibility}>
+                                    {showPassword ? <FaEyeSlash /> : <FaEye />}
+                                </span>
+                            </div>
+
+                            {/* Şifre alanı - göster/gizle butonuyla */}
+                            <div className="password-container mb-4">
+                                <input
+                                    type={showPassword ? "text" : "password"}
+                                    className="form-control transparent-input"
+                                    placeholder="Şifre Tekrar"
                                     name="password"
                                     value={formData.password}
                                     onChange={handleChange}
