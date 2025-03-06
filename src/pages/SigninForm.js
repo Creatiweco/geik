@@ -34,26 +34,27 @@ export default function SigninForm() {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        axios.get("https://67c98ac5102d684575c2808b.mockapi.io/users/users")
-        .then(response => {
-            const users = response.data;
+        axios.get("https://67c98ac5102d684575c2808b.mockapi.io/users")
+            .then(response => {
+                const users = response.data;
 
-            const foundUser = users.find(user =>
-                user.email === formData.email && user.password === formData.password
-            );
+                const foundUser = users.find(user =>
+                    user.email === formData.email && user.password === formData.password
+                );
 
-            if (foundUser) {
-                localStorage.setItem("user", JSON.stringify(foundUser));
-                navigate(returnUrl);
-    
-            } else {
-                alert("Geçersiz email veya şifre!");
-            }
-        })
-        .catch(error => {
-            console.error(error);
-        })
-
+                if (foundUser) {
+                    // Kullanıcı bulundu, bilgilerini localStorage'a kaydet
+                    localStorage.setItem("userId", foundUser.id);
+                    localStorage.setItem("user", JSON.stringify(foundUser));
+                    navigate(returnUrl);
+                } else {
+                    alert("Geçersiz email veya şifre!");
+                }
+            })
+            .catch(error => {
+                console.error("Kullanıcı bilgileri alınırken hata oluştu:", error);
+                alert("Giriş sırasında bir hata oluştu.");
+            });
     };
 
     return (
@@ -98,7 +99,7 @@ export default function SigninForm() {
                             </span>
                         </div>
 
-                        <button onClick={handleSubmit} type="submit" className="form-btn-primary">
+                        <button type="submit" className="form-btn-primary">
                             Giriş Yap
                         </button>
                     </form>
