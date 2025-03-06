@@ -36,7 +36,7 @@ export default function SigninForm() {
 
         axios.get("https://67c98ac5102d684575c2808b.mockapi.io/users/users") 
             .then(response => {
-                const users = response.data;
+                const users = response;
                 console.log("Kullanıcılar:", users);
 
                 const foundUser = users.find(user =>

@@ -27,7 +27,7 @@ export default function Navbar() {
         if (storedUserId) {
             try {
                 const response = await axios.get(`https://67c98ac5102d684575c2808b.mockapi.io/users/users/${storedUserId}`);
-                setUser(response.data);
+                setUser(response);
             } catch (error) {
                 console.error("Kullanıcı bilgileri alınırken hata oluştu:", error);
                 setUser(null);

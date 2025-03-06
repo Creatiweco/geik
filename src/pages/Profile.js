@@ -35,15 +35,15 @@ export default function Profile() {
         if (userId) {
             try {
                 const response = await axios.get(`https://67c98ac5102d684575c2808b.mockapi.io/users/users/${userId}`);
-                setUser(response.data);
-                setNickname(response.data.name);
-                setEmail(response.data.email);
+                setUser(response);
+                setNickname(response.name);
+                setEmail(response.email);
 
-                if (response.data.isSubscriber && response.data.isStudentVerified) {
+                if (response.isSubscriber && response.isStudentVerified) {
                     setBorderColor("rgba(45, 255, 60, 1)");
-                } else if (response.data.isSubscriber) {
+                } else if (response.isSubscriber) {
                     setBorderColor("rgba(45, 255, 60, 1)");
-                } else if (response.data.isStudentVerified) {
+                } else if (response.isStudentVerified) {
                     setBorderColor("rgba(255, 255, 255, 0.8)");
                 } else {
                     setBorderColor("transparent");
@@ -69,8 +69,8 @@ export default function Profile() {
 
         try {
             const response = await axios.put(`https://67c98ac5102d684575c2808b.mockapi.io/users/users/${user.id}`, updatedUser);
-            setUser(response.data);
-            localStorage.setItem("user", JSON.stringify(response.data));  // localStorage güncelle
+            setUser(response);
+            localStorage.setItem("user", JSON.stringify(response));  // localStorage güncelle
             fetchUser();  // En güncel veriyi çek
             alert("Bilgileriniz güncellendi.");
         } catch (error) {
@@ -108,8 +108,8 @@ export default function Profile() {
 
         try {
             const response = await axios.put(`https://67c98ac5102d684575c2808b.mockapi.io/users/users/${user.id}`, updatedUser);
-            setUser(response.data);
-            localStorage.setItem("user", JSON.stringify(response.data));  // localStorage güncelle
+            setUser(response);
+            localStorage.setItem("user", JSON.stringify(response));  // localStorage güncelle
             fetchUser();
             setCurrentPassword("");
             setNewPassword("");

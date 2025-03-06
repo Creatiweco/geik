@@ -22,7 +22,7 @@ export default function Home() {
         if (storedUserId) {
             try {
                 const response = await axios.get(`https://67c98ac5102d684575c2808b.mockapi.io/users/users/${storedUserId}`);
-                const userData = response.data;
+                const userData = response;
                 setUser(userData);
                 setIsUserLoggedIn(true);
                 setIsVisible(!userData.isSubscriber); 
