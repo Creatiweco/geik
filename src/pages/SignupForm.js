@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { FaEye, FaEyeSlash, FaCheck } from "react-icons/fa";  // FaCheck eklendi
+import { FaEye, FaEyeSlash, FaCheck } from "react-icons/fa";
+import axios from "axios";
 import "../assets/scss/pages/_signupForm.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
 
@@ -49,8 +50,20 @@ export default function SignupForm() {
     const handleSubmit = (e) => {
         e.preventDefault();
         if (validateForm()) {
-            console.log("Kayıt başarılı:", formData);
-            alert("Kayıt başarılı!");
+            const userData ={
+                firstName: `${formData.firstName} ${formData.lastName}`,
+                email: formData.email,
+                phone: formData.phone,
+                password: formData.password,
+            }
+
+            axios.post("https://jsonplaceholder.typicode.com/users", userData)
+            .then(response =>{
+                console.log("kayıt başarılı",response.data);
+            })
+            .catch(error => {
+                console.log("kayıt başarısız",error);
+            })
         }
     };
 
