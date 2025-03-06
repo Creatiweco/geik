@@ -138,6 +138,11 @@ export default function Profile() {
             alert("Hesap silinirken bir hata oluştu.");
         }
     };
+
+    const handleCheckboxChange = (e) => {
+        const { name, checked } = e.target;
+        setNotifications((prev) => ({ ...prev, [name]: checked }));
+    };
     
 
     return (
