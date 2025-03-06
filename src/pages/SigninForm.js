@@ -34,7 +34,7 @@ export default function SigninForm() {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        axios.get("https://67c98ac5102d684575c2808b.mockapi.io/users")
+        axios.get("https://67c98ac5102d684575c2808b.mockapi.io/users/users")
             .then(response => {
                 const users = response.data;
 
@@ -43,7 +43,6 @@ export default function SigninForm() {
                 );
 
                 if (foundUser) {
-                    // Kullanıcı bulundu, bilgilerini localStorage'a kaydet
                     localStorage.setItem("userId", foundUser.id);
                     localStorage.setItem("user", JSON.stringify(foundUser));
                     navigate(returnUrl);
