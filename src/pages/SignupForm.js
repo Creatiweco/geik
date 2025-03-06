@@ -7,7 +7,11 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 export default function SignupForm() {
     const navigate = useNavigate();
+
+    // Şifre göster/gizle durumunu kontrol eden state
     const [showPassword, setShowPassword] = useState(false);
+
+    // Formdaki tüm alanların değerlerini tutan state
     const [formData, setFormData] = useState({
         firstName: "",
         lastName: "",
@@ -18,10 +22,12 @@ export default function SignupForm() {
         privacyAccepted: false,
     });
 
+    // Şifre göster/gizle butonu
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
     };
 
+    // Input ve checkbox değişikliklerini izleyen fonksiyon
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
         setFormData({
@@ -30,15 +36,9 @@ export default function SignupForm() {
         });
     };
 
+    // Formdaki tüm alanların dolu olup olmadığını ve checkbox'ların işaretlenip işaretlenmediğini kontrol eden fonksiyon
     const validateForm = () => {
-        const requiredFields = [
-            "firstName",
-            "lastName",
-            "email",
-            "phone",
-            "password",
-        ];
-
+        const requiredFields = ["firstName", "lastName", "email", "phone", "password"];
         const emptyFields = requiredFields.filter(field => !formData[field].trim());
 
         if (emptyFields.length > 0 || !formData.termsAccepted || !formData.privacyAccepted) {
@@ -48,25 +48,26 @@ export default function SignupForm() {
         return true;
     };
 
+    // Form submit olduğunda çalışır
     const handleSubmit = (e) => {
         e.preventDefault();
         if (validateForm()) {
-            const userData ={
-                name: `${formData.firstName} ${formData.lastName}`,
+            const userData = {
+                name: `${formData.firstName} ${formData.lastName}`,  // Ad ve soyadı birleştirip gönderiyoruz
                 email: formData.email,
                 phone: formData.phone,
                 password: formData.password,
-            }
+            };
 
+            // Kullanıcıyı mock API'ye kaydetme
             axios.post("https://67c98ac5102d684575c2808b.mockapi.io/users/users", userData)
-            .then(response =>{
-                console.log("kayıt başarılı",response.data);
-
-                navigate("/")
-            })
-            .catch(error => {
-                console.log("kayıt başarısız",error);
-            })
+                .then(response => {
+                    console.log("Kayıt başarılı", response.data);
+                    navigate("/");  // Başarılı kayıt sonrası ana sayfaya yönlendir
+                })
+                .catch(error => {
+                    console.log("Kayıt başarısız", error);
+                });
         }
     };
 
@@ -82,13 +83,19 @@ export default function SignupForm() {
             <div className="container">
                 <div className="row justify-content-center mobile">
                     <div className="p-0">
+                        {/* Başlık alanı */}
                         <h4 className="signup-title">
                             HESABINI OLUŞTUR VE 
-                            <span><img src="/assets/images/geik_logo_blue.svg" alt="Logo" className="signup-logo" />'LE!</span>
+                            <span>
+                                <img src="/assets/images/geik_logo_blue.svg" alt="Logo" className="signup-logo" />'LE!
+                            </span>
                         </h4>
 
+                        {/* Kayıt formu */}
                         <form style={{ zIndex: "2", position: "relative" }} onSubmit={handleSubmit}>
                             <h5 className="signup-desc">KİŞİSEL BİLGİLER</h5>
+
+                            {/* Ad ve Soyad alanları */}
                             <div className="row">
                                 <div className="col-lg-6 col-12">
                                     <input
@@ -111,6 +118,8 @@ export default function SignupForm() {
                                     />
                                 </div>
                             </div>
+
+                            {/* Mail ve Telefon alanları */}
                             <input
                                 type="email"
                                 className="form-control transparent-input mb-3"
@@ -127,6 +136,8 @@ export default function SignupForm() {
                                 value={formData.phone}
                                 onChange={handleChange}
                             />
+
+                            {/* Şifre alanı - göster/gizle butonuyla */}
                             <div className="password-container mb-4">
                                 <input
                                     type={showPassword ? "text" : "password"}
@@ -141,7 +152,7 @@ export default function SignupForm() {
                                 </span>
                             </div>
 
-                            {/* Terms Checkbox */}
+                            {/* Hizmet Koşulları onay kutusu */}
                             <div className="form-check-wrapper mb-2">
                                 <input
                                     type="checkbox"
@@ -157,7 +168,7 @@ export default function SignupForm() {
                                 </label>
                             </div>
 
-                            {/* Privacy Checkbox */}
+                            {/* Aydınlatma Metni onay kutusu */}
                             <div className="form-check-wrapper mb-4">
                                 <input
                                     type="checkbox"
@@ -173,6 +184,7 @@ export default function SignupForm() {
                                 </label>
                             </div>
 
+                            {/* Hesap oluşturma butonu */}
                             <button type="submit" className="form-btn-primary">
                                 Hesap Oluştur
                             </button>

@@ -1,27 +1,29 @@
 import React, { useState, useEffect, useRef } from "react";
+import axios from "axios";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import "../assets/scss/components/_navbar.scss";
 import { CiSearch } from "react-icons/ci";
 import { PiHeartStraight } from "react-icons/pi";
 import { HiOutlineBars3BottomLeft } from "react-icons/hi2";
 import { IoClose, IoEnterOutline, IoExitOutline } from "react-icons/io5";
-import filters from "../data/filterData";
 import { latestReleases, concerts, activity } from "../data/eventData";
+import filters from "../data/filterData";
+import "../assets/scss/components/_navbar.scss";
 import EventSlider from "./EventSlider";
 import EventSliderVertical from "./EventSliderVertical";
-import axios from "axios";
 
 export default function Navbar() {
+    // Kullanıcı, arama durumu ve sayfa türü (detay sayfası mı?) state'leri
     const [user, setUser] = useState(null);
     const [showSearch, setShowSearch] = useState(false);
     const [isDetailPage, setIsDetailPage] = useState(false);
     const [selectedFilter, setSelectedFilter] = useState("tumu");
 
+    // React Router'dan gerekli hook'lar
     const location = useLocation();
-    const searchRef = useRef(null);
     const navigate = useNavigate();
+    const searchRef = useRef(null);
 
-    // Kullanıcıyı fetch eden fonksiyon
+    // Kullanıcı bilgisini localStorage'dan alıp API'den çekme fonksiyonu
     const fetchUser = async () => {
         const storedUserId = localStorage.getItem("userId");
         if (storedUserId) {
@@ -37,10 +39,10 @@ export default function Navbar() {
         }
     };
 
+    // Sayfa yüklendiğinde ve localStorage değiştiğinde kullanıcı bilgisini al
     useEffect(() => {
         fetchUser();
 
-        // LocalStorage değişikliklerini dinle
         const handleStorageChange = (e) => {
             if (e.key === "userId") {
                 fetchUser();
@@ -48,13 +50,13 @@ export default function Navbar() {
         };
 
         window.addEventListener("storage", handleStorageChange);
-        return () => {
-            window.removeEventListener("storage", handleStorageChange);
-        };
+        return () => window.removeEventListener("storage", handleStorageChange);
     }, []);
 
+    // Sayfa değiştiğinde arama panelini kapat
     useEffect(() => setShowSearch(false), [location.pathname]);
 
+    // Kullanıcı avatarına tıklama - profil veya giriş ekranına yönlendirir
     const handleUserClick = () => {
         if (user) {
             navigate("/profil");
@@ -63,6 +65,7 @@ export default function Navbar() {
         }
     };
 
+    // Çıkış yap fonksiyonu - localStorage temizlenir, anasayfaya yönlendirilir
     const handleLogout = () => {
         localStorage.removeItem("user");
         localStorage.removeItem("userId");
@@ -70,18 +73,22 @@ export default function Navbar() {
         navigate("/");
     };
 
+    // Arama panelini açma/kapatma fonksiyonları
     const handleSearchClick = () => setShowSearch(true);
     const closeSearch = () => setShowSearch(false);
 
+    // Sayfa detay sayfası mı kontrolü (örneğin etkinlik detay sayfası gibi)
     useEffect(() => {
         const detailElement = document.getElementById("detail-page");
         setIsDetailPage(!!detailElement);
     }, [location.pathname]);
 
+    // Filtre butonuna tıklama - seçili filtreyi değiştirir
     const handleFilterSelect = (filterName) => {
         setSelectedFilter(filterName);
     };
 
+    // Etkinlikleri seçilen filtreye göre süzme fonksiyonu
     const filterEvents = (events) => {
         if (selectedFilter === "tumu") return events;
         return events.filter(event => event.category === selectedFilter);
@@ -90,24 +97,31 @@ export default function Navbar() {
     return (
         <nav className={`navbar ${isDetailPage ? "detail-navbar" : ""}`}>
             <div className="container">
+                {/* Logo */}
                 <div className="navbar-logo">
                     <Link to="/">
                         <img src="/assets/images/geik_logo_blue.svg" alt="Logo" />
                     </Link>
                 </div>
+
+                {/* Menü linkleri */}
                 <ul className="navbar-links">
                     <li><Link to="/">Ana Sayfa</Link></li>
                     <li><Link to="/takvim">Takvim</Link></li>
                     <li><Link to="/">Canlı TV</Link></li>
                 </ul>
 
+                {/* Sağ üst bölüm - arama, favoriler, kullanıcı alanı */}
                 <div className="navbar-right">
+                    {/* Arama ikonu */}
                     <div className="search-container" ref={searchRef}>
                         <CiSearch className="navbar-icon" onClick={handleSearchClick} />
                     </div>
 
+                    {/* Kullanıcı giriş yaptıysa gösterilecek alan */}
                     {user ? (
                         <>
+                            {/* Favoriler ikonu */}
                             <PiHeartStraight
                                 className="navbar-icon"
                                 onClick={() => {
@@ -118,6 +132,7 @@ export default function Navbar() {
                                     }
                                 }}
                             />
+                            {/* Kullanıcı avatarı ve menü */}
                             <div className="user-menu-container">
                                 <img
                                     src={user.avatar || "/assets/images/default_user.svg"}
@@ -126,14 +141,22 @@ export default function Navbar() {
                                     onClick={handleUserClick}
                                 />
                                 <div className="user-menu">
-                                    <button className="logout-btn" onClick={handleLogout}>Çıkış Yap <IoExitOutline /></button>
+                                    <button className="logout-btn" onClick={handleLogout}>
+                                        Çıkış Yap <IoExitOutline />
+                                    </button>
                                 </div>
                             </div>
                         </>
                     ) : (
+                        // Kullanıcı giriş yapmadıysa gösterilecek butonlar
                         <>
-                            <button className="geik-button-1" onClick={() => navigate("/giris-secenekleri")}>Giriş Yap</button>
-                            <button className="geik-button-1 button-white" onClick={() => navigate("/kayit-ol")}>Kayıt Ol</button>
+                            <button className="geik-button-1" onClick={() => navigate("/giris-secenekleri")}>
+                                Giriş Yap
+                            </button>
+                            <button className="geik-button-1 button-white" onClick={() => navigate("/kayit-ol")}>
+                                Kayıt Ol
+                            </button>
+                            {/* Mobil menü */}
                             <div className="user-menu-container d-lg-none d-flex">
                                 <HiOutlineBars3BottomLeft className="navbar-mobile-menu" />
                                 <div className="user-menu">
@@ -149,9 +172,11 @@ export default function Navbar() {
                 </div>
             </div>
 
+            {/* Arama paneli (açılır kapanır) */}
             {showSearch && (
                 <div className="search-overlay">
                     <div className="container">
+                        {/* Arama üst menü (logo ve giriş) */}
                         <div className="search-nav">
                             <div className="navbar-logo">
                                 <Link to="/">
@@ -179,6 +204,7 @@ export default function Navbar() {
                             </div>
                         </div>
 
+                        {/* Filtre butonları */}
                         <div className="filter-buttons">
                             {filters.map((filter, index) => (
                                 <button key={index}
@@ -192,6 +218,7 @@ export default function Navbar() {
                         </div>
                     </div>
 
+                    {/* Filtrelenmiş etkinlik slider'ları */}
                     {filterEvents(latestReleases).length > 0 && (
                         <EventSlider sectionTitle="En Son Çıkanlar" events={filterEvents(latestReleases)} />
                     )}

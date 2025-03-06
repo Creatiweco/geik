@@ -82,36 +82,36 @@ export const calenderEvents  = [
     {
         date: "1 Şubat",
         items: [
-            { title: "Can Ozan", time: "22.00", location: "Hayal Kahvesi",link:"/detay", icon: <LuMicVocal />, category: "Konser" },
-            { title: "Disco Topu", time: "19.00", location: "Akasya AVM",link:"/detay", icon: <FaTheaterMasks />, category: "Tiyatro" },
-            { title: "Frida Kahlo’nun Günlükleri sergisi", time: "19.00", location: "Akasya AVM",link:"/detay", icon: <FaTheaterMasks />, category: "Tiyatro" },
+            { title: "Can Ozan", time: "22.00", location: "Hayal Kahvesi",link:"/detay", map: "https://maps.app.goo.gl/ds5nzextcXmeWMr1A", icon: <LuMicVocal />, category: "Konser" },
+            { title: "Disco Topu", time: "19.00", location: "Akasya AVM",link:"/detay", map: "https://maps.app.goo.gl/ds5nzextcXmeWMr1A", icon: <FaTheaterMasks />, category: "Tiyatro" },
+            { title: "Frida Kahlo’nun Günlükleri sergisi", time: "19.00", location: "Akasya AVM",link:"/detay", map: "https://maps.app.goo.gl/ds5nzextcXmeWMr1A", icon: <FaTheaterMasks />, category: "Tiyatro" },
         ]
     },
     {
         date: "2 Şubat",
         items: [
-            { title: "Can Ozan", time: "22.00", location: "Hayal Kahvesi",link:"/detay", icon: <LuMicVocal />, category: "Konser" },
-            { title: "Can Ozan", time: "22.00", location: "Hayal Kahvesi",link:"/detay", icon: <LuMicVocal />, category: "Konser" },
+            { title: "Can Ozan", time: "22.00", location: "Hayal Kahvesi",link:"/detay", map: "https://maps.app.goo.gl/ds5nzextcXmeWMr1A", icon: <LuMicVocal />, category: "Konser" },
+            { title: "Can Ozan", time: "22.00", location: "Hayal Kahvesi",link:"/detay", map: "https://maps.app.goo.gl/ds5nzextcXmeWMr1A", icon: <LuMicVocal />, category: "Konser" },
         ]
     },
     {
         date: "3 Şubat",
         items: [
-            { title: "Can Ozan", time: "22.00", location: "Hayal Kahvesi",link:"/detay", icon: <LuMicVocal />, category: "Konser" },
+            { title: "Can Ozan", time: "22.00", location: "Hayal Kahvesi",link:"/detay", map: "https://maps.app.goo.gl/ds5nzextcXmeWMr1A", icon: <LuMicVocal />, category: "Konser" },
         ]
     },
     {
         date: "4 Şubat",
         items: [
-            { title: "Can Ozan", time: "22.00", location: "Hayal Kahvesi",link:"/detay", icon: <LuMicVocal />, category: "Konser" },
+            { title: "Can Ozan", time: "22.00", location: "Hayal Kahvesi",link:"/detay", map: "https://maps.app.goo.gl/ds5nzextcXmeWMr1A", icon: <LuMicVocal />, category: "Konser" },
         ]
     },
     {
         date: "5 Şubat",
         items: [
-            { title: "Can Ozan", time: "22.00", location: "Hayal Kahvesi",link:"/detay", icon: <LuMicVocal />, category: "Konser" },
-            { title: "Frida Kahlo’nun Günlükleri sergisi", time: "19.00", location: "Akasya AVM",link:"/detay", icon: <FaTheaterMasks />, category: "Tiyatro" },
-            { title: "Disco Topu", time: "19.00", location: "Akasya AVM",link:"/detay", icon: <FaTheaterMasks />, category: "Tiyatro" },
+            { title: "Can Ozan", time: "22.00", location: "Hayal Kahvesi",link:"/detay", map: "https://maps.app.goo.gl/ds5nzextcXmeWMr1A", icon: <LuMicVocal />, category: "Konser" },
+            { title: "Frida Kahlo’nun Günlükleri sergisi", time: "19.00", location: "Akasya AVM",link:"/detay", map: "https://maps.app.goo.gl/ds5nzextcXmeWMr1A", icon: <FaTheaterMasks />, category: "Tiyatro" },
+            { title: "Disco Topu", time: "19.00", location: "Akasya AVM",link:"/detay", map: "https://maps.app.goo.gl/ds5nzextcXmeWMr1A", icon: <FaTheaterMasks />, category: "Tiyatro" },
         ]
     }
 ];

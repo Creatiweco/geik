@@ -7,11 +7,13 @@ import EventSlider from "../components/EventSlider";
 import CategorySlider from '../components/CategorySlider';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { getAverageColor } from '../utils/color';
-import { latestReleases } from '../data/eventData';  
+import { latestReleases } from '../data/eventData';
 
 export default function EventDetails() {
     const navigate = useNavigate();
     const location = useLocation();
+
+    // Popup, login ve kullanıcı bilgileri için state tanımları
     const [activeTab, setActiveTab] = useState('details');
     const [showPopup, setShowPopup] = useState(false);
     const [showLoginPopup, setShowLoginPopup] = useState(false);
@@ -22,7 +24,7 @@ export default function EventDetails() {
     const [friendName, setFriendName] = useState("");
     const [isFriendConfirmed, setIsFriendConfirmed] = useState(false);
 
-
+    // Sayfa yüklendiğinde kullanıcı bilgilerini localStorage'dan al
     useEffect(() => {
         const storedUser = localStorage.getItem("user");
         if (storedUser) {
@@ -30,6 +32,7 @@ export default function EventDetails() {
         }
     }, []);
 
+    // Sayfa yüklendiğinde görselden arka plan rengini al
     useEffect(() => {
         const img = document.querySelector('.detail-image');
         if (img && img.complete) {
@@ -39,48 +42,51 @@ export default function EventDetails() {
         }
     }, []);
 
+    // Arka plan rengini hesapla ve güncelle
     const updateBackgroundColor = (img) => {
         const color = getAverageColor(img);
         setBgColor(color);
     };
 
+    // Katıl butonu tıklandığında kullanıcı ve abonelik durumuna göre işlem yap
     const handleJoinClick = () => {
         if (!user) {
-            // Kullanıcı giriş yapmamışsa login popup göster
-            setShowLoginPopup(true);
+            setShowLoginPopup(true);  // Giriş yapmamışsa login popup göster
         } else if (!user.isSubscriber) {
-            // Kullanıcı giriş yapmış ama abone değilse profil favorilere yönlendir
-            navigate("/profil", { state: { openTab: "payment" } });
+            navigate("/profil", { state: { openTab: "payment" } });  // Abone değilse ödeme sayfasına yönlendir
         } else {
-            // Kullanıcı giriş yapmış ve aboneyse popup aç
-            setShowPopup(true);
+            setShowPopup(true);  // Aboneyse popup aç
         }
     };
 
+    // Login sayfasına yönlendir, mevcut sayfanın returnUrl'ini ekle
     const handleGoToLogin = () => {
-        const returnUrl = location.pathname + location.search; // Mevcut etkinlik sayfasının tam URL'si
+        const returnUrl = location.pathname + location.search;
         navigate(`/giris-yap?returnUrl=${encodeURIComponent(returnUrl)}`);
     };
 
+    // Arkadaşını davet et seçildiğinde popup durumlarını ayarla
     const handleInviteFriend = () => {
         setIsInvitingFriend(true);
-        setPopupStep(11);   // 11: Arkadaşını davet et popup adımı
+        setPopupStep(11); 
         setFriendName("");
         setIsFriendConfirmed(false);
     };
-    
+
+    // Normal bilet alma sürecini başlat
     const handleRegularTicketPurchase = () => {
         setIsInvitingFriend(false);
-        setPopupStep(2);  // Normal akışta doğrudan 2. adıma geç
+        setPopupStep(2);
     };
-    
 
+    // Arkadaş adı doğrulaması
     const confirmFriendName = () => {
         if (friendName.trim()) {
             setIsFriendConfirmed(true);
         }
     };
-    
+
+    // 2. adımdaki popup metni (arkadaşla mı, tek kişilik mi)
     const getStepTwoText = () => {
         const ticketCountText = isInvitingFriend ? "2 kişilik" : "bilet";
         return `
@@ -90,7 +96,7 @@ export default function EventDetails() {
         `;
     };
 
-
+    // Popup adım kontrol fonksiyonları
     const handleNextStep = () => setPopupStep(prev => prev + 1);
     const handlePreviousStep = () => setPopupStep(prev => prev - 1);
     const closePopup = () => {
@@ -98,6 +104,7 @@ export default function EventDetails() {
         setPopupStep(1);
     };
 
+    // Etkinlik bilgileri (sabit veri)
     const eventInformation = {
         eventType: "Konser",
         ageLimit : "13+",
@@ -110,6 +117,7 @@ export default function EventDetails() {
 
     return (
         <div id="detail-page" className="detail-container">
+            {/* Mobil için üst kısım */}
             <div className='container detail-info-mobile'>
                 <button className='prev-button'><FaArrowLeftLong/></button>
                 <div>
@@ -117,8 +125,9 @@ export default function EventDetails() {
                     <button className="geik-action-btn"><IoShareSocialOutline/></button>
                 </div>
             </div>
-            <div className="container detail-banner">
 
+            {/* Banner alanı */}
+            <div className="container detail-banner">
                 <div className='background-blur' style={{ '--dynamic-bg-color': bgColor }}></div>
                 <div className="detail-image-wrapper">
                     <img src="/assets/images/detailimg.png" alt="detailimg" className="detail-image"/>
@@ -138,64 +147,46 @@ export default function EventDetails() {
                 </div>
             </div>
 
+            {/* Sekmeli içerik alanı */}
             <div className="detail-content container">
                 <div className="tab-buttons">
                     <button className={`geik-button-2 ${activeTab === "details" ? "active-2" : ""}`} onClick={() => setActiveTab("details")}>Detaylar</button>
                     <button className={`geik-button-2 ${activeTab === "staff" ? "active-2" : ""}`} onClick={() => setActiveTab("staff")}>Kadro</button>
                     <button className={`geik-button-2 ${activeTab === "rules" ? "active-2" : ""}`} onClick={() => setActiveTab("rules")}>Kurallar</button>
                 </div>
+                
+                {/* Sekme içerikleri */}
                 <div className="row">
                     <div className="col-lg-6 col-12">
-                        <div className="tab-content">
-                            {activeTab === "details" && (
-                                <p>
-                                    Etkinlik genelinde geçerli olan kurallara ek olarak, seanslara özgü ek düzenlemeler de yapılmıştır. Seans listesinde, katılacağınız seansın kurallarını bulabilirsiniz
-                                    <br/>
-                                    <br/>
-                                    Türk müziğinin en sıra dışı seslerinden biri olan Cem Adrian, geniş ses yelpazesi ve derin duygusal şarkılarıyla sahnede! Ses tellerinin ortalama bir insanın üç katı uzunluğunda olması, Adrian’a benzersiz bir vokal yeteneği kazandırıyor ve bas tonlardan soprano tınılara kadar geniş bir aralıkta şarkı söylemesine olanak tanıyor.
-                                    <br/>
-                                    <br/>
-                                    Kendi yazıp bestelediği şarkılarıyla dinleyicilerine duygusal bir yolculuk sunan Cem Adrian, konserlerinde müzikseverleri hem melodilerle hem de derin hislerle buluşturuyor. Unutulmaz bir müzik deneyimi yaşamak için bu konseri kaçırmayın!
-                                </p>
-                            )}
-                            {activeTab === "staff" && (
-                                <p>
-                                    Cem Adrian ve ekibi sahne alacaktır. Katılımcı sanatçılar, konser tarihine yakın açıklanacaktır.
-                                </p>
-                            )}
-                            {activeTab === "rules" && (
-                                <p>
-                                    Etkinlik alanına girişlerde kimlik ibrazı zorunludur. 13 yaş altı katılımcılar velileri ile birlikte etkinliğe katılabilir.
-                                </p>
-                            )}
-                        </div>
+                        {/* Detaylar sekmesi içeriği */}
+                        {activeTab === "details" && <p>Detay metni buraya gelecek...</p>}
+                        {activeTab === "staff" && <p>Kadro metni buraya gelecek...</p>}
+                        {activeTab === "rules" && <p>Kurallar metni buraya gelecek...</p>}
                     </div>
 
+                    {/* Sağdaki etkinlik bilgileri */}
                     <div className="col-lg-6 col-12 information-col">
                         <div className="information-grid">
                             <div className="information-card"><h5>Etkinlik Türü</h5><p>{eventInformation.eventType}</p></div>
                             <div className="information-card"><h5>Konum</h5><p>{eventInformation.location}</p></div>
                         </div>
-                        <div className="information-grid">
-                            <div className="information-card"><h5>Yaş Sınırı</h5><p>{eventInformation.ageLimit}</p></div>
-                            <div className="information-card"><h5>Tarih</h5><p>{eventInformation.date}<br/><span>{eventInformation.time}</span></p></div>
-                        </div>
-                        <div className="information-grid">
-                            <div className="information-card"><h5>Kontenjan</h5><p>{eventInformation.quota}</p></div>
-                            <div className="information-card"><h5>Sanatçı</h5><p>{eventInformation.artist}</p></div>
-                        </div>
                     </div>
                 </div>
             </div>
 
-            <EventSlider sectionTitle="Jolly Joker Ankara" events={latestReleases}/>
+            {/* Slider ve kategori bölümü */}
+            <EventSlider sectionTitle="Benzer Etkinlikler" events={latestReleases}/>
             <EventSlider sectionTitle="Benzer Etkinlikler" events={latestReleases}/>
             <CategorySlider/>
 
+            {/* Katılım Popup'u */}
             {showPopup && (
                 <div className='popup-overlay'>
                     <div className='popup'>
-                        <button className='popup-close' onClick={closePopup}><IoClose/></button>
+                        {/* Popup'u kapatma butonu */}
+                        <button className='popup-close' onClick={closePopup}><IoClose /></button>
+            
+                        {/* Adım 1 - Arkadaşını davet et veya bilet al seçeneği */}
                         {popupStep === 1 && (
                             <div className="popup-step">
                                 <div className="popup-content-step-1">
@@ -209,7 +200,9 @@ export default function EventDetails() {
                                             <p>Jolly Joker Ankara</p>
                                         </div>
                                         <div className="popup-buttons">
+                                            {/* Arkadaşını davet et butonu */}
                                             <button className="popup-btn-1" onClick={handleInviteFriend}>Arkadaşını Davet Et</button>
+                                            {/* Normal bilet al butonu */}
                                             <button className="popup-btn-2" onClick={handleRegularTicketPurchase}>Bilet Al</button>
                                         </div>
                                     </div>
@@ -217,7 +210,8 @@ export default function EventDetails() {
                                 <p className="popup-note">*Bu etkinlik için biletler gösterilen kısımdan verilir.</p>
                             </div>
                         )}
-
+            
+                        {/* Adım 1.1 - Arkadaşını davet et popup içeriği */}
                         {popupStep === 11 && (
                             <div className="popup-step">
                                 <div className="popup-content-step-1">
@@ -230,7 +224,8 @@ export default function EventDetails() {
                                             <p>26 Şubat Çarşamba <span>21.00</span></p>
                                             <p>Jolly Joker Ankara</p>
                                         </div>
-                        
+            
+                                        {/* Arkadaş adı girme ve onaylama alanı */}
                                         {!isFriendConfirmed ? (
                                             <div className="popup-invite">
                                                 <input
@@ -254,6 +249,7 @@ export default function EventDetails() {
                                         ) : (
                                             <div className="popup-invite-confirmed">
                                                 <p>{friendName} <FaCheck style={{ color: "#fff" }} /></p>
+                                                {/* Arkadaş ismi onaylandıktan sonra bilet al butonu */}
                                                 <button className="popup-btn-2" onClick={() => setPopupStep(2)}>Bilet Al</button>
                                             </div>
                                         )}
@@ -262,8 +258,8 @@ export default function EventDetails() {
                                 <p className="popup-note">*Bu etkinlik için biletler gösterilen kısımdan verilir.</p>
                             </div>
                         )}
-
-                        
+            
+                        {/* Adım 2 - Bilet satın alma onayı */}
                         {popupStep === 2 && (
                             <div className="popup-step">
                                 <div className="popup-content-step-2">
@@ -272,37 +268,42 @@ export default function EventDetails() {
                                         <p dangerouslySetInnerHTML={{ __html: getStepTwoText().replace(/\n/g, '<br/>') }}></p>
                                     </div>
                                     <div className="popup-buttons">
+                                        {/* Önceki adıma dönme butonu */}
                                         <button className="popup-btn-3" onClick={handlePreviousStep}>Geri Dön</button>
+                                        {/* Devam etme butonu */}
                                         <button className="popup-btn-2" onClick={handleNextStep}>Devam Et</button>
                                     </div>
                                 </div>
                             </div>
                         )}
-                        
+            
+                        {/* Adım 3 - Bilet satın alma tamamlandı */}
                         {popupStep === 3 && (
                             <div className="popup-step">
                                 <div className="popup-content-step-3">
-                                    <h5>Etkinlik Adı Konseri’ne <br/>bilet aldınız!</h5>
+                                    <h5>Etkinlik Adı Konseri’ne <br />bilet aldınız!</h5>
                                     <p>26 Şubat Çarşamba <span>21.00</span> \ Jolly Joker Ankara</p>
                                     <div className="popup-qr">
                                         <img src="/assets/images/qrkod.png" alt="eventqr" />
+                                        {/* Arkadaş davet edildiyse 2 QR gösterilir */}
                                         {isInvitingFriend && (
                                             <img src="/assets/images/qrkod.png" alt="eventqr-friend" />
                                         )}
                                     </div>
                                     <div className="popup-buttons">
+                                        {/* Kapatma ve Biletlerim sayfasına gitme butonları */}
                                         <button className="popup-btn-3" onClick={closePopup}>Kapat</button>
-                                        <button className="popup-btn-2" onClick={() => navigate("/profil", {state: { openTab : "upcoming-events" } })}>Biletlerim</button>
+                                        <button className="popup-btn-2" onClick={() => navigate("/profil", { state: { openTab: "upcoming-events" } })}>Biletlerim</button>
                                     </div>
                                     <p className="popup-note">*QR koduna biletlerim kısmından ulaşabilirsiniz.</p>
                                 </div>
                             </div>
                         )}
-
                     </div>
                 </div>
             )}
-
+            
+            {/* Kullanıcı Giriş Yapmamışsa Görünen Popup */}
             {showLoginPopup && (
                 <div className='popup-overlay'>
                     <div className='popup'>
@@ -310,13 +311,15 @@ export default function EventDetails() {
                         <div className='popup-singup_options'>
                             <div className="container">
                                 <div className="row justify-content-center mobile">
-                                    <p className="popup-description">BU ETKİNLİĞE KATILMAK <br/>İÇİN GİRİŞ YAP YA DA KAYDOL</p>
-                                        
+                                    <p className="popup-description">BU ETKİNLİĞE KATILMAK <br />İÇİN GİRİŞ YAP YA DA KAYDOL</p>
+            
+                                    {/* Kaydol ve Giriş Yap butonları */}
                                     <button className="popup-singup_btn_primary" onClick={() => navigate("/kayit-ol")}>Kaydol</button>
                                     <button className="popup-singup_btn_primary" onClick={handleGoToLogin}>Giriş Yap</button>
-                                        
+            
+                                    {/* Alternatif sosyal medya giriş butonları */}
                                     <p className="popup-or-text">Ya da</p>
-                                        
+            
                                     <button className="popup-singup_second_primary">
                                         <FaGoogle className="icon me-2" /> Google ile Giriş Yap
                                     </button>
@@ -326,10 +329,11 @@ export default function EventDetails() {
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
             )}
+
+
         </div>
     );
 }
