@@ -37,6 +37,7 @@ export default function Profile() {
                 const response = await axios.get(`https://67c98ac5102d684575c2808b.mockapi.io/users/users/${userId}`);
                 setUser(response);
                 setNickname(response.name);
+                console.log(response.name)
                 setEmail(response.email);
 
                 if (response.isSubscriber && response.isStudentVerified) {
