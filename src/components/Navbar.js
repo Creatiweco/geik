@@ -9,6 +9,7 @@ import filters from "../data/filterData";
 import { latestReleases, concerts, activity } from "../data/eventData";
 import EventSlider from "./EventSlider";
 import EventSliderVertical from "./EventSliderVertical";
+import axios from "axios";
 
 export default function Navbar() {
     const [user, setUser] = useState(null);
@@ -21,9 +22,14 @@ export default function Navbar() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        const storedUser = localStorage.getItem("user");
-        if (storedUser) {
-            setUser(JSON.parse(storedUser));
+        const storedUserId = localStorage.getItem("userId");
+        if (storedUserId) {
+            try {
+                const response = axios.get(`https://67c98ac5102d684575c2808b.mockapi.io/users/users/${storedUserId}`);
+                setUser(response.data);
+            } catch (error) {
+                setUser(null);
+            }
         } else {
             setUser(null);
         }

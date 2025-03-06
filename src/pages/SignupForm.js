@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash, FaCheck } from "react-icons/fa";
 import axios from "axios";
 import "../assets/scss/pages/_signupForm.scss";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 export default function SignupForm() {
+    const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
     const [formData, setFormData] = useState({
         firstName: "",
@@ -60,6 +61,8 @@ export default function SignupForm() {
             axios.post("https://67c98ac5102d684575c2808b.mockapi.io/users/users", userData)
             .then(response =>{
                 console.log("kayıt başarılı",response.data);
+
+                navigate("/")
             })
             .catch(error => {
                 console.log("kayıt başarısız",error);

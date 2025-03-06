@@ -3,7 +3,7 @@ import { useNavigate, Link, useLocation } from "react-router-dom";
 import "../assets/scss/pages/_signupForm.scss";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import "bootstrap/dist/css/bootstrap.min.css";
-import users from "../data/userData";
+import axios from "axios";
 
 export default function SigninForm() {
     const [showPassword, setShowPassword] = useState(false);
@@ -17,7 +17,6 @@ export default function SigninForm() {
     const [returnUrl, setReturnUrl] = useState("/");
 
     useEffect(() => {
-        // URL'deki returnUrl parametresini alıyoruz
         const params = new URLSearchParams(location.search);
         const returnPath = params.get("returnUrl");
         if (returnPath) {
@@ -35,18 +34,26 @@ export default function SigninForm() {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        const foundUser = users.find(user =>
-            user.email === formData.email && user.password === formData.password
-        );
+        axios.get("https://67c98ac5102d684575c2808b.mockapi.io/users/users")
+        .then(response => {
+            const users = response.data;
 
-        if (foundUser) {
-            localStorage.setItem("user", JSON.stringify(foundUser));
+            const foundUser = users.find(user =>
+                user.email === formData.email && user.password === formData.password
+            );
 
-            // returnUrl varsa ona git, yoksa ana sayfaya git
-            navigate(returnUrl);
-        } else {
-            alert("Geçersiz email veya şifre!");
-        }
+            if (foundUser) {
+                localStorage.setItem("user", JSON.stringify(foundUser));
+                navigate(returnUrl);
+    
+            } else {
+                alert("Geçersiz email veya şifre!");
+            }
+        })
+        .catch(error => {
+            console.error(error);
+        })
+
     };
 
     return (

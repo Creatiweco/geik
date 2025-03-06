@@ -7,6 +7,7 @@ import EventSliderVertical from "../components/EventSliderVertical";
 import { latestReleases, concerts, activity, theaters, favorites, eventWatch } from "../data/eventData";
 import { useNavigate } from "react-router-dom";
 import { IoClose } from "react-icons/io5";
+import axios from "axios";
 
 export default function Home() {
     const [user, setUser] = useState(null);
@@ -16,28 +17,31 @@ export default function Home() {
 
     const navigate = useNavigate();
 
-    const checkUserStatus = () => {
-        const storedUser = localStorage.getItem("user");
-    
-        if (storedUser) {
-            const parsedUser = JSON.parse(storedUser);
-            setUser(parsedUser);
-            setIsUserLoggedIn(true); 
-    
-            if (!parsedUser.isSubscriber) {
+    const fetchUserData = async () => {
+        const storedUserId = localStorage.getItem("userId");  
+        if (storedUserId) {
+            try {
+                const response = await axios.get(`https://67c98ac5102d684575c2808b.mockapi.io/users/users/${storedUserId}`);
+                const userData = response.data;
+                setUser(userData);
+                setIsUserLoggedIn(true);
+                setIsVisible(!userData.isSubscriber); 
+            } catch (error) {
+                console.error("Kullanıcı bilgisi alınamadı:", error);
+                setUser(null);
+                setIsUserLoggedIn(false);
                 setIsVisible(true);
-            } else {
-                setIsVisible(false); 
             }
         } else {
             setUser(null);
-            setIsUserLoggedIn(false);  
-            setIsVisible(true);  
+            setIsUserLoggedIn(false);
+            setIsVisible(true);
         }
     };
+    
 
     useEffect(() => {
-        checkUserStatus();  
+        fetchUserData();  
 
         const handleScroll = () => {
             setIsSticky(window.scrollY > 100);
@@ -48,8 +52,8 @@ export default function Home() {
     }, []);
 
     useEffect(() => {
-        window.addEventListener("storage", checkUserStatus); 
-        return () => window.removeEventListener("storage", checkUserStatus);
+        window.addEventListener("storage", fetchUserData); 
+        return () => window.removeEventListener("storage", fetchUserData);
     }, []);
 
     return (

@@ -9,6 +9,7 @@ import { GrLocation } from "react-icons/gr";
 import EventSlider from "../components/EventSlider";
 import "../assets/scss/pages/_profile.scss";
 import { latestReleases, tickets } from "../data/eventData";
+import axios from "axios";
 
 export default function Profile() {
     const location = useLocation();
@@ -29,26 +30,117 @@ export default function Profile() {
         setNotifications((prev) => ({ ...prev, [name]: checked }));
     };
 
-    const [nickname, setNickname] = useState("Kullanıcı Adı");
-    const [email, setEmail] = useState("dnm123@gmail.com");
+    const [nickname, setNickname] = useState("");
+    const [email, setEmail] = useState("");
+    const [currentPassword, setCurrentPassword] = useState(""); 
+    const [newPassword, setNewPassword] = useState("");
 
-    useEffect(() => {
-        const storedUser = localStorage.getItem("user");
-        if (storedUser) {
-            const parsedUser = JSON.parse(storedUser);
-            setUser(parsedUser);
-
-            if (parsedUser.isSubscriber && parsedUser.isStudentVerified) {
-                setBorderColor("rgba(45, 255, 60, 1)"); 
-            } else if (parsedUser.isSubscriber) {
-                setBorderColor("rgba(45, 255, 60, 1)"); 
-            } else if (parsedUser.isStudentVerified) {
-                setBorderColor("rgba(255, 255, 255, 0.8)"); 
-            } else {
-                setBorderColor("transparent"); 
+    const fetchUser = async () => {
+        const userId = localStorage.getItem("userId"); 
+        if (userId) {
+            try {
+                const response = await axios.get(`https://67c98ac5102d684575c2808b.mockapi.io/users/${userId}`);
+                setUser(response.data);
+                setNickname(response.data.name);
+                setEmail(response.data.email);
+    
+                if (response.data.isSubscriber && response.data.isStudentVerified) {
+                    setBorderColor("rgba(45, 255, 60, 1)");
+                } else if (response.data.isSubscriber) {
+                    setBorderColor("rgba(45, 255, 60, 1)");
+                } else if (response.data.isStudentVerified) {
+                    setBorderColor("rgba(255, 255, 255, 0.8)");
+                } else {
+                    setBorderColor("transparent");
+                }
+            } catch (error) {
+                console.error("Kullanıcı bilgisi alınamadı:", error);
             }
         }
+    };
+    
+    useEffect(() => {
+        fetchUser();
     }, []);
+
+    const updateUserInfo = async () => {
+        if (!user) return;
+    
+        const updatedUser = {
+            ...user,
+            name: nickname,
+            email: email,
+        };
+    
+        try {
+            const response = await axios.put(`https://67c98ac5102d684575c2808b.mockapi.io/users/${user.id}`, updatedUser);
+            setUser(response.data); // Güncellenmiş veriyi tekrar state'e koy
+            alert("Bilgileriniz güncellendi.");
+        } catch (error) {
+            console.error("Bilgiler güncellenemedi:", error);
+            alert("Bilgiler güncellenirken hata oluştu.");
+        }
+    };
+    
+    const handleNicknameSave = () => {
+        if (isEditingNickname) {
+            updateUserInfo();
+        }
+        setIsEditingNickname(!isEditingNickname);
+    };
+    
+    const handleEmailSave = () => {
+        if (isEditingEmail) {
+            updateUserInfo();
+        }
+        setIsEditingEmail(!isEditingEmail);
+    };
+    
+
+    const deleteUserAccount = async () => {
+        if (!user) return;
+    
+        const confirmDelete = window.confirm("Hesabınızı silmek istediğinize emin misiniz?");
+        if (!confirmDelete) return;
+    
+        try {
+            await axios.delete(`https://67c98ac5102d684575c2808b.mockapi.io/users/${user.id}`);
+            localStorage.removeItem("userId");
+            localStorage.removeItem("user");
+            setUser(null);
+            alert("Hesabınız silindi.");
+            window.location.href = "/"; // Ana sayfaya yönlendir
+        } catch (error) {
+            console.error("Hesap silme hatası:", error);
+            alert("Hesap silinirken bir hata oluştu.");
+        }
+    };
+
+    const updatePassword = async () => {
+        if (!user) return;
+    
+        if (currentPassword !== user.password) {
+            alert("Eski şifre yanlış!");
+            return;
+        }
+    
+        const updatedUser = {
+            ...user,
+            password: newPassword,
+        };
+    
+        try {
+            const response = await axios.put(`https://67c98ac5102d684575c2808b.mockapi.io/users/${user.id}`, updatedUser);
+            setUser(response.data);
+            setCurrentPassword("");
+            setNewPassword("");
+            alert("Şifreniz güncellendi.");
+        } catch (error) {
+            console.error("Şifre güncellenemedi:", error);
+            alert("Şifre güncellenirken hata oluştu.");
+        }
+    };
+    
 
     return (
         <div className="profile-page">
@@ -136,7 +228,7 @@ export default function Profile() {
                                                 )}
                                                 <button
                                                     className="settings-button"
-                                                    onClick={() => setIsEditingNickname(!isEditingNickname)}
+                                                    onClick={handleNicknameSave}
                                                 >
                                                     {isEditingNickname ? "Kaydet" : "Değiştir"}
                                                 </button>
@@ -158,7 +250,7 @@ export default function Profile() {
                                                 )}
                                                 <button
                                                     className="settings-button"
-                                                    onClick={() => setIsEditingEmail(!isEditingEmail)}
+                                                    onClick={handleEmailSave}
                                                 >
                                                     {isEditingEmail ? "Kaydet" : "Değiştir"}
                                                 </button>
@@ -169,10 +261,22 @@ export default function Profile() {
                                             <h5 className="settings-subtitle">Şifre</h5>
                                             <div className="settings-content">
                                                 <div className="password-inputs">
-                                                    <input type="password" placeholder="Eski Şifre" className="password-field" />
-                                                    <input type="password" placeholder="Yeni Şifre" className="password-field" />
+                                                    <input
+                                                        type="password"
+                                                        placeholder="Eski Şifre"
+                                                        className="password-field"
+                                                        value={currentPassword}
+                                                        onChange={(e) => setCurrentPassword(e.target.value)}
+                                                    />
+                                                    <input
+                                                        type="password"
+                                                        placeholder="Yeni Şifre"
+                                                        className="password-field"
+                                                        value={newPassword}
+                                                        onChange={(e) => setNewPassword(e.target.value)}
+                                                    />
                                                 </div>
-                                                <button className="settings-button">Şifreni Kaydet</button>
+                                                <button className="settings-button" onClick={updatePassword}>Şifreni Kaydet</button>
                                             </div>
                                             <p className="password-forgot">Şifreni hatırlamıyor musun? <button className="password-forgot-button">Şifreni sıfırla</button></p>
                                         </div>
@@ -199,7 +303,7 @@ export default function Profile() {
                                                 <p className="settings-warning">
                                                     Bu işlem geri alınamaz ve tüm verileriniz kalıcı olarak silinir.
                                                 </p>
-                                                <button className="settings-button danger">Hesabımı Sil</button>
+                                                <button onClick={deleteUserAccount} className="settings-button danger">Hesabımı Sil</button>
                                             </div>
                                         </div>
                                     </div>
