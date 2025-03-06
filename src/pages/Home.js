@@ -52,9 +52,15 @@ export default function Home() {
     }, []);
 
     useEffect(() => {
-        window.addEventListener("storage", fetchUserData); 
-        return () => window.removeEventListener("storage", fetchUserData);
+        const handleStorageChange = () => {
+            fetchUserData();  
+        };
+    
+        window.addEventListener("storage", handleStorageChange);
+    
+        return () => window.removeEventListener("storage", handleStorageChange);
     }, []);
+    
 
     return (
         <div className="home-page mobile-gap">

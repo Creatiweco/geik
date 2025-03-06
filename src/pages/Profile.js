@@ -25,25 +25,20 @@ export default function Profile() {
         email: false,
     });
 
-    const handleCheckboxChange = (e) => {
-        const { name, checked } = e.target;
-        setNotifications((prev) => ({ ...prev, [name]: checked }));
-    };
-
     const [nickname, setNickname] = useState("");
     const [email, setEmail] = useState("");
-    const [currentPassword, setCurrentPassword] = useState(""); 
+    const [currentPassword, setCurrentPassword] = useState("");
     const [newPassword, setNewPassword] = useState("");
 
     const fetchUser = async () => {
-        const userId = localStorage.getItem("userId"); 
+        const userId = localStorage.getItem("userId");
         if (userId) {
             try {
                 const response = await axios.get(`https://67c98ac5102d684575c2808b.mockapi.io/users/${userId}`);
                 setUser(response.data);
                 setNickname(response.data.name);
                 setEmail(response.data.email);
-    
+
                 if (response.data.isSubscriber && response.data.isStudentVerified) {
                     setBorderColor("rgba(45, 255, 60, 1)");
                 } else if (response.data.isSubscriber) {
@@ -58,86 +53,89 @@ export default function Profile() {
             }
         }
     };
-    
+
     useEffect(() => {
         fetchUser();
     }, []);
 
     const updateUserInfo = async () => {
         if (!user) return;
-    
+
         const updatedUser = {
             ...user,
             name: nickname,
             email: email,
         };
-    
+
         try {
             const response = await axios.put(`https://67c98ac5102d684575c2808b.mockapi.io/users/${user.id}`, updatedUser);
-            setUser(response.data); // Güncellenmiş veriyi tekrar state'e koy
+            setUser(response.data);
+            localStorage.setItem("user", JSON.stringify(response.data));  // localStorage güncelle
+            fetchUser();  // En güncel veriyi çek
             alert("Bilgileriniz güncellendi.");
         } catch (error) {
             console.error("Bilgiler güncellenemedi:", error);
             alert("Bilgiler güncellenirken hata oluştu.");
         }
     };
-    
+
     const handleNicknameSave = () => {
         if (isEditingNickname) {
             updateUserInfo();
         }
         setIsEditingNickname(!isEditingNickname);
     };
-    
+
     const handleEmailSave = () => {
         if (isEditingEmail) {
             updateUserInfo();
         }
         setIsEditingEmail(!isEditingEmail);
     };
-    
-
-    const deleteUserAccount = async () => {
-        if (!user) return;
-    
-        const confirmDelete = window.confirm("Hesabınızı silmek istediğinize emin misiniz?");
-        if (!confirmDelete) return;
-    
-        try {
-            await axios.delete(`https://67c98ac5102d684575c2808b.mockapi.io/users/${user.id}`);
-            localStorage.removeItem("userId");
-            localStorage.removeItem("user");
-            setUser(null);
-            alert("Hesabınız silindi.");
-            window.location.href = "/"; // Ana sayfaya yönlendir
-        } catch (error) {
-            console.error("Hesap silme hatası:", error);
-            alert("Hesap silinirken bir hata oluştu.");
-        }
-    };
 
     const updatePassword = async () => {
         if (!user) return;
-    
+
         if (currentPassword !== user.password) {
             alert("Eski şifre yanlış!");
             return;
         }
-    
+
         const updatedUser = {
             ...user,
             password: newPassword,
         };
-    
+
         try {
             const response = await axios.put(`https://67c98ac5102d684575c2808b.mockapi.io/users/${user.id}`, updatedUser);
             setUser(response.data);
+            localStorage.setItem("user", JSON.stringify(response.data));  // localStorage güncelle
+            fetchUser();
             setCurrentPassword("");
             setNewPassword("");
             alert("Şifreniz güncellendi.");
         } catch (error) {
             console.error("Şifre güncellenemedi:", error);
             alert("Şifre güncellenirken hata oluştu.");
+        }
+    };
+
+    const deleteUserAccount = async () => {
+        if (!user) return;
+
+        const confirmDelete = window.confirm("Hesabınızı silmek istediğinize emin misiniz?");
+        if (!confirmDelete) return;
+
+        try {
+            await axios.delete(`https://67c98ac5102d684575c2808b.mockapi.io/users/${user.id}`);
+            localStorage.removeItem("userId");
+            localStorage.removeItem("user");
+            setUser(null);
+            alert("Hesabınız silindi.");
+            window.location.href = "/";
+        } catch (error) {
+            console.error("Hesap silme hatası:", error);
+            alert("Hesap silinirken bir hata oluştu.");
         }
     };
     
@@ -148,17 +146,13 @@ export default function Profile() {
                 <div className="profile-header">
                     <div className="profile-info">
                         <div className="profile-photo">
-                            <img src="/assets/images/profilePhoto.png" alt="pp" style={{border: `5px solid ${borderColor}`}}/>
+                            <img src={user?.avatar || "/assets/images/profilePhoto.png"} alt="pp" style={{ border: `5px solid ${borderColor}` }} />
                         </div>
                         <div className="profile-details">
-                            <h3>İsim Soyisim</h3>
+                            <h3>{nickname}</h3>
                             <div className="profile-actions">
-                                <button className="geik-action-btn">
-                                    <IoShareSocialOutline />
-                                </button>
-                                <button className="geik-action-btn" onClick={() => setActiveTab("settings")}>
-                                    <GoPencil />
-                                </button>
+                                <button className="geik-action-btn"><IoShareSocialOutline /></button>
+                                <button className="geik-action-btn" onClick={() => setActiveTab("settings")}><GoPencil /></button>
                             </div>
                         </div>
                     </div>

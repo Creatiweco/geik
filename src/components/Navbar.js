@@ -22,18 +22,24 @@ export default function Navbar() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        const storedUserId = localStorage.getItem("userId");
-        if (storedUserId) {
-            try {
-                const response = axios.get(`https://67c98ac5102d684575c2808b.mockapi.io/users/users/${storedUserId}`);
-                setUser(response.data);
-            } catch (error) {
+        const fetchUser = async () => {
+            const storedUserId = localStorage.getItem("userId");
+            if (storedUserId) {
+                try {
+                    const response = await axios.get(`https://67c98ac5102d684575c2808b.mockapi.io/users/${storedUserId}`);
+                    setUser(response.data);
+                } catch (error) {
+                    console.error("Kullanıcı bilgileri alınırken hata oluştu:", error);
+                    setUser(null);
+                }
+            } else {
                 setUser(null);
             }
-        } else {
-            setUser(null);
-        }
+        };
+    
+        fetchUser();
     }, []);
+    
 
     useEffect(() => setShowSearch(false), [location.pathname]);
 
