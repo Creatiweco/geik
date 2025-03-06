@@ -34,7 +34,7 @@ export default function Profile() {
         const userId = localStorage.getItem("userId");
         if (userId) {
             try {
-                const response = await axios.get(`https://67c98ac5102d684575c2808b.mockapi.io/users/${userId}`);
+                const response = await axios.get(`https://67c98ac5102d684575c2808b.mockapi.io/users/users/${userId}`);
                 setUser(response.data);
                 setNickname(response.data.name);
                 setEmail(response.data.email);
@@ -68,7 +68,7 @@ export default function Profile() {
         };
 
         try {
-            const response = await axios.put(`https://67c98ac5102d684575c2808b.mockapi.io/users/${user.id}`, updatedUser);
+            const response = await axios.put(`https://67c98ac5102d684575c2808b.mockapi.io/users/users/${user.id}`, updatedUser);
             setUser(response.data);
             localStorage.setItem("user", JSON.stringify(response.data));  // localStorage güncelle
             fetchUser();  // En güncel veriyi çek
@@ -107,7 +107,7 @@ export default function Profile() {
         };
 
         try {
-            const response = await axios.put(`https://67c98ac5102d684575c2808b.mockapi.io/users/${user.id}`, updatedUser);
+            const response = await axios.put(`https://67c98ac5102d684575c2808b.mockapi.io/users/users/${user.id}`, updatedUser);
             setUser(response.data);
             localStorage.setItem("user", JSON.stringify(response.data));  // localStorage güncelle
             fetchUser();
