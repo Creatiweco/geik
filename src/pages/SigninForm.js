@@ -98,7 +98,7 @@ export default function SigninForm() {
                             </span>
                         </div>
 
-                        <button type="submit" className="form-btn-primary">
+                        <button onClick={handleSubmit} type="submit" className="form-btn-primary">
                             Giriş Yap
                         </button>
                     </form>
