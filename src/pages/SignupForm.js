@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash, FaCheck } from "react-icons/fa";
 import axios from "axios";
@@ -8,30 +8,30 @@ import "bootstrap/dist/css/bootstrap.min.css";
 export default function SignupForm() {
     const navigate = useNavigate();
 
-    // Şifre göster/gizle durumunu kontrol eden state
     const [showPassword, setShowPassword] = useState(false);
 
-    // Formdaki tüm alanların değerlerini tutan state
     const [formData, setFormData] = useState({
         firstName: "",
         lastName: "",
         email: "",
         phone: "",
         password: "",
+        confirmPassword: "",
         termsAccepted: false,
         privacyAccepted: false,
     });
 
-    // Şifre göster/gizle butonu
+    // Şifre göster/gizle toggle
     const togglePasswordVisibility = () => setShowPassword(!showPassword);
 
-    // Input ve checkbox değişikliklerini izleyen fonksiyon
+    // Tüm input değişikliklerini dinleyen handler
     const handleChange = (e) => {
         const { name, value, type, checked } = e.target;
-        
-        if(name === "phone") {
+
+        // Telefon için otomatik formatlama
+        if (name === "phone") {
             const formattedPhone = formatPhoneNumber(value);
-            setFormData({...formData, [name]: formattedPhone});
+            setFormData({ ...formData, [name]: formattedPhone });
         } else {
             setFormData({
                 ...formData,
@@ -40,13 +40,14 @@ export default function SignupForm() {
         }
     };
 
+    // Telefonu otomatik +90 (XXX) XXX XXXX formatına çeviren fonksiyon
     const formatPhoneNumber = (value) => {
         let numbers = value.replace(/[^\d]/g, "");
-        if(numbers.startWith("90")) {
+        if (numbers.startsWith("90")) {
             numbers = numbers.slice(2);
         }
         numbers = numbers.slice(0, 10);
-        let formatted = "+90"
+        let formatted = "+90";
 
         if (numbers.length > 0) formatted += ` (${numbers.slice(0, 3)}`;
         if (numbers.length >= 4) formatted += `) ${numbers.slice(3, 6)}`;
@@ -56,28 +57,29 @@ export default function SignupForm() {
         return formatted;
     };
 
+    // Şifre format kontrolü (en az bir harf, bir rakam, bir büyük harf ve bir özel karakter)
     const isPasswordValid = (password) => {
         const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
         return regex.test(password);
     };
 
-    // Formdaki tüm alanların dolu olup olmadığını ve checkbox'ların işaretlenip işaretlenmediğini kontrol eden fonksiyon
+    // Form doğrulama
     const validateForm = () => {
         const requiredFields = ["firstName", "lastName", "email", "phone", "password", "confirmPassword"];
         const emptyFields = requiredFields.filter(field => !formData[field].trim());
 
-        if(emptyFields.length > 0) {
-            alert("lütfen Tüm Alanları Eksiksiz Doldurun")
+        if (emptyFields.length > 0) {
+            alert("Lütfen tüm alanları eksiksiz doldurun.");
             return false;
         }
 
-        if(formData.password !== formData.comfirmPassword) {
-            alert("Şifreler Eşleşmiyor")
+        if (formData.password !== formData.confirmPassword) {
+            alert("Şifreler eşleşmiyor.");
             return false;
         }
 
-        if(!isPasswordValid(formData.password)) {
-            alert("Şifreniz en az 1 büyük harf, 1 küçük harf, 1 rakam ve 1 özel karakter içermelidir.")
+        if (!isPasswordValid(formData.password)) {
+            alert("Şifreniz en az 1 büyük harf, 1 küçük harf, 1 rakam ve 1 özel karakter içermelidir.");
             return false;
         }
 
@@ -89,42 +91,43 @@ export default function SignupForm() {
         return true;
     };
 
-    // Form submit olduğunda çalışır
+    // Form gönderme
     const handleSubmit = (e) => {
         e.preventDefault();
+        if (!validateForm()) return;
 
-        if(!validateForm()) return;
-
+        // Mail kontrolü - aynı email varsa uyarı ver
         axios.get("https://67c98ac5102d684575c2808b.mockapi.io/users/users")
-        .then(response => {
-            const existingUser = response.data.find(user => user.email.toLowerCase() === formData.email.toLowerCase())
-            
-            if (existingUser) {
-                alert("Bu e-posta adresiyle zaten bir hesap var");
-                return
-            }
+            .then(response => {
+                const existingUser = response.data.find(user => user.email.toLowerCase() === formData.email.toLowerCase());
 
-            const userData = {
-                name: `${formData.firstName} ${formData.lastName}`,
-                email: formData.email,
-                phone: formData.phone,
-                password: formData.password,
-            };
+                if (existingUser) {
+                    alert("Bu e-posta adresiyle zaten bir hesap var.");
+                    return;
+                }
 
-            axios.post("https://67c98ac5102d684575c2808b.mockapi.io/users/users", userData)
-            .then(() => {
-                alert("Kayıt başarılı!")
-                navigate("/")
+                // Yeni kullanıcı kaydetme
+                const userData = {
+                    name: `${formData.firstName} ${formData.lastName}`,
+                    email: formData.email,
+                    phone: formData.phone,
+                    password: formData.password,
+                };
+
+                axios.post("https://67c98ac5102d684575c2808b.mockapi.io/users/users", userData)
+                    .then(() => {
+                        alert("Kayıt başarılı!");
+                        navigate("/");
+                    })
+                    .catch(error => {
+                        console.error("Kayıt başarısız:", error);
+                        alert("Kayıt sırasında bir hata oluştu.");
+                    });
             })
             .catch(error => {
                 console.error("Mail kontrolü sırasında hata oluştu:", error);
-                alert("Kayıt sırasında bir hata oluştu.");
+                alert("Mail kontrolü sırasında bir hata oluştu.");
             });
-        })
-        .catch(error => {
-            console.error("Mail kontrolü sırasında hata oluştu:", error);
-            alert("Mail kontrolü sırasında bir hata oluştu")
-        });
     };
 
     return (
@@ -139,126 +142,40 @@ export default function SignupForm() {
             <div className="container">
                 <div className="row justify-content-center mobile">
                     <div className="p-0">
-                        {/* Başlık alanı */}
                         <h4 className="signup-title">
                             HESABINI OLUŞTUR VE 
-                            <span>
-                                <img src="/assets/images/geik_logo_blue.svg" alt="Logo" className="signup-logo" />'LE!
-                            </span>
+                            <span><img src="/assets/images/geik_logo_blue.svg" alt="Logo" className="signup-logo" />'LE!</span>
                         </h4>
 
-                        {/* Kayıt formu */}
                         <form style={{ zIndex: "2", position: "relative" }} onSubmit={handleSubmit}>
                             <h5 className="signup-desc">KİŞİSEL BİLGİLER</h5>
-
-                            {/* Ad ve Soyad alanları */}
                             <div className="row">
                                 <div className="col-lg-6 col-12">
-                                    <input
-                                        type="text"
-                                        className="form-control transparent-input mb-3"
-                                        placeholder="Ad"
-                                        name="firstName"
-                                        value={formData.firstName}
-                                        onChange={handleChange}
-                                    />
+                                    <input type="text" placeholder="Ad" name="firstName" className="form-control transparent-input mb-3" value={formData.firstName} onChange={handleChange} />
                                 </div>
                                 <div className="col-lg-6 col-12">
-                                    <input
-                                        type="text"
-                                        className="form-control transparent-input mb-3"
-                                        placeholder="Soyad"
-                                        name="lastName"
-                                        value={formData.lastName}
-                                        onChange={handleChange}
-                                    />
+                                    <input type="text" placeholder="Soyad" name="lastName" className="form-control transparent-input mb-3" value={formData.lastName} onChange={handleChange} />
                                 </div>
                             </div>
+                            <input type="email" placeholder="Mail" name="email" className="form-control transparent-input mb-3" value={formData.email} onChange={handleChange} />
+                            <input type="text" placeholder="Telefon" name="phone" className="form-control transparent-input mb-3" value={formData.phone} onChange={handleChange} />
 
-                            {/* Mail ve Telefon alanları */}
-                            <input
-                                type="email"
-                                className="form-control transparent-input mb-3"
-                                placeholder="Mail"
-                                name="email"
-                                value={formData.email}
-                                onChange={handleChange}
-                            />
-                            <input
-                                type="tel"
-                                className="form-control transparent-input mb-3"
-                                placeholder="Telefon 0(546) 276 05 68"
-                                name="phone"
-                                value={formData.phone}
-                                onChange={handleChange}
-                            />
-
-                            {/* Şifre alanı - göster/gizle butonuyla */}
                             <div className="password-container mb-4">
-                                <input
-                                    type={showPassword ? "text" : "password"}
-                                    className="form-control transparent-input"
-                                    placeholder="Şifre"
-                                    name="password"
-                                    value={formData.password}
-                                    onChange={handleChange}
-                                />
-                                <span className="password-toggle" onClick={togglePasswordVisibility}>
-                                    {showPassword ? <FaEyeSlash /> : <FaEye />}
-                                </span>
+                                <input type={showPassword ? "text" : "password"} placeholder="Şifre" name="password" className="form-control transparent-input" value={formData.password} onChange={handleChange} />
+                                <span className="password-toggle" onClick={togglePasswordVisibility}>{showPassword ? <FaEyeSlash /> : <FaEye />}</span>
                             </div>
 
-                            {/* Şifre alanı - göster/gizle butonuyla */}
                             <div className="password-container mb-4">
-                                <input
-                                    type={showPassword ? "text" : "password"}
-                                    className="form-control transparent-input"
-                                    placeholder="Şifre Tekrar"
-                                    name="password"
-                                    value={formData.password}
-                                    onChange={handleChange}
-                                />
-                                <span className="password-toggle" onClick={togglePasswordVisibility}>
-                                    {showPassword ? <FaEyeSlash /> : <FaEye />}
-                                </span>
+                                <input type={showPassword ? "text" : "password"} placeholder="Şifre Tekrar" name="confirmPassword" className="form-control transparent-input" value={formData.confirmPassword} onChange={handleChange} />
+                                <span className="password-toggle" onClick={togglePasswordVisibility}>{showPassword ? <FaEyeSlash /> : <FaEye />}</span>
                             </div>
 
-                            {/* Hizmet Koşulları onay kutusu */}
                             <div className="form-check-wrapper mb-2">
-                                <input
-                                    type="checkbox"
-                                    className="custom-checkbox"
-                                    id="terms"
-                                    name="termsAccepted"
-                                    checked={formData.termsAccepted}
-                                    onChange={handleChange}
-                                />
-                                <label className="form-check-label" htmlFor="terms">
-                                    <span className="checkbox-icon">{formData.termsAccepted && <FaCheck />}</span>
-                                    <Link to="/hizmet-kosullari">Hizmet Koşullarını</Link> kabul ediyorum.
-                                </label>
+                                <input type="checkbox" id="terms" name="termsAccepted" className="custom-checkbox" checked={formData.termsAccepted} onChange={handleChange} />
+                                <label htmlFor="terms"> <FaCheck /> <Link to="/hizmet-kosullari">Hizmet Koşullarını</Link> kabul ediyorum.</label>
                             </div>
 
-                            {/* Aydınlatma Metni onay kutusu */}
-                            <div className="form-check-wrapper mb-4">
-                                <input
-                                    type="checkbox"
-                                    className="custom-checkbox"
-                                    id="privacy"
-                                    name="privacyAccepted"
-                                    checked={formData.privacyAccepted}
-                                    onChange={handleChange}
-                                />
-                                <label className="form-check-label" htmlFor="privacy">
-                                    <span className="checkbox-icon">{formData.privacyAccepted && <FaCheck />}</span>
-                                    <Link to="/aydinlatma-metni">Aydınlatma Metnini</Link> okudum ve onaylıyorum.
-                                </label>
-                            </div>
-
-                            {/* Hesap oluşturma butonu */}
-                            <button type="submit" className="form-btn-primary">
-                                Hesap Oluştur
-                            </button>
+                            <button type="submit" className="form-btn-primary">Hesap Oluştur</button>
                         </form>
                     </div>
                 </div>
