@@ -15,7 +15,8 @@ export default function MainLayout({ children }) {
     "/giris-secenekleri",
     "/giris-yap",
     "/kayit-ol",
-    "/kayit-ol-ogrenci"
+    "/kayit-ol-ogrenci",
+    "/sifremi-unuttum"
   ];
 
   // Footer'ın gösterilmeyeceği sayfa yolları
@@ -24,7 +25,8 @@ export default function MainLayout({ children }) {
     "/giris-yap",
     "/kayit-ol",
     "/kayit-ol-ogrenci",
-    "/takvim"
+    "/takvim",
+    "/sifremi-unuttum"
   ];
 
   return (

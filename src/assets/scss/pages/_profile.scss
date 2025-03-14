@@ -467,7 +467,78 @@
                 justify-content: center;
             }
         }
-      }
+    }
+
+    .qr-swiper {
+        width: 100%;
+        max-width: 400px; // Mobil uyum için maksimum genişlik
+        overflow: hidden;
+        padding-bottom: 20px;
+        margin-top: 45px;
+    
+        .swiper-wrapper {
+            display: flex;
+            align-items: center;
+        }
+    
+        .swiper-slide {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100% !important; // QR kodunun tam oturmasını sağla
+        }
+    
+        .qr-slide {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    
+        .qr-image {
+            width: 200px; // QR kodlarının genişliği
+            height: 200px;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+    
+        // Swiper'ın pagination noktalarının görünmesini sağla
+        .swiper-pagination {
+            position: relative;
+            bottom: 0px;
+            text-align: center;
+            
+            .swiper-pagination-bullet {
+                width: 10px;
+                height: 10px;
+                background-color: rgba(255, 255, 255, 0.5);
+                border-radius: 50%;
+                margin: 0 5px;
+                transition: background-color 0.3s;
+    
+                &.swiper-pagination-bullet-active {
+                    background-color: rgba(45, 255, 60, 1);
+                }
+            }
+        }
+
+        .qr-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .qr-label {
+            font-family: $second-font;
+            font-weight: 700;
+            font-size: 18px;
+            line-height: 80%;
+            letter-spacing: 0%;
+            text-align: center;
+        }
+        
+    }
+    
 
     .notifications-section {
         h4 {
@@ -537,7 +608,354 @@
             cursor: pointer;
         }
     }
+
+    .auth-popup {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
     
-      
+        .auth-popup-content {
+            background: rgba(10, 12, 16, 1);
+            padding: 70px 280px;
+            border-radius: 10px;
+            text-align: center;
+            width: max-content;
+            position: relative;
+
+            .delete-popup{
+                .popup-text{
+                    h5{
+                        padding-bottom: 45px;
+                    }
+
+                    p{
+                        padding-bottom: 65px;
+                    }
+                }
+
+                .popup-buttons{
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    gap: 30px;
+
+                    .delete-button{
+                        background-color: rgba(149, 17, 17, 1);
+                        color: rgba(225, 225, 225, 1);
+
+                        &:hover{
+                            background-color: rgb(109, 12, 12); 
+                        }
+                    }
+                }
+            }
+        }
+    
+        h3 {
+            font-family: $base-font;
+            font-weight: 400;
+            font-size: 20px;
+            line-height: 100%;
+            letter-spacing: 0%;
+            text-align: center;
+            padding-bottom: 75px;
+        }
+
+        img{
+            max-width: 125px;
+        }
+
+        .step-2-title {
+            padding-bottom: 13px;
+        }
+
+        p{
+            font-family: $second-font;
+            font-weight: 300;
+            font-size: 16px;
+            line-height: 24px;
+            letter-spacing: 1%;
+            text-align: center;
+            vertical-align: middle;
+
+        }
+    
+        input {
+            font-family: $second-font;
+            font-weight: 300;
+            font-size: 16px;
+            line-height: 100%;
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 10px;
+            border: 1px solid rgba(217, 217, 217, 1);
+            background-color: transparent;
+            color: rgba(255, 255, 255, 0.34);
+            font-size: 18px;
+        }
+    
+        .copy-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            color: rgba(255, 255, 255, 1);
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+
+            span{
+                font-family: $second-font;
+                font-weight: 700;
+                font-size: 16px;
+                line-height: 24px;
+                text-align: center;
+                vertical-align: middle;
+
+            }
+    
+            button {
+                background: none;
+                border: none;
+                color: rgba(255, 255, 255, 1);
+                cursor: pointer;
+            }
+        }
+    
+        .code-inputs {
+            display: flex;
+            justify-content: center;
+            padding: 90px 0 40px 0;
+            gap: 20px;
+    
+            input {
+                width: 40px;
+                height: 56px;
+                font-size: 20px;
+                text-align: center;
+                border-radius: 5px;
+                border: 1px solid rgba(217, 217, 217, 1);
+                background: none;
+                color: white;
+                padding: 0;
+            }
+        }
+    
+        .auth-button {
+            width: 100%;
+            background: rgba(255, 255, 255, 1);
+            padding: 12px 0;
+            font-family: $base-font;
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 100%;
+            letter-spacing: 0%;
+            text-align: center;
+            color: rgba(10, 12, 16, 1);
+            margin-top: 16px;
+            border-radius: 10px;
+        }
+
+        .danger{
+            background: rgba(36, 42, 55, 1);
+            color: rgba(235, 235, 235, 0.51);
+        }
+    
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            font-size: 34px;
+            color: white;
+            cursor: pointer;
+        }
+    }
+    
 }
 
+.detail-info-mobile{
+    display: none;
+}
+
+.tab-swiper {
+    width: 100%;
+    overflow-x: hidden;
+    padding-bottom: 10px;
+
+    .swiper-wrapper {
+        display: flex;
+    }
+
+    .swiper-slide {
+        width: auto !important;
+    }
+
+    .geik-button-1 {
+        white-space: nowrap;
+        padding: 10px 20px;
+        border-radius: 20px;
+        font-size: 14px;
+        transition: 0.3s;
+    }
+}
+
+
+@media only screen and (max-width: 575px) {
+    .detail-info-mobile{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 20px;
+        padding: 0;
+
+        .prev-button{
+            font-size: 21px;
+            padding: 0;
+        }
+
+        .geik-action-btn{
+            padding: 10px 12px;
+        }
+    }
+
+    .profile-page {
+        .profile-header {
+            .profile-info {
+                .profile-photo {
+                    img {
+                        max-width: 130px;
+                        max-height: 130px;
+                    }
+                }
+                .profile-details {
+                    h3{
+                        font-size: 24px;
+                    }
+
+                    .profile-actions{
+                        display: none;
+                    }
+                } 
+            }
+        }
+
+        .detail-profile {
+            .tab-content {
+                .profile-settings {
+                    .student-certificate .file-upload-wrapper .file-upload-label{
+                        display: flex;
+                        justify-content: center;
+                        background-color: #fff;
+                        color: rgba(10, 12, 16, 1);
+                        width: 100%;
+                        padding: 12px 0;
+                    }
+
+                    .password-settings {
+                        .password-inputs{
+                            flex-direction: column;
+                            gap: 12px;
+
+                            .password-field{
+                                border-radius: 10px;
+                            }
+                        }
+                    }
+                    .settings-section{
+                        margin-bottom: 35px;
+
+                        .settings-content{
+                            flex-direction: column;
+                            align-items:unset;
+                            gap: 25px;
+
+                            .nickname-field,
+                            .mail-field{
+                                border-radius: 10px;
+                            }
+
+                            .settings-button{
+                                border-radius: 10px;
+                                padding: 12px 24px;
+                            }
+                            .mobile-button-width{
+                                display: flex;
+                                justify-content: end;
+                                align-items: center;
+                            }
+                        }
+                    }
+                }
+
+                .ticket-card {
+                    display: flex;
+                    width: 100%;
+
+                    .ticket-image-wrapper{
+                        display: none;
+                    }
+
+                    .ticket-details{
+                        border-radius: 10px;
+                        width: 100%;
+                        padding: 24px 0;
+                        
+                        .ticket-qr {
+                            flex-direction: column;
+                            border-left: none;
+                            padding: 0 18px 0 0px;
+                        }
+                        
+                        .ticket-info {
+                            padding: 0 0 0 14px;
+                            gap: 14px;
+
+                            h4{
+                                font-size: 18px;
+                            }
+
+                            p{
+                                font-size: 14px;
+                            }
+
+                            svg {
+                                display: none;
+                            }
+                        } 
+                    }
+                }
+            }
+        }
+
+        .qr-popup {
+            .qr-popup-content {
+                height: 100vh;
+                width: 100%;
+                padding:  0;
+                display: flex;
+                align-items: center;
+                flex-direction: column;
+                justify-content: center;
+
+                button{
+                    position: absolute;
+                    top: 10px;
+                    right: 10px;
+                    font-size: 24px;
+                }
+            }
+        }
+    }
+}
+@media only screen and (min-width: 576px) and (max-width: 767px) {}
+@media only screen and (min-width: 768px) and (max-width: 991px) {}
+@media only screen and (min-width: 992px) and (max-width: 1199px) {}

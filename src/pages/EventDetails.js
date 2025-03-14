@@ -8,6 +8,10 @@ import CategorySlider from '../components/CategorySlider';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { getAverageColor } from '../utils/color';
 import { latestReleases } from '../data/eventData';
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/pagination";
 
 export default function EventDetails() {
     const navigate = useNavigate();
@@ -16,6 +20,7 @@ export default function EventDetails() {
     // Popup, login ve kullanıcı bilgileri için state tanımları
     const [activeTab, setActiveTab] = useState('details');
     const [showPopup, setShowPopup] = useState(false);
+    const [showSubPopup, setshowSubPopup] = useState(false);
     const [showLoginPopup, setShowLoginPopup] = useState(false);
     const [popupStep, setPopupStep] = useState(1);
     const [bgColor, setBgColor] = useState('rgba(8, 32, 104, 0.7)');
@@ -53,7 +58,7 @@ export default function EventDetails() {
         if (!user) {
             setShowLoginPopup(true);  // Giriş yapmamışsa login popup göster
         } else if (!user.isSubscriber) {
-            navigate("/profil", { state: { openTab: "payment" } });  // Abone değilse ödeme sayfasına yönlendir
+            setshowSubPopup(true)
         } else {
             setShowPopup(true);  // Aboneyse popup aç
         }
@@ -101,6 +106,7 @@ export default function EventDetails() {
     const handlePreviousStep = () => setPopupStep(prev => prev - 1);
     const closePopup = () => {
         setShowPopup(false);
+        setshowSubPopup(false)
         setPopupStep(1);
     };
 
@@ -204,6 +210,28 @@ export default function EventDetails() {
             <EventSlider sectionTitle="Benzer Etkinlikler" events={latestReleases}/>
             <EventSlider sectionTitle="Benzer Etkinlikler" events={latestReleases}/>
             <CategorySlider/>
+
+            {showSubPopup && (
+                <div className='popup-overlay'>
+                    <div className='popup'>
+                        <button className='popup-close' onClick={closePopup}><IoClose /></button>
+                        <div className="popup-step">
+                            <div className="popup-content-step-2">
+                                <div className="popup-text">
+                                    <h5>BU ETKİNLİĞE KATILMAK<br/>  İÇİN ABONE OL</h5>
+                                    <p> <span>26 Şubat Çarşamba 21.00 tarihli<br/> Jolly Joker Ankara </span>etkinliğine katılmak için<span> profil &gt; Ödeme<br/>  yöntemi </span>sekmesine giderek lütfen ödeme yönteminizi ekleyiniz.</p>
+                                </div>
+                                <div className="popup-buttons">
+                                    {/* Önceki adıma dönme butonu */}
+                                    <button className="popup-btn-3" onClick={closePopup}>Kapat</button>
+                                    {/* Devam etme butonu */}
+                                    <button className="popup-btn-2" onClick={() => navigate("/profil", { state: { openTab: "payment" } })}>Ödemeye git</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
 
             {/* Katılım Popup'u */}
             {showPopup && (
@@ -309,13 +337,26 @@ export default function EventDetails() {
                                 <div className="popup-content-step-3">
                                     <h5>Etkinlik Adı Konseri’ne <br />bilet aldınız!</h5>
                                     <p>26 Şubat Çarşamba <span>21.00</span> \ Jolly Joker Ankara</p>
+
                                     <div className="popup-qr">
-                                        <img src="/assets/images/qrkod.png" alt="eventqr" />
-                                        {/* Arkadaş davet edildiyse 2 QR gösterilir */}
-                                        {isInvitingFriend && (
-                                            <img src="/assets/images/qrkod.png" alt="eventqr-friend" />
-                                        )}
+                                        <Swiper
+                                            slidesPerView={1}
+                                            spaceBetween={10}
+                                            pagination={{ clickable: true }}
+                                            modules={[Pagination]}
+                                            className="qr-swiper"
+                                        >
+                                            <SwiperSlide>
+                                                <img src="/assets/images/qrkod.png" alt="eventqr" />
+                                            </SwiperSlide>
+                                            {isInvitingFriend && (
+                                                <SwiperSlide>
+                                                    <img src="/assets/images/qrkod.png" alt="eventqr-friend" />
+                                                </SwiperSlide>
+                                            )}
+                                        </Swiper>
                                     </div>
+
                                     <div className="popup-buttons">
                                         {/* Kapatma ve Biletlerim sayfasına gitme butonları */}
                                         <button className="popup-btn-3" onClick={closePopup}>Kapat</button>

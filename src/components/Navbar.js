@@ -4,7 +4,7 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import { CiSearch } from "react-icons/ci";
 import { PiHeartStraight } from "react-icons/pi";
 import { HiOutlineBars3BottomLeft } from "react-icons/hi2";
-import { IoClose, IoEnterOutline, IoExitOutline } from "react-icons/io5";
+import { IoClose, IoEnterOutline } from "react-icons/io5";
 import { latestReleases, concerts, activity } from "../data/eventData";
 import filters from "../data/filterData";
 import "../assets/scss/components/_navbar.scss";
@@ -17,11 +17,22 @@ export default function Navbar() {
     const [showSearch, setShowSearch] = useState(false);
     const [isDetailPage, setIsDetailPage] = useState(false);
     const [selectedFilter, setSelectedFilter] = useState("tumu");
+    const [menuOpen, setMenuOpen] = useState(false);
+    const [isTyping, setIsTyping] = useState(false);
+    const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
     // React Router'dan gerekli hook'lar
     const location = useLocation();
     const navigate = useNavigate();
     const searchRef = useRef(null);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMobile(window.innerWidth <= 768);
+        };
+        window.addEventListener("resize", handleResize);
+        return () => window.removeEventListener("resize", handleResize);
+    }, []);
 
     // Kullanıcı bilgisini localStorage'dan alıp API'den çekme fonksiyonu
     const fetchUser = async () => {
@@ -84,9 +95,9 @@ export default function Navbar() {
     }, [location.pathname]);
 
     // Filtre butonuna tıklama - seçili filtreyi değiştirir
-    const handleFilterSelect = (filterName) => {
-        setSelectedFilter(filterName);
-    };
+    // const handleFilterSelect = (filterName) => {
+    //     setSelectedFilter(filterName);
+    // };
 
     // Etkinlikleri seçilen filtreye göre süzme fonksiyonu
     const filterEvents = (events) => {
@@ -123,7 +134,7 @@ export default function Navbar() {
                         <>
                             {/* Favoriler ikonu */}
                             <PiHeartStraight
-                                className="navbar-icon"
+                                className="navbar-icon d-lg-flex d-none"
                                 onClick={() => {
                                     if (user.isSubscriber) {
                                         navigate("/profil", { state: { openTab: "favorites" } });
@@ -133,7 +144,7 @@ export default function Navbar() {
                                 }}
                             />
                             {/* Kullanıcı avatarı ve menü */}
-                            <div className="user-menu-container">
+                            <div className="user-menu-container d-lg-flex d-none">
                                 <img
                                     src={user.avatar || "/assets/images/default_user.svg"}
                                     alt={user.name}
@@ -141,11 +152,24 @@ export default function Navbar() {
                                     onClick={handleUserClick}
                                 />
                                 <div className="user-menu">
+                                    <button className="link-btn" onClick={() => navigate("/profil", { state: { openTab: "favorites" } })}>
+                                        Profil
+                                    </button>
+                                    <button className="link-btn" onClick={() => navigate("/profil", { state: { openTab: "settings" } })}>
+                                        Hesap Ayarları
+                                    </button>
+                                    <button className="link-btn" onClick={() => navigate("/profil", { state: { openTab: "upcoming-events" } })}>
+                                        Yaklaşan Etkinliklerim
+                                    </button>
                                     <button className="logout-btn" onClick={handleLogout}>
-                                        Çıkış Yap <IoExitOutline />
+                                        Çıkış Yap
                                     </button>
                                 </div>
                             </div>
+                            <HiOutlineBars3BottomLeft
+                                className="navbar-mobile-menu d-lg-none d-flex"
+                                onClick={() => setMenuOpen(true)}
+                            />
                         </>
                     ) : (
                         // Kullanıcı giriş yapmadıysa gösterilecek butonlar
@@ -157,16 +181,10 @@ export default function Navbar() {
                                 Kayıt Ol
                             </button>
                             {/* Mobil menü */}
-                            <div className="user-menu-container d-lg-none d-flex">
-                                <HiOutlineBars3BottomLeft className="navbar-mobile-menu" />
-                                <div className="user-menu">
-                                    <ul>
-                                        <li><Link to="/">Ana Sayfa</Link></li>
-                                        <li><Link to="/takvim">Takvim</Link></li>
-                                        <li><Link to="/">Canlı TV</Link></li>
-                                    </ul>
-                                </div>
-                            </div>
+                            <HiOutlineBars3BottomLeft
+                                className="navbar-mobile-menu d-lg-none d-flex"
+                                onClick={() => setMenuOpen(true)}
+                            />
                         </>
                     )}
                 </div>
@@ -184,8 +202,8 @@ export default function Navbar() {
                                 </Link>
                             </div>
                             <div className="search-box">
-                                <input type="text" placeholder="Ara..." autoFocus />
-                                <IoClose className="close-icon" onClick={closeSearch} />
+                                <input type="text" placeholder="Ara..." onFocus={() => setIsTyping(true)} onBlur={() => setTimeout(() => setIsTyping(false), 200)}/>
+                                <IoClose className="close-icon" onClick={() => { closeSearch(); setIsTyping(false); }}/>
                             </div>
                             <div className="navbar-right">
                                 {user ? (
@@ -205,29 +223,79 @@ export default function Navbar() {
                         </div>
 
                         {/* Filtre butonları */}
-                        <div className="filter-buttons">
-                            {filters.map((filter, index) => (
-                                <button key={index}
-                                    className={`filter-btn ${selectedFilter === filter.categoryName ? "active" : ""}`}
-                                    onClick={() => handleFilterSelect(filter.categoryName)}
-                                >
-                                    {filter.label}
-                                    <filter.icon />
-                                </button>
-                            ))}
-                        </div>
+                        {(isTyping || !isMobile) && (
+                            <div className="filter-buttons">
+                                {filters.map((filter, index) => (
+                                    <button key={index}
+                                        className={`filter-btn ${selectedFilter === filter.categoryName ? "active" : ""}`}
+                                        onClick={() => setSelectedFilter(filter.categoryName)}
+                                    >
+                                        {filter.label}
+                                        <filter.icon />
+                                    </button>
+                                ))}
+                            </div>
+                        )}
                     </div>
 
-                    {/* Filtrelenmiş etkinlik slider'ları */}
-                    {filterEvents(latestReleases).length > 0 && (
-                        <EventSlider sectionTitle="En Son Çıkanlar" events={filterEvents(latestReleases)} />
+                    {(isMobile ? !isTyping : true) && (
+                        <>
+                        {/* Filtrelenmiş etkinlik slider'ları */}
+                        {filterEvents(latestReleases).length > 0 && (
+                            <EventSlider sectionTitle="En Son Çıkanlar" events={filterEvents(latestReleases)} />
+                        )}
+                        {filterEvents(concerts).length > 0 && (
+                            <EventSlider sectionTitle="Konserler" events={filterEvents(concerts)} />
+                        )}
+                        {filterEvents(activity).length > 0 && (
+                            <EventSliderVertical sectionTitle="Etkinlikler" events={filterEvents(activity)} />
+                        )}
+                        </>
                     )}
-                    {filterEvents(concerts).length > 0 && (
-                        <EventSlider sectionTitle="Konserler" events={filterEvents(concerts)} />
-                    )}
-                    {filterEvents(activity).length > 0 && (
-                        <EventSliderVertical sectionTitle="Etkinlikler" events={filterEvents(activity)} />
-                    )}
+                </div>
+            )}
+
+            {/* Mobil Menü */}
+            {menuOpen && (
+                <div className="mobile-menu-overlay">
+                    <div className="mobile-menu-container">
+                        <div className="mobile-menu-top w-100">
+                            {/* Üst Kısım - Logo ve Kapatma Butonu */}
+                            <div className="mobile-menu-header">
+                                <Link to="/">
+                                    <img src="/assets/images/geik_logo_blue.svg" alt="Logo" className="mobile-logo" />
+                                </Link>
+                                <IoClose className="close-icon" onClick={() => setMenuOpen(false)} />
+                            </div>
+    
+                            {/* Menü Linkleri */}
+                            <ul className="mobile-menu-links">
+                                <li><Link to="/" onClick={() => setMenuOpen(false)}>Ana Sayfa</Link></li>
+                                <li><Link to="/takvim" onClick={() => setMenuOpen(false)}>Takvim</Link></li>
+                                <li><Link to="/canli-tv" onClick={() => setMenuOpen(false)}>Canlı TV</Link></li>
+                                {user && <li><Link to="/profil" state={{ openTab: "favorites" }} onClick={() => setMenuOpen(false)}>Favorilerim</Link></li>}
+                                {user && <li><Link to="/profil" onClick={() => setMenuOpen(false)}>Profilim</Link></li>}
+                            </ul>
+                        </div>
+
+                        {/* Alt Kısım - Giriş/Çıkış Butonları */}
+                        <div className="mobile-menu-footer">
+                            {user ? (
+                                <button className="geik-button-1 logout-btn" onClick={() => { handleLogout(); setMenuOpen(false); }}>
+                                    Çıkış Yap
+                                </button>
+                            ) : (
+                                <>
+                                    <button className="geik-button-1" onClick={() => { navigate("/kayit-ol"); setMenuOpen(false); }}>
+                                        Kayıt Ol
+                                    </button>
+                                    <button className="geik-button-1 button-white" onClick={() => { navigate("/giris-secenekleri"); setMenuOpen(false); }}>
+                                        Giriş Yap
+                                    </button>
+                                </>
+                            )}
+                        </div>
+                    </div>
                 </div>
             )}
         </nav>

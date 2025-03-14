@@ -10,6 +10,7 @@ import ScrollToTop from "./components/ScrollToTop";
 import Profile from "./pages/Profile";
 import SigninForm from "./pages/SigninForm";
 import EventWatch from "./pages/EventWatch";
+import ForgotPassword from "./pages/ForgotPassword";
 
 export default function AppRoutes() {
   return (
@@ -23,6 +24,7 @@ export default function AppRoutes() {
           <Route path="/etkinlik-izle" element={<EventWatch/>}/>
           <Route path="/takvim" element={<EventCalender/>}/>
           <Route path="/giris-secenekleri" element={<SignupOptions/>}/>
+          <Route path="/sifremi-unuttum" element={<ForgotPassword/>}/>
           <Route path="/kayit-ol" element={<SignupForm isStudent={false}/>}/>
           <Route path="/giris-yap" element={<SigninForm/>}/>
           <Route path="/kayit-ol-ogrenci" element={<SignupForm isStudent={true}/>}/>

@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, Link, useLocation } from "react-router-dom";
 import "../assets/scss/pages/_signupForm.scss";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
-import "bootstrap/dist/css/bootstrap.min.css";
+import { FaEye, FaEyeSlash, FaGoogle, FaApple } from "react-icons/fa";
 import axios from "axios";
 
 export default function SigninForm() {
@@ -126,11 +125,25 @@ export default function SigninForm() {
                             Giriş Yap
                         </button>
                     </form>
-
                     {/* Alt linkler: Kayıt ol ve Şifremi unuttum */}
                     <div className="signup-footer">
-                        <Link to="/kayit-ol">Hemen Kayıt Ol</Link>
-                        <Link to="/">Şifremi Unuttum</Link>
+                        <p>Giriş yapamıyor musunuz?</p>
+                        <Link to="/sifremi-unuttum">Şifremi Unuttum</Link>
+                    </div>
+
+                    <div className="singup_options login-options">
+    
+                        <p className="or-text">Ya da</p>
+                        
+                        {/* Google ile giriş butonu */}
+                        <button className="singup_second_primary">
+                            <FaGoogle className="icon me-2" /> Google ile Giriş Yap
+                        </button>
+                
+                        {/* Apple ile giriş butonu */}
+                        <button className="singup_second_primary">
+                            <FaApple className="icon me-2" /> Apple ile Giriş Yap
+                        </button>
                     </div>
                 </div>
             </div>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash, FaCheck } from "react-icons/fa";
 import axios from "axios";
@@ -160,7 +160,7 @@ export default function SignupForm() {
                             <input type="email" placeholder="Mail" name="email" className="form-control transparent-input mb-3" value={formData.email} onChange={handleChange} />
                             <input type="text" placeholder="Telefon" name="phone" className="form-control transparent-input mb-3" value={formData.phone} onChange={handleChange} />
 
-                            <div className="password-container mb-4">
+                            <div className="password-container mb-3">
                                 <input type={showPassword ? "text" : "password"} placeholder="Şifre" name="password" className="form-control transparent-input" value={formData.password} onChange={handleChange} />
                                 <span className="password-toggle" onClick={togglePasswordVisibility}>{showPassword ? <FaEyeSlash /> : <FaEye />}</span>
                             </div>

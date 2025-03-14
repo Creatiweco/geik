@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { IoShareSocialOutline, IoClose } from "react-icons/io5";
-import { FaCheck } from 'react-icons/fa';
+import { FaArrowLeftLong } from "react-icons/fa6";
+import { FaCheck, FaCopy } from 'react-icons/fa';
 import { GoPencil } from "react-icons/go";
 import { LuMicVocal } from "react-icons/lu";
 import { CgCalendarDates } from "react-icons/cg";
@@ -10,35 +11,105 @@ import EventSlider from "../components/EventSlider";
 import "../assets/scss/pages/_profile.scss";
 import { latestReleases, tickets } from "../data/eventData";
 import axios from "axios";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/free-mode";
+import "swiper/css/pagination";
+import { FreeMode, Pagination } from "swiper/modules";
 
 export default function Profile() {
     const location = useLocation(); 
-    // Sayfaya hangi sekme açık olarak gelindiğini al.
+    const navigate = useNavigate();
 
     const [activeTab, setActiveTab] = useState(location.state?.openTab || "upcoming-events");
-    // Hangi sekmenin açık olduğunu belirten state.
-
     const [selectedTicket, setSelectedTicket] = useState(null);
-    // QR kodu gösterilecek bilet.
-
     const [isEditingNickname, setIsEditingNickname] = useState(false);
     const [isEditingEmail, setIsEditingEmail] = useState(false);
-    // Kullanıcı adı ve mail düzenleme modları.
-
     const [user, setUser] = useState(null);
-    // Kullanıcı bilgisi state'i.
-
     const [borderColor, setBorderColor] = useState("transparent");
-    // Profil fotoğrafı çerçeve rengi.
-
-    const [notifications, setNotifications] = useState({ sms: false, email: false });
-    // Bildirim tercihleri.
-
+    const [notifications, setNotifications] = useState({ sms: false, email: false });    
+    
     const [nickname, setNickname] = useState("");
     const [email, setEmail] = useState("");
     const [currentPassword, setCurrentPassword] = useState("");
     const [newPassword, setNewPassword] = useState("");
-    // Kullanıcı bilgileri ve şifre yönetimi.
+
+    const [showDeletePopup, setshowDeletePopup] = useState(false);
+    
+    //2FA
+    const [showAuthenticator, setShowAuthenticator] = useState(false);
+    const [authStep, setAuthStep] = useState(1);
+    const [enteredPassword, setEnteredPassword] = useState("");
+    const [generatedSecret, setGeneratedSecret] = useState("eVGNCZ KJjwnq HXn5Kn AdEJV6 FYEKYU"); 
+    const [entered2FACode, setEntered2FACode] = useState(["", "", "", "", "", ""]);
+    const [isAuthenticated, setIsAuthenticated] = useState(false);
+    const correct2FACode = "123456"; 
+
+    // Şifre doğrulama
+    const handlePasswordSubmit = async () => {
+        if (!user) return;
+
+        if (enteredPassword !== user.password) {
+            alert("Şifre yanlış!");
+            return;
+        }
+        setAuthStep(2);
+    };
+
+    // 2FA durumunu API'ye gönderme
+    const update2FAStatus = async (status) => {
+        if (!user) return;
+        
+        try {
+            const response = await axios.put(`https://67c98ac5102d684575c2808b.mockapi.io/users/users/${user.id}`, {
+                is2FAEnabled: status
+            });
+            setIsAuthenticated(status);
+            setShowAuthenticator(false);
+
+            if(!status){
+                setAuthStep(1);
+                setEnteredPassword("");
+                setEntered2FACode(["", "", "", "", "", ""])
+            }
+
+        } catch (error) {
+            console.error("2FA güncellenemedi:", error);
+        }
+    };
+
+    // 2FA doğrulama kodu girme
+    const handle2FACodeChange = (index, value) => {
+        if (!/^\d?$/.test(value)) return;
+        const newCode = [...entered2FACode];
+        newCode[index] = value;
+        setEntered2FACode(newCode);
+
+        if (value && index < 5) {
+            document.getElementById(`code-${index + 1}`)?.focus();
+        }
+    };
+
+    // 2FA kod doğrulama
+    const handle2FASubmit = () => {
+        if (entered2FACode.join("") === correct2FACode) {
+            alert("2FA Başarıyla etkinleştirildi!");
+            update2FAStatus(true);
+        } else {
+            alert("Girilen kod yanlış!");
+        }
+    };
+
+    const setCloseAuthenticator = () => {
+        setShowAuthenticator(false);
+        setAuthStep(1);
+        setEnteredPassword("");
+        setEntered2FACode(["", "", "", "", "", ""])
+    }
+
+    const setCloseDeletePopup = () => {
+        setshowDeletePopup(false);
+    }
 
     // Kullanıcı bilgilerini API'den al.
     const fetchUser = async () => {
@@ -49,6 +120,7 @@ export default function Profile() {
                 setUser(response.data);
                 setNickname(response.data.name);
                 setEmail(response.data.email);
+                setIsAuthenticated(response.data.is2FAEnabled);
 
                 // Kullanıcı abonelik ve öğrenci belgesi durumuna göre çerçeve rengi belirle.
                 if (response.data.isSubscriber && response.data.isStudentVerified) {
@@ -101,42 +173,57 @@ export default function Profile() {
         setIsEditingEmail(!isEditingEmail);
     };
 
+    // Şifre format kontrolü (en az bir harf, bir rakam, bir büyük harf ve bir özel karakter içermeli)
+    const isPasswordValid = (password) => {
+        const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
+        return regex.test(password);
+    };
+
     // Şifreyi güncelle.
     const updatePassword = async () => {
         if (!user) return;
+    
+        // Eski şifre doğru mu kontrol et
         if (currentPassword !== user.password) {
             alert("Eski şifre yanlış!");
             return;
         }
-
-        const updatedUser = { ...user, password: newPassword };
-
+    
+        // Şifre geçerli mi kontrol et
+        if (!isPasswordValid(newPassword)) {
+            alert("Şifreniz en az 1 büyük harf, 1 küçük harf, 1 rakam ve 1 özel karakter içermelidir.");
+            return;
+        }
+    
+        // API'ye şifreyi güncellemek için istek at
         try {
-            const response = await axios.put(`https://67c98ac5102d684575c2808b.mockapi.io/users/users/${user.id}`, updatedUser);
+            const response = await axios.put(`https://67c98ac5102d684575c2808b.mockapi.io/users/users/${user.id}`, {
+                password: newPassword
+            });
+    
             setUser(response.data);
             localStorage.setItem("user", JSON.stringify(response.data));
-            fetchUser();
+            fetchUser();  // Bilgileri güncelle
             setCurrentPassword("");
             setNewPassword("");
+    
             alert("Şifreniz güncellendi.");
         } catch (error) {
             console.error("Şifre güncellenemedi:", error);
             alert("Şifre güncellenirken hata oluştu.");
         }
     };
+    
 
     // Hesabı silme fonksiyonu.
     const deleteUserAccount = async () => {
         if (!user) return;
-        const confirmDelete = window.confirm("Hesabınızı silmek istediğinize emin misiniz?");
-        if (!confirmDelete) return;
 
         try {
             await axios.delete(`https://67c98ac5102d684575c2808b.mockapi.io/users/users/${user.id}`);
             localStorage.removeItem("userId");
             localStorage.removeItem("user");
             setUser(null);
-            alert("Hesabınız silindi.");
             window.location.href = "/";
         } catch (error) {
             console.error("Hesap silme hatası:", error);
@@ -150,12 +237,26 @@ export default function Profile() {
         setNotifications((prev) => ({ ...prev, [name]: checked }));
     };
 
+    const handleLogout = () => {
+        localStorage.removeItem("user");
+        localStorage.removeItem("userId");
+        setUser(null);
+        navigate("/");
+    };
+
     return (
         <div className="profile-page">
             {/* Sayfa genel container'ı */}
 
             <div className="container">
                 {/* Profil üst bilgileri */}
+                <div className='container detail-info-mobile'>
+                    <button className='prev-button'><FaArrowLeftLong/></button>
+                    <div>
+                        <button className="geik-action-btn"><IoShareSocialOutline/></button>
+                        <button className="geik-action-btn" onClick={() => setActiveTab("settings")}><GoPencil/></button>
+                    </div>
+                </div>
                 <div className="profile-header">
                     <div className="profile-info">
                         {/* Kullanıcı profil fotoğrafı ve çerçeve rengi */}
@@ -179,22 +280,32 @@ export default function Profile() {
                 <div className="container">
                     {/* Sekme butonları */}
                     <div className="tab-buttons">
-                        {[
-                            { key: "upcoming-events", label: "Yaklaşan Etkinliklerim" },
-                            { key: "past-events", label: "Geçmiş Etkinliklerim" },
-                            { key: "favorites", label: "Favorilerim" },
-                            { key: "settings", label: "Hesap Ayarları" },
-                            { key: "payment", label: "Ödeme Yöntemi" },
-                            { key: "notification", label: "Bildirimler" }
-                        ].map(tab => (
-                            <button
-                                key={tab.key}
-                                className={`geik-button-1 ${activeTab === tab.key ? "active" : ""}`}
-                                onClick={() => setActiveTab(tab.key)}
-                            >
-                                {tab.label}
-                            </button>
-                        ))}
+                        <Swiper
+                            slidesPerView="auto"
+                            spaceBetween={10}
+                            freeMode={true}
+                            modules={[FreeMode]}
+                            className="tab-swiper"
+                        >
+                            {[
+                                { key: "upcoming-events", label: "Yaklaşan Etkinliklerim" },
+                                { key: "past-events", label: "Geçmiş Etkinliklerim" },
+                                { key: "favorites", label: "Favorilerim" },
+                                { key: "settings", label: "Hesap Ayarları" },
+                                { key: "payment", label: "Ödeme Yöntemi" },
+                                { key: "notification", label: "Bildirimler" }
+                            ].map(tab => (
+                                <SwiperSlide key={tab.key} className="tab-slide">
+                                    <button
+                                        key={tab.key}
+                                        className={`geik-button-1 ${activeTab === tab.key ? "active" : ""}`}
+                                        onClick={() => setActiveTab(tab.key)}
+                                    >
+                                        {tab.label}
+                                    </button>
+                                </SwiperSlide>
+                            ))}
+                        </Swiper>
                     </div>
                 </div>
 
@@ -254,12 +365,14 @@ export default function Profile() {
                                                 ) : (
                                                     <p className="settings-text">{nickname}</p>
                                                 )}
-                                                <button
-                                                    className="settings-button"
-                                                    onClick={handleNicknameSave}
-                                                >
-                                                    {isEditingNickname ? "Kaydet" : "Değiştir"}
-                                                </button>
+                                                <div className="mobile-button-width">
+                                                    <button
+                                                        className="settings-button"
+                                                        onClick={handleNicknameSave}
+                                                    >
+                                                        {isEditingNickname ? "Kaydet" : "Değiştir"}
+                                                    </button>
+                                                </div>
                                             </div>
                                         </div>
                             
@@ -276,12 +389,14 @@ export default function Profile() {
                                                 ) : (
                                                     <p className="settings-text">{email}</p>
                                                 )}
-                                                <button
-                                                    className="settings-button"
-                                                    onClick={handleEmailSave}
-                                                >
-                                                    {isEditingEmail ? "Kaydet" : "Değiştir"}
-                                                </button>
+                                                <div className="mobile-button-width">
+                                                    <button
+                                                        className="settings-button"
+                                                        onClick={handleEmailSave}
+                                                    >
+                                                        {isEditingEmail ? "Kaydet" : "Değiştir"}
+                                                    </button>
+                                                </div>
                                             </div>
                                         </div>
                     
@@ -304,7 +419,9 @@ export default function Profile() {
                                                         onChange={(e) => setNewPassword(e.target.value)}
                                                     />
                                                 </div>
-                                                <button className="settings-button" onClick={updatePassword}>Şifreni Kaydet</button>
+                                                <div className="mobile-button-width">
+                                                    <button className="settings-button" onClick={updatePassword}>Şifreni Kaydet</button>
+                                                </div>
                                             </div>
                                             <p className="password-forgot">Şifreni hatırlamıyor musun? <button className="password-forgot-button">Şifreni sıfırla</button></p>
                                         </div>
@@ -320,7 +437,38 @@ export default function Profile() {
                                                     </label>
                                                     <input type="file" id="file-upload" className="file-upload-input" />
                                                 </div>
-                                                <button className="settings-button">Ekle</button>
+                                                <div className="mobile-button-width">
+                                                    <button className="settings-button">Ekle</button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div className="settings-section delete-account">
+                                            <h5 className="settings-subtitle">Hesap doğrulama {isAuthenticated ? "(Etkin)" : ""}</h5>
+                                            <div className="settings-content">
+                                                <p className="settings-warning">
+                                                    İki faktörlü kimlik doğrulama 
+                                                </p>
+                                                <div className="mobile-button-width">
+                                                    <button
+                                                        className={`settings-button ${isAuthenticated ? "danger" : ""}`}
+                                                        onClick={() => isAuthenticated ? update2FAStatus(false) : setShowAuthenticator(true)}
+                                                    >
+                                                        {isAuthenticated ? "Kaldır" : "Etkinleştir"}
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div className="settings-section delete-account">
+                                            <h5 className="settings-subtitle">Çıkış Yap</h5>
+                                            <div className="settings-content">
+                                                <p className="settings-warning">
+                                                Hesabından çıkış yap.
+                                                </p>
+                                                <div className="mobile-button-width">
+                                                    <button onClick={handleLogout} className="settings-button danger">Çıkış Yap</button>
+                                                </div>
                                             </div>
                                         </div>
                     
@@ -331,7 +479,9 @@ export default function Profile() {
                                                 <p className="settings-warning">
                                                     Bu işlem geri alınamaz ve tüm verileriniz kalıcı olarak silinir.
                                                 </p>
-                                                <button onClick={deleteUserAccount} className="settings-button danger">Hesabımı Sil</button>
+                                                <div className="mobile-button-width">
+                                                    <button onClick={() => setshowDeletePopup(true)} className="settings-button danger">Hesabımı Sil</button>
+                                                </div>      
                                             </div>
                                         </div>
                                     </div>
@@ -409,17 +559,116 @@ export default function Profile() {
                 </div>
             </div>
 
-            {/* QR Popup */}
             {selectedTicket && (
                 <div className="qr-popup">
                     <div className="qr-popup-content">
                         <button onClick={() => setSelectedTicket(null)}><IoClose /></button>
                         <h4>{selectedTicket.name} - QR Kodları</h4>
-                        {selectedTicket.qrCodes.map((qr, i) => <img key={i} src={qr.qrCode} alt="QR" />)}
                         <p>{selectedTicket.date} - {selectedTicket.venue}</p>
+                        <Swiper
+                            slidesPerView={1}
+                            spaceBetween={0}
+                            pagination={{ clickable: true }}
+                            modules={[Pagination]}
+                            className="qr-swiper"
+                        >
+                            {selectedTicket.qrCodes.map((qr, i) => (
+                                <SwiperSlide key={i} className="qr-slide">
+                                    <div className="qr-wrapper">
+                                        <span className="qr-label">Katılımcı {i + 1}</span>
+                                        <img src={qr.qrCode} alt={`QR ${i}`} className="qr-image" />
+                                    </div>
+                                </SwiperSlide>
+                            ))}
+                        </Swiper>
                     </div>
                 </div>
             )}
+
+            {showAuthenticator && (
+                <div className="auth-popup">
+                    <div className="auth-popup-content">
+                        <button className="close-btn" onClick={setCloseAuthenticator}>
+                            <IoClose />
+                        </button>
+
+                        {/* Adım 1: Kullanıcı şifresi girme */}
+                        {authStep === 1 && (
+                            <div className="auth-step pt-5 pb-5">
+                                <h3>İki aşamalı kimlik doğrulama etkinleştirme</h3>
+                                <input
+                                    type="password"
+                                    placeholder="Şifrenizi girin"
+                                    value={enteredPassword}
+                                    onChange={(e) => setEnteredPassword(e.target.value)}
+                                />
+                                <button className="auth-button" onClick={handlePasswordSubmit}>Devam Et</button>
+                            </div>
+                        )}
+
+                        {/* Adım 2: QR ve Kopyalanabilir Kod */}
+                        {authStep === 2 && (
+                            <div className="auth-step">
+                                <h3 className="step-2-title">İki aşamalı kimlik doğrulama etkinleştirme</h3>
+                                <img src="/assets/images/qrkod.png" alt="eventqr" />
+                                <p className="mt-3 mb-4">Authenticator uygulamasından telefonunuz ile <br/> qr kodu okutunuz.</p>
+                                <p>ya da aşağıdaki kodu giriniz</p>
+                                <div className="copy-container">
+                                    <span>{generatedSecret}</span>
+                                    <button onClick={() => navigator.clipboard.writeText(generatedSecret)}>
+                                        <FaCopy />
+                                    </button>
+                                </div>
+                                <button className="auth-button" onClick={() => setAuthStep(3)}>Devam Et</button>
+                            </div>
+                        )}
+
+                        {/* Adım 3: Kullanıcıdan 6 haneli kod isteme */}
+                        {authStep === 3 && (
+                            <div className="auth-step">
+                                <h3 className="pb-4">İki aşamalı kimlik doğrulama etkinleştirme</h3>
+                                <p>Authenticator uygulamasındaki 6 haneli kodu giriniz.</p>
+                                <div className="code-inputs">
+                                    {entered2FACode.map((digit, index) => (
+                                        <input
+                                            key={index}
+                                            id={`code-${index}`}
+                                            type="text"
+                                            maxLength="1"
+                                            value={digit}
+                                            onChange={(e) => handle2FACodeChange(index, e.target.value)}
+                                        />
+                                    ))}
+                                </div>
+                                <button className="auth-button danger" onClick={handle2FASubmit}>Doğrula</button>
+                            </div>
+                        )}
+                    </div>
+                </div>
+            )}
+
+            {showDeletePopup && (
+                <div className="auth-popup">
+                    <div className="auth-popup-content">
+                        <button className="close-btn" onClick={setCloseDeletePopup}>
+                            <IoClose />
+                        </button>
+
+                        <div className="delete-popup">
+                            <div className="popup-text">
+                                <h5>Hesabını silmek üzeresin!</h5>
+                                <p>Geik hesabını kalıcı olarak silmek üzeresin.<br/>Hesabını silmek istediğine emin misin?</p>
+                            </div>
+                            <div className="popup-buttons">
+                                <button className="geik-button-1 danger" onClick={setCloseDeletePopup}>İptal et</button>
+                                <button className="geik-button-1 delete-button" onClick={deleteUserAccount}>Hesabımı sil</button>
+                            </div>
+                        </div>
+                        
+                    </div>
+                </div>
+            )}
+
         </div>
     );
 }
