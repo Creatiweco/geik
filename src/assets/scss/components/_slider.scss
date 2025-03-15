@@ -175,21 +175,29 @@
     height: 5px;
   }
 
-  .home-slider .custom-swiper .swiper-slide .text-overlay {
-    padding:25px 11px ;
-
-    h2{
-      font-size: 24px;
-      line-height: 29.8px;
-      padding-bottom: 5px;
+  .home-slider .custom-swiper {
+    .swiper-slide .text-overlay {
+      padding:25px 11px ;
+  
+      h2{
+        font-size: 24px;
+        line-height: 29.8px;
+        padding-bottom: 5px;
+      }
+  
+      p{
+        font-size: 13px;
+        line-height: 15.6px;
+        padding-bottom: 10px;
+      }
     }
 
-    p{
-      font-size: 13px;
-      line-height: 15.6px;
-      padding-bottom: 10px;
+    .swiper-button-prev,
+    .swiper-button-next{
+      display: none;
     }
   }
+  
   
   .home-slider .slider-gradient{
     width: 100%;
