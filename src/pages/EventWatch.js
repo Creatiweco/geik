@@ -72,7 +72,7 @@ export default function EventDetails() {
         <div id="detail-page" className="detail-container">
             {/* Mobilde üst bölüm (geri butonu ve paylaş/favori butonları) */}
             <div className='container detail-info-mobile'>
-                <button className='prev-button'><FaArrowLeftLong /></button>
+                <button className='prev-button' onClick={() => navigate("/")}><FaArrowLeftLong /></button>
                 <div>
                     <button className="geik-action-btn"><FaRegHeart /></button>
                     <button className="geik-action-btn"><IoShareSocialOutline /></button>

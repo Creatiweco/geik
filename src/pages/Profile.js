@@ -2,9 +2,9 @@ import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { IoShareSocialOutline, IoClose } from "react-icons/io5";
 import { FaArrowLeftLong } from "react-icons/fa6";
-import { FaCheck, FaCopy } from 'react-icons/fa';
+import { FaCheck } from 'react-icons/fa';
 import { GoPencil } from "react-icons/go";
-import { LuMicVocal } from "react-icons/lu";
+import { LuMicVocal, LuCopy } from "react-icons/lu";
 import { CgCalendarDates } from "react-icons/cg";
 import { GrLocation } from "react-icons/gr";
 import EventSlider from "../components/EventSlider";
@@ -251,7 +251,7 @@ export default function Profile() {
             <div className="container">
                 {/* Profil üst bilgileri */}
                 <div className='container detail-info-mobile'>
-                    <button className='prev-button'><FaArrowLeftLong/></button>
+                    <button className='prev-button' onClick={() => navigate("/")}><FaArrowLeftLong/></button>
                     <div>
                         <button className="geik-action-btn"><IoShareSocialOutline/></button>
                         <button className="geik-action-btn" onClick={() => setActiveTab("settings")}><GoPencil/></button>
@@ -594,30 +594,35 @@ export default function Profile() {
 
                         {/* Adım 1: Kullanıcı şifresi girme */}
                         {authStep === 1 && (
-                            <div className="auth-step pt-5 pb-5">
+                            <div className="auth-step pt-5 pb-5 auth-content">
                                 <h3>İki aşamalı kimlik doğrulama etkinleştirme</h3>
-                                <input
-                                    type="password"
-                                    placeholder="Şifrenizi girin"
-                                    value={enteredPassword}
-                                    onChange={(e) => setEnteredPassword(e.target.value)}
-                                />
-                                <button className="auth-button" onClick={handlePasswordSubmit}>Devam Et</button>
+                                <div>
+                                    <input
+                                        type="password"
+                                        placeholder="Şifrenizi girin"
+                                        value={enteredPassword}
+                                        onChange={(e) => setEnteredPassword(e.target.value)}
+                                    />
+                                    <button className="auth-button" onClick={handlePasswordSubmit}>Devam Et</button>
+                                </div>
+                                <div></div>
                             </div>
                         )}
 
                         {/* Adım 2: QR ve Kopyalanabilir Kod */}
                         {authStep === 2 && (
                             <div className="auth-step">
-                                <h3 className="step-2-title">İki aşamalı kimlik doğrulama etkinleştirme</h3>
-                                <img src="/assets/images/qrkod.png" alt="eventqr" />
-                                <p className="mt-3 mb-4">Authenticator uygulamasından telefonunuz ile <br/> qr kodu okutunuz.</p>
-                                <p>ya da aşağıdaki kodu giriniz</p>
-                                <div className="copy-container">
-                                    <span>{generatedSecret}</span>
-                                    <button onClick={() => navigator.clipboard.writeText(generatedSecret)}>
-                                        <FaCopy />
-                                    </button>
+                                <div className="auth-content">
+                                    <h3 className="step-2-title">İki aşamalı kimlik doğrulama etkinleştirme</h3>
+                                    <img src="/assets/images/qrkod.png" alt="eventqr" />
+                                    <p className="mt-3 mb-4">Authenticator uygulamasından telefonunuz ile <br/> qr kodu okutunuz.</p>
+                                    <p>ya da aşağıdaki kodu giriniz</p>
+                                    <div className="copy-container">
+                                        <span>{generatedSecret}</span>
+                                        <button onClick={() => navigator.clipboard.writeText(generatedSecret)}>
+                                            <LuCopy />
+                                        </button>
+                                    </div>
                                 </div>
                                 <button className="auth-button" onClick={() => setAuthStep(3)}>Devam Et</button>
                             </div>
@@ -625,22 +630,26 @@ export default function Profile() {
 
                         {/* Adım 3: Kullanıcıdan 6 haneli kod isteme */}
                         {authStep === 3 && (
-                            <div className="auth-step">
-                                <h3 className="pb-4">İki aşamalı kimlik doğrulama etkinleştirme</h3>
-                                <p>Authenticator uygulamasındaki 6 haneli kodu giriniz.</p>
-                                <div className="code-inputs">
-                                    {entered2FACode.map((digit, index) => (
-                                        <input
-                                            key={index}
-                                            id={`code-${index}`}
-                                            type="text"
-                                            maxLength="1"
-                                            value={digit}
-                                            onChange={(e) => handle2FACodeChange(index, e.target.value)}
-                                        />
-                                    ))}
+                            <div className="auth-step-last">
+                                <div className="auth-content">
+                                    <h3 className="pb-4">İki aşamalı kimlik doğrulama etkinleştirme</h3>
+                                    <p>Authenticator uygulamasındaki 6 haneli kodu giriniz.</p>
                                 </div>
-                                <button className="auth-button danger" onClick={handle2FASubmit}>Doğrula</button>
+                                <div>
+                                    <div className="code-inputs">
+                                        {entered2FACode.map((digit, index) => (
+                                            <input
+                                                key={index}
+                                                id={`code-${index}`}
+                                                type="text"
+                                                maxLength="1"
+                                                value={digit}
+                                                onChange={(e) => handle2FACodeChange(index, e.target.value)}
+                                            />
+                                        ))}
+                                    </div>
+                                    <button className="auth-button danger" onClick={handle2FASubmit}>Doğrula</button>
+                                </div>
                             </div>
                         )}
                     </div>
