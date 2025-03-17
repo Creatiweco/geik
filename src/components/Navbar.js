@@ -282,11 +282,11 @@ export default function Navbar() {
 
                         {/* Menü Linkleri */}
                         <ul className="mobile-menu-links">
-                            <li><Link to="/" onClick={openMenu}>Ana Sayfa</Link></li>
-                            <li><Link to="/takvim" onClick={openMenu}>Takvim</Link></li>
-                            <li><Link to="/canli-tv" onClick={openMenu}>Canlı TV</Link></li>
-                            {user && <li><Link to="/profil" state={{ openTab: "favorites" }} onClick={openMenu}>Favorilerim</Link></li>}
-                            {user && <li><Link to="/profil" onClick={openMenu}>Profilim</Link></li>}
+                            <li><Link to="/" onClick={closeMenu}>Ana Sayfa</Link></li>
+                            <li><Link to="/takvim" onClick={closeMenu}>Takvim</Link></li>
+                            <li><Link to="/canli-tv" onClick={closeMenu}>Canlı TV</Link></li>
+                            {user && <li><Link to="/profil" state={{ openTab: "favorites" }} onClick={closeMenu}>Favorilerim</Link></li>}
+                            {user && <li><Link to="/profil" onClick={closeMenu}>Profilim</Link></li>}
                         </ul>
                     </div>
                     {/* Alt Kısım - Giriş/Çıkış Butonları */}
