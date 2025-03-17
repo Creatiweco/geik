@@ -105,7 +105,18 @@ export default function Navbar() {
         return events.filter(event => event.category === selectedFilter);
     };
 
+    const openMenu = () => {
+        document.body.classList.add("no-scroll");
+        setMenuOpen(true);
+    };
+    
+    const closeMenu = () => {
+        document.body.classList.remove("no-scroll");
+        setMenuOpen(false);
+    };
+
     return (
+        <>
         <nav className={`navbar ${isDetailPage ? "detail-navbar" : ""}`}>
             <div className="container">
                 {/* Logo */}
@@ -168,7 +179,7 @@ export default function Navbar() {
                             </div>
                             <HiOutlineBars3BottomLeft
                                 className="navbar-mobile-menu d-lg-none d-flex"
-                                onClick={() => setMenuOpen(true)}
+                                onClick={openMenu}
                             />
                         </>
                     ) : (
@@ -183,7 +194,7 @@ export default function Navbar() {
                             {/* Mobil menü */}
                             <HiOutlineBars3BottomLeft
                                 className="navbar-mobile-menu d-lg-none d-flex"
-                                onClick={() => setMenuOpen(true)}
+                                onClick={openMenu}
                             />
                         </>
                     )}
@@ -255,49 +266,49 @@ export default function Navbar() {
                 </div>
             )}
 
-            {/* Mobil Menü */}
-            {menuOpen && (
-                <div className="mobile-menu-overlay">
-                    <div className="mobile-menu-container">
-                        <div className="mobile-menu-top w-100">
-                            {/* Üst Kısım - Logo ve Kapatma Butonu */}
-                            <div className="mobile-menu-header">
-                                <Link to="/">
-                                    <img src="/assets/images/geik_logo_blue.svg" alt="Logo" className="mobile-logo" />
-                                </Link>
-                                <IoClose className="close-icon" onClick={() => setMenuOpen(false)} />
-                            </div>
-    
-                            {/* Menü Linkleri */}
-                            <ul className="mobile-menu-links">
-                                <li><Link to="/" onClick={() => setMenuOpen(false)}>Ana Sayfa</Link></li>
-                                <li><Link to="/takvim" onClick={() => setMenuOpen(false)}>Takvim</Link></li>
-                                <li><Link to="/canli-tv" onClick={() => setMenuOpen(false)}>Canlı TV</Link></li>
-                                {user && <li><Link to="/profil" state={{ openTab: "favorites" }} onClick={() => setMenuOpen(false)}>Favorilerim</Link></li>}
-                                {user && <li><Link to="/profil" onClick={() => setMenuOpen(false)}>Profilim</Link></li>}
-                            </ul>
+        </nav>
+        {/* Mobil Menü */}
+        {menuOpen && (
+            <div className="mobile-menu-overlay">
+                <div className="mobile-menu-container">
+                    <div className="mobile-menu-top w-100">
+                        {/* Üst Kısım - Logo ve Kapatma Butonu */}
+                        <div className="mobile-menu-header">
+                            <Link to="/">
+                                <img src="/assets/images/geik_logo_blue.svg" alt="Logo" className="mobile-logo" />
+                            </Link>
+                            <IoClose className="close-icon" onClick={closeMenu} />
                         </div>
 
-                        {/* Alt Kısım - Giriş/Çıkış Butonları */}
-                        <div className="mobile-menu-footer">
-                            {user ? (
-                                <button className="geik-button-1 logout-btn" onClick={() => { handleLogout(); setMenuOpen(false); }}>
-                                    Çıkış Yap
+                        {/* Menü Linkleri */}
+                        <ul className="mobile-menu-links">
+                            <li><Link to="/" onClick={openMenu}>Ana Sayfa</Link></li>
+                            <li><Link to="/takvim" onClick={openMenu}>Takvim</Link></li>
+                            <li><Link to="/canli-tv" onClick={openMenu}>Canlı TV</Link></li>
+                            {user && <li><Link to="/profil" state={{ openTab: "favorites" }} onClick={openMenu}>Favorilerim</Link></li>}
+                            {user && <li><Link to="/profil" onClick={openMenu}>Profilim</Link></li>}
+                        </ul>
+                    </div>
+                    {/* Alt Kısım - Giriş/Çıkış Butonları */}
+                    <div className="mobile-menu-footer">
+                        {user ? (
+                            <button className="geik-button-1 logout-btn" onClick={() => { handleLogout(); closeMenu(); }}>
+                                Çıkış Yap
+                            </button>
+                        ) : (
+                            <>
+                                <button className="geik-button-1" onClick={() => { navigate("/kayit-ol"); closeMenu(); }}>
+                                    Kayıt Ol
                                 </button>
-                            ) : (
-                                <>
-                                    <button className="geik-button-1" onClick={() => { navigate("/kayit-ol"); setMenuOpen(false); }}>
-                                        Kayıt Ol
-                                    </button>
-                                    <button className="geik-button-1 button-white" onClick={() => { navigate("/giris-secenekleri"); setMenuOpen(false); }}>
-                                        Giriş Yap
-                                    </button>
-                                </>
-                            )}
-                        </div>
+                                <button className="geik-button-1 button-white" onClick={() => { navigate("/giris-secenekleri"); closeMenu(); }}>
+                                    Giriş Yap
+                                </button>
+                            </>
+                        )}
                     </div>
                 </div>
-            )}
-        </nav>
+            </div>
+        )}
+        </>
     );
 }
