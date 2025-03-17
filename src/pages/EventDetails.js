@@ -163,7 +163,7 @@ export default function EventDetails() {
                 
                 {/* Sekme içerikleri */}
                 <div className="row">
-                    <div className="col-lg-6 col-12">
+                    <div className="col-lg-6 col-12 event-details-content">
                         {/* Detaylar sekmesi içeriği */}
                         {activeTab === "details" && (
                                 <p>

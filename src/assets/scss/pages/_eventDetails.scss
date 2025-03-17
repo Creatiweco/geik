@@ -215,6 +215,14 @@
         color: $text-color;
     }
 
+    .event-details-content p {
+        font-family: $second-font;
+        font-weight: 300;
+        font-size: 15px;
+        line-height: 131%;
+        letter-spacing: 0%;        
+    }
+
     .information-col{
         display: flex;
         justify-content: space-between;
