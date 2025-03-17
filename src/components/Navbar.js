@@ -105,13 +105,6 @@ export default function Navbar() {
         return events.filter(event => event.category === selectedFilter);
     };
 
-    const setViewportHeight = () => {
-        document.documentElement.style.setProperty("--vh", `${window.innerHeight * 0.01}px`);
-    };
-    
-    window.addEventListener("resize", setViewportHeight);
-    setViewportHeight();
-
     return (
         <nav className={`navbar ${isDetailPage ? "detail-navbar" : ""}`}>
             <div className="container">
