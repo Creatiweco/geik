@@ -658,7 +658,7 @@ export default function Profile() {
 
             {showDeletePopup && (
                 <div className="auth-popup">
-                    <div className="auth-popup-content">
+                    <div className="auth-popup-content delete-content">
                         <button className="close-btn" onClick={setCloseDeletePopup}>
                             <IoClose />
                         </button>

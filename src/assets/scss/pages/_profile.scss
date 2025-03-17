@@ -621,12 +621,18 @@
         align-items: center;
         z-index: 9999;
     
+        .delete-content{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
         .auth-popup-content {
             background: rgba(10, 12, 16, 1);
             padding: 70px 280px;
             border-radius: 10px;
             text-align: center;
-            width: max-content;
+            width: 100%;
             position: relative;
 
             .delete-popup{
