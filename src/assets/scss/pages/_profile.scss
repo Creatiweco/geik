@@ -1,0 +1,1008 @@
+@import "../_variables";
+
+.profile-page{
+    padding: 45px 0 0 0;
+
+    .profile-header{
+        position: relative;
+
+        .profile-info{
+            display: flex;
+            align-items: center;
+            width: 100%;
+            .profile-photo{
+                margin: 0 25px 0 0;
+                position: relative;
+
+                img {
+                    max-width: 175px;
+                    max-height: 175px;
+                    border-radius: 50%;
+                }
+
+                .geik-action-btn{
+                    font-size: 20px;
+                    position: absolute;
+                    bottom: 5px;
+                    right: 5px;
+                    padding: 10px 11px;
+                    background: rgba(10, 12, 16, 1);
+
+                    &:hover{
+                        background: rgba(255, 255, 255, 1);
+                    }
+                }
+            }
+
+            .profile-details{
+                display: flex;
+                width: 100%;
+                gap: 15px;
+
+                .profile-actions{
+                    display: flex;
+                    gap: 10px;
+
+                    .geik-action-btn{
+                        height: 100%;
+                        font-size: 20px;
+                    }
+                }
+            }
+        }
+    }
+
+    .detail-profile{
+        margin-top: 50px;
+        margin-bottom: 45px;
+    
+        .tab-buttons{
+            display: flex;
+            gap: 24px;
+            width: 100%;
+            margin: 0 0 45px 0;
+            font-family: $base-font;
+            font-weight: 400;
+            font-size: 15px;
+            line-height: 18.63px;
+            letter-spacing: 0%;
+        }
+
+        .tab-content{
+            .ticket-card{
+                display: grid;
+                grid-template-columns: auto 1fr;
+                width: max-content;
+                border-radius: 10px;
+                border: none;
+                padding: 0;
+                background: transparent;
+                margin-bottom: 50px;
+                align-items: stretch; 
+                min-height: 200px; 
+
+                .ticket-image-wrapper{
+                    width: 200px; 
+                    border-radius: 10px 0 0 10px;
+                    overflow: hidden;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    
+                    img{
+                        width: 100%;
+                        height: 100%;
+                        object-fit: cover; 
+                        border-radius: 10px 0 0 10px;
+                    }
+                }
+
+                .ticket-details{
+                    display: flex;
+                    width: max-content;
+                    justify-content: space-between;
+                    align-items: center;
+                    background-color: rgba(25, 29, 40, 1);
+                    padding: 38px 0;
+                    border-radius: 0 10px 10px 0;
+
+                    .ticket-info{
+                        display: flex;
+                        flex-direction: column;
+                        align-items: start;
+                        gap: 10px;
+                        padding: 0 15px 0 35px;
+                        text-align: start;
+
+                        h4{
+                            font-family: $base-font;
+                            font-weight: 400;
+                            font-size: 20px;
+                            line-height: 24px;
+                            letter-spacing: 1%;
+                            color: $text-color;
+                        }
+
+                        p{
+                            font-family: $second-font;
+                            font-weight: 100;
+                            font-size: 16px;
+                            line-height: 24px;
+                            letter-spacing: 1%;
+                            color: $text-color;
+
+                            span{
+                                font-weight: 800;
+                            }
+                        }
+
+                        svg {
+                            font-size: 30px;
+                            padding-right: 8px;
+                            color: $text-color;
+                        }
+                    }
+
+                    .ticket-qr {
+                        padding: 0 31px;
+                        border-left: 2px solid rgba(49, 54, 68, 1);
+                        display: flex;
+                        gap: 40px;
+
+                        img{
+                            max-width: 125px;
+                            border-radius: 2px;
+                        }
+                    }
+                }
+            }
+
+            .profile-settings{
+                .settings-title{
+                    margin-bottom: 60px;
+                }
+
+                .settings-subtitle{
+                    font-family: $base-font;
+                    font-weight: 400;
+                    font-size: 16px;
+                    line-height: 19.87px;
+                    letter-spacing: 0%;
+                    color: $text-color;
+                    margin-bottom: 25px;
+                }
+
+                .settings-section{
+                    margin-bottom: 75px;
+                    .settings-content{
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
+
+                        .nickname-field,
+                        .mail-field {
+                            border: 1px solid rgba(217, 217, 217, 1);
+                            background-color: transparent;
+                            border-radius: 50px;
+                            padding: 12px 16px;
+                            font-family: $second-font;
+                            font-weight: 300;
+                            font-size: 16px;
+                            line-height: 19.2px;
+                            letter-spacing: 0%;
+                            color: rgba(255, 255, 255, 0.34);
+                            outline: none;
+                        
+                            &::placeholder {
+                                color: rgba(255, 255, 255, 0.34);
+                            }
+                        }
+    
+                        .settings-text,
+                        .settings-warning{
+                            font-family: $second-font;
+                            font-weight: 400;
+                            font-size: 16px;
+                            line-height: 24px;
+                            letter-spacing: 1%;
+                            color: rgba(255, 255, 255, 1);
+                        }
+
+                        .settings-button{
+                            border: none;
+                            border-radius: 50px;
+                            background-color: rgba(36, 42, 55, 1);
+                            padding: 10px 16px;
+                            color: rgba(235, 235, 235, 0.51);
+                            font-family: $second-font;
+                            font-weight: 700;
+                            font-size: 16px;
+                            line-height: 19.2px;
+                            letter-spacing: 0%;
+                            transition: 0.3s ease-in-out;
+                            
+                            &:hover{
+                                background-color: rgb(255, 255, 255);
+                                color: rgb(10, 12, 16);
+                            }
+                        }
+
+                        .danger{
+                            background-color: rgba(149, 17, 17, 1) !important;
+                            color: rgba(225, 225, 225, 1) !important;
+
+                            &:hover{
+                                background-color: rgba(255, 0, 0, 1) !important;
+                                color: rgb(10, 12, 16) !important;
+                            }
+                        }
+                    }
+                }
+
+                .password-settings{
+                    .password-inputs{
+                        display: flex;
+                        gap: 20px;
+
+                        .password-field{
+                            border: 1px solid rgba(217, 217, 217, 1);
+                            background-color: transparent;
+                            border-radius: 50px;
+                            padding: 12px 16px;
+                            font-family: $second-font;
+                            font-weight: 300;
+                            font-size: 16px;
+                            line-height: 19.2px;
+                            letter-spacing: 0%;
+                            color: rgba(255, 255, 255, 0.34);
+                        }
+                    }
+
+                    .password-forgot{
+                        margin-top: 30px;
+                        font-family: $second-font;
+                        font-weight: 300;
+                        font-size: 16px;
+                        line-height: 24px;
+                        letter-spacing: 1%;
+
+                        .password-forgot-button{
+                            border: none;
+                            background-color: transparent;
+                            font-family: $second-font;
+                            font-weight: 700;
+                            font-size: 16px;
+                            line-height: 24px;
+                            letter-spacing: 1%;
+                            text-decoration: underline;
+                            text-decoration-style: solid;
+                            text-decoration-offset: Auto;
+                            text-decoration-thickness: Auto;
+                            text-decoration-skip-ink: auto;
+                            color: $text-color;
+                        }
+                    }
+                }
+
+                .student-certificate{
+
+                    .settings-subdesc{
+                        font-family: $second-font;
+                        font-weight: 300;
+                        font-size: 16px;
+                        line-height: 24px;
+                        letter-spacing: 1%;  
+                        margin-bottom: 40px;                      
+                    }
+
+                    .file-upload-wrapper {
+                        display: flex;
+                        align-items: center;
+                        gap: 10px;
+                        border-radius: 8px;
+                        cursor: pointer;
+                        position: relative;
+                        overflow: hidden;
+                    
+                        .file-upload-label {
+                            display: flex;
+                            align-items: center;
+                            gap: 8px;
+                            cursor: pointer;
+                    
+                            span {
+                                font-family: $second-font;
+                                font-weight: 600;
+                                font-size: 16px;
+                                line-height: 19.2px;
+                                text-decoration: underline;
+                            }
+                    
+                            .upload-icon {
+                                width: 24px;
+                                height: 24px;
+                            }
+                        }
+                    
+                        .file-upload-input {
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                            width: 100%;
+                            height: 100%;
+                            opacity: 0;
+                            cursor: pointer;
+                        }
+                    }
+                    
+                }
+
+            }
+
+            .payment-section{
+                .payment-title {
+                    margin-bottom: 50px;
+                }
+
+                .payment-summary {
+                    display: flex;
+                    justify-content: space-between;
+                    margin-bottom: 25px;
+
+                    .payment-summary-label {
+                        font-family: $second-font;
+                        font-weight: 300;
+                        font-size: 16px;
+                        line-height: 24px;
+                        letter-spacing: 1%;
+                        color: $text-color;
+                    }
+                    
+                    .payment-summary-amount {
+                        font-family: $base-font;
+                        font-weight: 400;
+                        font-size: 20px;
+                        line-height: 24.83px;
+                        letter-spacing: 0%;
+                        color: $text-color;
+                    }
+                }
+
+                .payment-form {
+                    gap: 16px;
+                    display: flex;
+                    flex-direction: column;
+
+                    .payment-input {
+                        border: 1px solid rgba(217, 217, 217, 1);
+                        font-family: $second-font;
+                        font-weight: 300;
+                        font-size: 16px;
+                        line-height: 19.2px;
+                        letter-spacing: 0%;
+                        color: rgba(255, 255, 255, 0.34);
+                        padding: 12px 16px;
+                        background: transparent;
+                        border-radius: 10px;
+                        width: 100%;
+                    }
+
+                    .payment-row{
+                        display: flex;
+                        flex-direction: row;
+                        gap: 20px;
+                    }
+
+                    .payment-button{
+                        width: 100%;
+                        background-color: rgba(255, 255, 255, 1);
+                        font-family: $base-font;
+                        font-weight: 400;
+                        font-size: 16px;
+                        line-height: 19.87px;
+                        letter-spacing: 0%;
+                        text-align: center;
+                        color:rgba(10, 12, 16, 1);
+                        padding: 12px 0;
+                        border-radius: 10px;
+                        margin-top: 35px;
+                    }
+                }
+            }
+        }
+    }
+
+    .qr-popup {
+        position: fixed;
+        top: 0;
+        left: 0;
+        background: rgba(0, 0, 0, 0.8);
+        border-radius: 10px;
+        z-index: 999;
+        width: 100%;
+        text-align: center;
+        height: 100%;
+        
+        .qr-popup-content {
+            background: rgb(10, 12, 16);
+            border-radius: 8px;
+            height: max-content;
+            width: max-content;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 50px;
+      
+            h4 {
+              margin-bottom: 10px;
+              font-size: 18px;
+            }
+        
+            img {
+              width: 200px;
+              height: 200px;
+            }
+        
+            p {
+              margin-top: 10px;
+              font-size: 14px;
+              color: #666;
+            }
+        
+            .qr-popup-close {
+              position: absolute;
+              top: 10px;
+              right: 10px;
+              background: none;
+              border: none;
+              font-size: 24px;
+              cursor: pointer;
+              color: $text-color;
+            }
+
+            .qr-codes-wrapper{
+                display: flex;
+                gap: 30px;
+                justify-content: center;
+            }
+        }
+    }
+
+    .qr-swiper {
+        width: 100%;
+        max-width: 400px; // Mobil uyum için maksimum genişlik
+        overflow: hidden;
+        padding-bottom: 20px;
+        margin-top: 45px;
+    
+        .swiper-wrapper {
+            display: flex;
+            align-items: center;
+        }
+    
+        .swiper-slide {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100% !important; // QR kodunun tam oturmasını sağla
+        }
+    
+        .qr-slide {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    
+        .qr-image {
+            width: 200px; // QR kodlarının genişliği
+            height: 200px;
+            object-fit: contain;
+            border-radius: 8px;
+        }
+    
+        // Swiper'ın pagination noktalarının görünmesini sağla
+        .swiper-pagination {
+            position: relative;
+            bottom: 0px;
+            text-align: center;
+            
+            .swiper-pagination-bullet {
+                width: 10px;
+                height: 10px;
+                background-color: rgba(255, 255, 255, 0.5);
+                border-radius: 50%;
+                margin: 0 5px;
+                transition: background-color 0.3s;
+    
+                &.swiper-pagination-bullet-active {
+                    background-color: rgba(45, 255, 60, 1);
+                }
+            }
+        }
+
+        .qr-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .qr-label {
+            font-family: $second-font;
+            font-weight: 700;
+            font-size: 18px;
+            line-height: 80%;
+            letter-spacing: 0%;
+            text-align: center;
+        }
+        
+    }
+    
+
+    .notifications-section {
+        h4 {
+            padding-bottom: 30px;
+        }
+    
+        p {
+            font-family: $second-font;
+            font-weight: 300;
+            font-size: 16px;
+            line-height: 24px;
+            letter-spacing: 1%;
+            padding-bottom: 60px;
+        }
+    }
+    
+    .form-check-wrapper {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        cursor: pointer;
+    
+        input.custom-checkbox {
+            position: absolute;
+            opacity: 0;
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+        }
+    
+        .checkbox-icon {
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid white;
+            border-radius: 4px;
+            background: transparent;
+            cursor: pointer;
+            transition: background-color 0.3s;
+    
+            svg {
+                font-size: 14px;
+                color: transparent;
+                transition: color 0.3s;
+            }
+        }
+    
+        input.custom-checkbox:checked + .form-check-label .checkbox-icon {
+            background-color: white;
+    
+            svg {
+                color: black;
+            }
+        }
+    
+        .form-check-label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: $second-font;
+            font-weight: 300;
+            font-size: 15px;
+            line-height: 18.63px;
+            color: white;
+            cursor: pointer;
+        }
+    }
+
+    .auth-popup {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+    
+        .delete-content{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .auth-popup-content {
+            background: rgba(10, 12, 16, 1);
+            padding: 70px 280px;
+            border-radius: 10px;
+            text-align: center;
+            width: 100%;
+            position: relative;
+
+            .delete-popup{
+                .popup-text{
+                    h5{
+                        padding-bottom: 45px;
+                    }
+
+                    p{
+                        padding-bottom: 65px;
+                    }
+                }
+
+                .popup-buttons{
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    gap: 30px;
+
+                    .delete-button{
+                        background-color: rgba(149, 17, 17, 1);
+                        color: rgba(225, 225, 225, 1);
+
+                        &:hover{
+                            background-color: rgb(109, 12, 12); 
+                        }
+                    }
+                }
+            }
+        }
+    
+        h3 {
+            font-family: $base-font;
+            font-weight: 400;
+            font-size: 20px;
+            line-height: 100%;
+            letter-spacing: 0%;
+            text-align: center;
+            padding-bottom: 75px;
+        }
+
+        img{
+            max-width: 125px;
+        }
+
+        .step-2-title {
+            padding-bottom: 13px;
+        }
+
+        p{
+            font-family: $second-font;
+            font-weight: 300;
+            font-size: 16px;
+            line-height: 24px;
+            letter-spacing: 1%;
+            text-align: center;
+            vertical-align: middle;
+
+        }
+    
+        input {
+            font-family: $second-font;
+            font-weight: 300;
+            font-size: 16px;
+            line-height: 100%;
+            width: 100%;
+            padding: 12px 16px;
+            border-radius: 10px;
+            border: 1px solid rgba(217, 217, 217, 1);
+            background-color: transparent;
+            color: rgba(255, 255, 255, 0.34);
+            font-size: 18px;
+        }
+    
+        .copy-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            color: rgba(255, 255, 255, 1);
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+
+            span{
+                font-family: $second-font;
+                font-weight: 500;
+                font-size: 16px;
+                line-height: 24px;
+                text-align: center;
+                vertical-align: middle;
+
+            }
+    
+            button {
+                background: none;
+                border: none;
+                color: rgba(255, 255, 255, 1);
+                cursor: pointer;
+            }
+        }
+    
+        .code-inputs {
+            display: flex;
+            justify-content: center;
+            padding: 90px 0 40px 0;
+            gap: 20px;
+    
+            input {
+                width: 40px;
+                height: 56px;
+                font-size: 20px;
+                text-align: center;
+                border-radius: 5px;
+                border: 1px solid rgba(217, 217, 217, 1);
+                background: none;
+                color: white;
+                padding: 0;
+            }
+        }
+    
+        .auth-button {
+            width: 100%;
+            background: rgba(255, 255, 255, 1);
+            padding: 12px 0;
+            font-family: $base-font;
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 100%;
+            letter-spacing: 0%;
+            text-align: center;
+            color: rgba(10, 12, 16, 1);
+            margin-top: 16px;
+            border-radius: 10px;
+        }
+
+        .danger{
+            background: rgba(36, 42, 55, 1);
+            color: rgba(235, 235, 235, 0.51);
+        }
+    
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            font-size: 34px;
+            color: white;
+            cursor: pointer;
+        }
+    }
+    
+}
+
+.detail-info-mobile{
+    display: none;
+}
+
+.tab-swiper {
+    width: 100%;
+    overflow-x: hidden;
+    padding-bottom: 10px;
+
+    .swiper-wrapper {
+        display: flex;
+    }
+
+    .swiper-slide {
+        width: auto !important;
+    }
+
+    .geik-button-1 {
+        white-space: nowrap;
+        padding: 10px 20px;
+        border-radius: 20px;
+        font-size: 14px;
+        transition: 0.3s;
+    }
+}
+
+
+@media only screen and (max-width: 575px) {
+    .detail-info-mobile{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 20px;
+        padding: 0;
+
+        .prev-button{
+            font-size: 21px;
+            padding: 0;
+        }
+
+        .geik-action-btn{
+            padding: 10px 12px;
+        }
+    }
+
+    .profile-page {
+        .profile-header {
+            .profile-info {
+                .profile-photo {
+                    img {
+                        max-width: 130px;
+                        max-height: 130px;
+                    }
+                }
+                .profile-details {
+                    h3{
+                        font-size: 24px;
+                    }
+
+                    .profile-actions{
+                        display: none;
+                    }
+                } 
+            }
+        }
+
+        .detail-profile {
+            .tab-content {
+                .profile-settings {
+                    .student-certificate .file-upload-wrapper .file-upload-label{
+                        display: flex;
+                        justify-content: center;
+                        background-color: #fff;
+                        color: rgba(10, 12, 16, 1);
+                        width: 100%;
+                        padding: 12px 0;
+                    }
+
+                    .password-settings {
+                        .password-inputs{
+                            flex-direction: column;
+                            gap: 12px;
+
+                            .password-field{
+                                border-radius: 10px;
+                            }
+                        }
+                    }
+                    .settings-section{
+                        margin-bottom: 35px;
+
+                        .settings-content{
+                            flex-direction: column;
+                            align-items:unset;
+                            gap: 25px;
+
+                            .nickname-field,
+                            .mail-field{
+                                border-radius: 10px;
+                            }
+
+                            .settings-button{
+                                border-radius: 10px;
+                                padding: 12px 24px;
+                            }
+                            .mobile-button-width{
+                                display: flex;
+                                justify-content: end;
+                                align-items: center;
+                            }
+                        }
+                    }
+                }
+
+                .ticket-card {
+                    display: flex;
+                    width: 100%;
+
+                    .ticket-image-wrapper{
+                        display: none;
+                    }
+
+                    .ticket-details{
+                        border-radius: 10px;
+                        width: 100%;
+                        padding: 24px 0;
+                        
+                        .ticket-qr {
+                            flex-direction: column;
+                            border-left: none;
+                            padding: 0 18px 0 0px;
+                        }
+                        
+                        .ticket-info {
+                            padding: 0 0 0 14px;
+                            gap: 14px;
+
+                            h4{
+                                font-size: 18px;
+                            }
+
+                            p{
+                                font-size: 14px;
+                            }
+
+                            svg {
+                                display: none;
+                            }
+                        } 
+                    }
+                }
+            }
+        }
+
+        .qr-popup {
+            .qr-popup-content {
+                height: 100vh;
+                width: 100%;
+                padding:  0;
+                display: flex;
+                align-items: center;
+                flex-direction: column;
+                justify-content: center;
+
+                button{
+                    position: absolute;
+                    top: 10px;
+                    right: 10px;
+                    font-size: 24px;
+                }
+            }
+        }
+
+        .auth-popup{
+
+            .copy-container span {
+                font-size: 14px;
+                font-weight: 400;
+            }
+
+            .auth-popup-content{
+                height: 100%;
+                padding: 70px 20px;
+            }
+
+            h3 {
+                padding-bottom: 0px;
+            }
+
+            .step-2-title{
+                padding-bottom: 32px;
+            }
+
+            .auth-step {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: space-between;
+                height: 100%;
+
+                .auth-content {
+                    padding-top: 50px;
+                }
+            }
+
+            .auth-step-last{
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: unset;
+                height: 100%;
+            }
+        }
+    }
+}
+@media only screen and (min-width: 576px) and (max-width: 767px) {}
+@media only screen and (min-width: 768px) and (max-width: 991px) {}
+@media only screen and (min-width: 992px) and (max-width: 1199px) {}

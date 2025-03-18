@@ -1,0 +1,192 @@
+@import "../_variables";
+
+.category-section {
+  padding: 62.5px 0;
+  overflow: hidden;
+
+  .container {
+    position: relative;
+    padding: 0;
+  }
+
+  .section-title {
+    margin-bottom: 30px;
+  }
+
+  .category-swiper {
+    overflow: visible;
+
+    .category-card {
+      overflow: hidden;
+
+        .category-image {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+            border-radius: 10px;
+    
+            img {
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+            }
+    
+            .category-date {
+              position: absolute;
+              top: 8px;
+              left: 9px;
+              color: white;
+              font-family: Righteous;
+              font-weight: 400;
+              font-size: 24px;
+              line-height: 24px;
+              letter-spacing: 1%;
+              text-align: center;
+    
+              span {
+                font-family: $second-font;
+                font-weight: 700;
+                font-size: 10px;
+                line-height: 24px;
+                letter-spacing: 1%;
+              }
+            }
+    
+            .category-plus {
+              position: absolute;
+              top: 5px;
+              right: 5px;
+              background: rgba(0, 0, 0, 0.5);
+              color: rgba(255, 255, 255, 1);
+              padding: 13px;
+              border-radius: 8px;
+              font-size: 15px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              width: 40px;
+              height: 40px;
+              border: none;
+            }
+    
+            .category-name {
+              position: absolute;
+              bottom: 9px;
+              left: 9px;
+              font-family: Righteous;
+              font-weight: 400;
+              font-size: 20px;
+              line-height: 24px;
+              letter-spacing: 1%;
+              color: rgba(255, 255, 255, 1);
+            }
+        }
+
+        .category-image-vertical {
+            position: relative;
+            width: 100%;
+            height: 380px;
+            overflow: hidden;
+            border-radius: 20px;
+    
+            img {
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+            }
+    
+            .category-date {
+              position: absolute;
+              top: 8px;
+              left: 9px;
+              color: white;
+              font-family: Righteous;
+              font-weight: 400;
+              font-size: 24px;
+              line-height: 24px;
+              letter-spacing: 1%;
+              text-align: center;
+    
+              span {
+                font-family: $second-font;
+                font-weight: 700;
+                font-size: 10px;
+                line-height: 24px;
+                letter-spacing: 1%;
+              }
+            }
+    
+            .category-plus {
+              position: absolute;
+              top: 5px;
+              right: 5px;
+              background: rgba(0, 0, 0, 0.5);
+              color: rgba(255, 255, 255, 1);
+              padding: 13px;
+              border-radius: 8px;
+              font-size: 15px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              width: 40px;
+              height: 40px;
+              border: none;
+            }
+    
+            .category-name {
+              position: absolute;
+              bottom: 9px;
+              left: 9px;
+              font-family: Righteous;
+              font-weight: 400;
+              font-size: 20px;
+              line-height: 24px;
+              letter-spacing: 1%;
+              color: rgba(255, 255, 255, 1);
+            }
+        }
+
+        .category-info {
+            padding: 7px 0 0 9px;
+    
+            .category-name-bottom {
+                font-family: Righteous;
+                font-weight: 400;
+                font-size: 20px;
+                line-height: 24px;
+                letter-spacing: 1%;
+                color: rgba(255, 255, 255, 1);
+                margin: 16px 0 3px 0;
+            }
+    
+            .category-venue {
+                font-family: $second-font;
+                font-weight: 300;
+                font-size: 16px;
+                line-height: 24px;
+                letter-spacing: 1%;
+                color: rgba(255, 255, 255, 1);
+                margin:7px 0 5px 0;
+            }
+    
+            .category-date-bottom {
+                font-family: $second-font;
+                font-weight: 800;
+                font-size: 16px;
+                line-height: 24px;
+                letter-spacing: 1%;
+                color: rgba(255, 255, 255, 0.87);
+    
+                span {
+                    font-family: $second-font;
+                    font-weight: 300;
+                    font-size: 16px;
+                    line-height: 24px;
+                    letter-spacing: 1%;
+                    color: rgba(226, 226, 226, 0.87);
+                }
+            }
+          }
+        }
+  }
+}

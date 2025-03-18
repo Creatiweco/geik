@@ -1,0 +1,88 @@
+@import "../_variables";
+
+.singup_options {
+    position: relative;
+    
+    &::before {
+        content: "";
+        position: absolute;
+        width: 40%;
+        height: 45%;
+        bottom: 0;
+        left: 50%;
+        transform: translate(-50%, 0%);
+        background: radial-gradient(226.78% 105.76% at 52.08% 16.33%, rgba(23, 44, 172, 0.24) 0%, rgba(45, 255, 60, 0.24) 100%);
+        filter: blur(100px);
+    }
+    
+    .container {
+        max-width: 15%;
+        z-index: 999;
+        position: relative;
+    }
+
+    .singup_logo {
+        max-width: 150px;
+        margin-bottom: 50px;
+    }
+
+    .description {
+        font-weight: 400;
+        font-size: 17.7px;
+        line-height: 21.98px;
+        letter-spacing: 0%;
+        margin-bottom: 50px;
+        text-align: center;
+    }
+
+    .singup_btn_primary {
+        color: $background-color;
+        background-color: $text-color;
+        border-radius: 10px;
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 19.87px;
+        letter-spacing: 0%;
+        text-align: center;
+        border: none;
+        padding: 12px 0;
+        margin-bottom: 30px;
+    }
+
+    .or-text {
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: 300;
+        font-size: 14px;
+        line-height: 16.8px;
+        letter-spacing: 0%;
+        text-align: center;
+        margin: 12px 0 16px 0;
+    }
+
+    .singup_second_primary {
+        background-color: transparent;
+        border: 1px solid #fff;
+        border-radius: 10px;
+        padding: 10px 0;
+        color: $text-color;
+        margin-bottom: 10px;
+    }
+}
+
+
+@media only screen and (max-width: 575px) {
+    .singup_options{
+        .container{
+            max-width: 100%;
+            display: flex;
+            justify-content: center;
+
+            .mobile{
+                width: 100%;
+            }
+        }
+    }
+}
+@media only screen and (min-width: 576px) and (max-width: 767px) {}
+@media only screen and (min-width: 768px) and (max-width: 991px) {}
+@media only screen and (min-width: 992px) and (max-width: 1199px) {}

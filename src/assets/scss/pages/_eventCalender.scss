@@ -1,0 +1,211 @@
+@import "../_variables";
+
+.event-calender {
+    margin: 120px 0 170px 0;
+
+    .calender-heading {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 96px;
+        position: relative;
+        overflow: visible !important; 
+
+        .custom-select {
+            position: relative;
+            width: 200px;
+
+            .select-box {
+                background: rgba(4, 5, 7, 1);
+                color: rgba(234, 234, 234, 1);
+                border-radius: 60px;
+                padding: 6px 13px;
+                border: none;
+                cursor: pointer;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                transition: 0.3s ease;
+                position: relative;
+                z-index: 1000;
+
+                .arrow-icon {
+                    font-size: 14px;
+                    margin-left: 11px;
+                }
+            }
+
+            .filter-menu {
+                position: absolute;
+                top: calc(100% + 5px); 
+                left: 0;
+                width: 100%;
+                background: rgba(4, 5, 7, 1);
+                color: rgba(234, 234, 234, 0.6);
+                border-radius: 10px;
+                list-style: none;
+                padding: 8px 0;
+                margin: 0;
+                font-family: $base-font;
+                font-size: 16px;
+                line-height: 19.87px;
+                opacity: 0;
+                visibility: hidden;
+                transform: translateY(-10px);
+                transition: opacity 0.1s ease-in, transform 0.1s ease-in;
+                z-index: 9999; 
+
+                &.open {
+                    opacity: 1;
+                    visibility: visible;
+                    transform: translateY(0);
+                }
+
+                li {
+                    display: flex;
+                    align-items: center;
+                    padding: 10px 15px;
+                    cursor: pointer;
+                    transition: background 0.2s;
+                    gap: 10px;
+                    font-size: 14px;
+                    transition: 0.3s ease-in-out;
+
+                    svg {
+                        font-size: 14px;
+                    }
+
+                    &:hover {
+                        background: rgba(234, 234, 234, 0.1);
+                        color: $text-color;
+                    }
+                }
+            }
+        }
+    }
+
+    .calender-body {
+        display: flex;
+        flex-direction: column;
+        gap: 55px;
+
+        .calender-grid {
+            display: flex;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 18px;
+
+            .calender-item {
+                display: flex;
+                align-items: center;
+                width: 100%;
+                border-radius: 10px;
+                background-color: rgba(25, 29, 40, 1);
+                padding: 5px 0;
+                transition: background-color 0.4s ease;
+
+                &:hover {
+                    background-color: #FFFFFF;
+
+                    .left-col svg,
+                    .left-col p,
+                    .right-col h5,
+                    .right-col .location,
+                    .right-col .location svg {
+                        color: #191D28;
+                    }
+                }
+
+                .left-col {
+                    padding: 20px 40px;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    border-right: 2px solid #313644;
+                    gap: 10px;
+
+                    svg{
+                        font-size: 24px;
+                        color: #FFFFFF;
+                        transition: 0.4s ease;
+                    }
+                    p{
+                        font-family: Albert Sans;
+                        font-weight: 800;
+                        font-size: 16px;
+                        line-height: 24px;
+                        letter-spacing: 1%;
+                        color: $text-color;
+                        transition: 0.4s ease;
+                    }
+                }
+
+                .right-col {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 6px;
+                    padding: 20px 0 20px 19px;
+
+                    h3 {
+                        letter-spacing: 1%;
+                        transition: 0.4s ease;
+                    }
+
+                    .location {
+                        display: flex;
+                        gap: 3px;
+                        color: $text-color;
+                        transition: 0.4s ease;
+
+                        p{
+                            font-family: $second-font;
+                            font-weight: 100;
+                            font-size: 16px;
+                            line-height: 24px;
+                            letter-spacing: 1%;
+                        }
+
+                        svg {
+                            color: $text-color;
+                            transition: 0.4s ease;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 575px) {
+    .event-calender{
+        margin: 50px 0 100px 0;
+
+        .calender-heading{
+            margin-bottom: 40px;
+
+            h1{
+                font-size: 24px;
+                line-height: 29.8px;
+            }
+
+            .custom-select{
+                width: 128px;
+            }
+        }
+    }
+
+    .calender-date{
+        margin-bottom: 20px;
+
+        h3{
+            font-size: 20px;
+        }
+    }
+
+    .calender-grid{
+        flex-direction: column;
+    }
+
+}
+@media only screen and (min-width: 576px) and (max-width: 767px) {}
+@media only screen and (min-width: 768px) and (max-width: 991px) {}
+@media only screen and (min-width: 992px) and (max-width: 1199px) {}
