@@ -58,7 +58,6 @@ export default function ForgotPassword() {
             alert("Şifreler uyuşmuyor!");
             return;
         }
-
         if (!isPasswordValid(newPassword)) {
             alert("Şifreniz en az 1 büyük harf, 1 küçük harf, 1 rakam ve 1 özel karakter içermelidir.");
             return;
